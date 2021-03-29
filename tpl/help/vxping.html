@@ -1,0 +1,169 @@
+<div id="tpl_header"></div>
+<!-- Home Start -->
+<section class="d-table w-100 bg-light d-print-none" id="home">
+    <div class="container bg-half-170" style="background: url('/static/img/bg/page.png') top center no-repeat;">
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <div class="title-heading text-center text-md-left">
+                    <h3>vxPing 使用指南</h3>
+                    <p class="text-muted para-desc mt-3 mb-0">眼睛多，才能看清。</p>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </div>
+    <!--end container-->
+</section>
+<!--end section-->
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 1000 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 0 c 0 0 200 50 500 50 s 500 -50 500 -50 v 101 h -1000 v -100 z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Home End -->
+
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 col-12 d-none d-md-block">
+                <div class="rounded-pill shadow p-4 component-wrapper">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-4"><a href="#intro" class="mouse-down h6 text-dark">概览</a></li>
+                        <li class="mb-4"><a href="#info" class="mouse-down h6 text-dark">创建监测点</a></li>
+                        <li class="mb-4"><a href="#control" class="mouse-down h6 text-dark">设置告警规则</a></li>
+                        <li class="mb-4"><a href="#activity" class="mouse-down h6 text-dark">如何通知</a></li>
+                        <li><a href="#question" class="mouse-down h6 text-dark">常见问题</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--end col-->
+
+            <div class="col-lg-8 col-md-7 col-12">
+                <div class="section-title" id="intro">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 概览</h4>
+                    <p class="text-muted mt-4">
+                        vxPing 是一套完整的 Ping 监测系统，由遍布全球的数个监测点构成监测网络。
+                    </p>
+                    <p class="text-muted">
+                        通过 vxPing，可以完整了解您的服务器在相当长一段时间内的网络情况， vxPing 提供了普通 Ping 的指标：平均，最小，以及最大的 Ping 值。您可以随时导出由 vxPing
+                        系统提供的监测结果，以 CSV 格式汇报。
+                    </p>
+                    <p class="text-muted">
+                        除了常规监控， vxPing 还提供了灵活的主动告警功能，可以根据您设定的条件进行通知。
+                    </p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="info">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 创建监测点</h4>
+                    <p class="text-muted mt-4">vxPing 监测点的添加非常简单。</p>
+                    <p class="text-muted">请先 <a href="https://vx.link/login" target="_blank"
+                            class="btn btn-sm btn-secondary">登录</a> 微林，然后点击顶部导航的 vxPing 按钮进入 vxPing 服务页面。</p>
+                    <p class="text-muted">请点击右上角的 + 按钮。</p>
+                    <p class="text-muted">设定监测的目标 IP 地址，目前仅支持 ipv4。</p>
+                    <p class="text-muted">完成。</p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="control">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 设置告警规则</h4>
+                    <p class="text-muted mt-4">每一个监测点都可以设置多个告警规则，点击监测点卡片中的 “<i class="fal fa-alarm-exclamation"></i>”
+                        开始设定告警规则。</p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="activity">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 设置告警规则</h4>
+                    <p class="text-muted mt-4">
+                        我们支持多种方式向您发送告警通知，默认情况下，将发送邮件，此外，您还可以订阅 RSS 来获得通知。RSS 的订阅地址在登录微林后，点击顶部的“通知”按钮即可获得。
+                    </p>
+                    <p class="text-muted">
+                        此外，您还可以在 Telegram 获得通知，此种方式的实时性比较高。请向 @system_vx_bot 发送消息进行微林账号的绑定，即可获得通知。
+                    </p>
+
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="question">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 常见问题</h4>
+                </div>
+
+                <div class="faq-content mt-4 pt-2">
+                    <div class="accordion" id="accordionExampletwo">
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapsefive" class="faq position-relative"
+                                aria-expanded="true" aria-controls="collapsefive">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingfive">
+                                    <h6 class="title mb-0">
+                                        如何计费
+                                    </h6>
+                                </div>
+                            </a>
+                            <div id="collapsefive" class="collapse show" aria-labelledby="headingfive"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        每个 vxPing 监测项目每小时消费 5M 点券。<br>
+                                        告警项目不消费点券。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapsesix" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapsesix">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingsix">
+                                    <h6 class="title mb-0"> 有什么限制吗 </h6>
+                                </div>
+                            </a>
+                            <div id="collapsesix" class="collapse" aria-labelledby="headingsix"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        每个账号可以添加100个vxPing监测点。<br>
+                                        每个账号可以提交100个告警项目。<br>
+                                        每个vxPing监测项目最多保留90天的监测数据。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapseseven" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapseseven">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingseven">
+                                    <h6 class="title mb-0"> 如何监控 </h6>
+                                </div>
+                            </a>
+                            <div id="collapseseven" class="collapse" aria-labelledby="headingseven"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        每隔10分钟，vxPing便会向您设置的IP地址进行数据收集。收集持续 100 秒，以每秒一次的速率 ping ，然后计算出各项数值。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    还有什么问题吗？<br>
+                    <a href="mailto:admin@vx.link" class="btn btn-primary d-print-none">联系我们</a>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </div>
+    <!--end container-->
+</section>
+<!--end section-->
+
+<div id="tpl_footer"></div>
+
+<!-- Back to top -->
+<a href="#" class="btn btn-icon btn-soft-primary back-to-top d-print-none"><i data-feather="arrow-up"
+        class="icons"></i></a>
+<!-- Back to top -->

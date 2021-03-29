@@ -1,0 +1,8 @@
+{
+    "title": "微林 - 隐私政策",
+    "preload": ["index"],
+    "append": ["document"],
+    "body": {
+        "/tpl/privacy.html": { "type": "html", "target": { "type": "body" } }
+    }
+}

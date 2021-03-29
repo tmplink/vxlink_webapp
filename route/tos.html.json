@@ -1,0 +1,8 @@
+{
+    "title": "微林 - 服务条款",
+    "preload": ["index"],
+    "append": ["document"],
+    "body": {
+        "/tpl/tos.html": { "type": "html", "target": { "type": "body" } }
+    }
+}

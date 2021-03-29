@@ -1,0 +1,70 @@
+<div class="back-to-home rounded d-none d-sm-block">
+    <a href="/" class="btn btn-icon btn-soft-primary"><i data-feather="home" class="icons"></i></a>
+</div>
+
+<section class="cover-user bg-white">
+    <div class="container-fluid px-0">
+        <div class="row no-gutters position-relative">
+            <div class="col-lg-4 padding-less img"
+                style="background:url('/static/img/bg/bg.jpeg');background-size:100% 100%;"
+                data-jarallax='{"speed": 0.5}'>
+
+            </div> <!-- end col -->
+
+            <div class="col-lg-8 offset-lg-4 cover-my-30">
+                <div class="cover-user-img d-flex align-items-center">
+                    <div class="row justify-content-center m-0">
+                        <div class="col-lg-8 col-md-10 col-12">
+                            <div class="text-center">
+                                <a href="/">
+                                    <img src="/static/img/logo/together_dark.png" height="40" alt="">
+                                </a>
+                            </div>
+
+                            <div class="card login-page border-0 shadow mt-4" style="z-index: 1">
+                                <div class="card-body p-4" id="user-signin-box">
+                                    <h4 class="card-title text-center">初始化账号</h4>
+                                    <div id="msgbox" class="card-alert alert alert-success mb-0 text-center">
+                                        为账号设定邮箱
+                                    </div>
+                                    <div class="login-form mt-4">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group position-relative">
+                                                    <label>邮箱地址 <span class="text-danger">*</span></label>
+                                                    <input type="email" class="form-control" name="email" id="email"
+                                                        required="">
+                                                </div>
+                                            </div>
+                                            <!--end col-->
+
+                                            <div class="col-12 text-center">
+                                                <button class="btn btn-primary btn-block" id="submit"
+                                                    disabled>未就绪,请稍等..</button>
+                                            </div>
+                                            <!--end col-->
+
+                                            <div class="col-12 text-center">
+                                                <p class="mb-0 mt-3">
+                                                    <small class="text-dark mr-2">请将 no-reply@vx.link 加入到白名单</small>
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <!--end row-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                </div> <!-- end about detail -->
+            </div><!-- end col -->
+        </div>
+        <!--end row-->
+    </div>
+    <!--end container fluid-->
+</section>
+<!--end section-->
+<div id="init_email"></div>

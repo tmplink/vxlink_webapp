@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>vx.link</title>
+</head>
+
+<body>
+	<div id="admin_header"></div>
+
+	<div class="main shadow bg-white">
+
+		<!-- Main Title Start -->
+		<section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+			<div class="container mt-lg-0 mt-2">
+				<div class="row justify-content-center">
+					<div class="col-12">
+						<div class="text-center">
+							<h3 class="text-white font-weight-bold">账单</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Main Title End -->
+
+		<!-- Intro Start -->
+		<section class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title mb-4">
+							<h4 class="title">订单</h4>
+						</div>
+						<div id="billing_list"></div>
+						<script type="text/template" id="billing_list_tpl">
+							<div class="table-responsive mt-3">
+								<table class="table table-hover table-bordered table-vcenter text-nowrap card-table">
+									<thead>
+										<tr>
+											<th>订单号</th>
+											<th>信息</th>
+											<th>支付时间</th>
+											<th>价格</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% for (let x in obj) { %>
+										<tr>
+											<td>
+												<div><% obj[x].vid %></div>
+											</td>
+											<td>
+												<div><% obj[x].log %></div>
+											</td>
+											<td>
+												<div><% obj[x].time %></div>
+											</td>
+											<td>
+												<div><% obj[x].price %></div>
+											</td>
+										</tr>
+										<% } %>
+									</tbody>
+								</table>	
+							</div>
+						</script>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Intro End -->
+
+		<!-- Footer Start -->
+		<div id="admin_footer"></div>
+		<!-- Footer End -->
+	</div>
+	<div id="init_billing"></div>
+</body>
+
+</html>

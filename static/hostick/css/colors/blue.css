@@ -1,0 +1,162 @@
+.bg-primary,
+.btn-primary,
+.btn-outline-primary:hover, 
+.btn-outline-primary:focus, 
+.btn-outline-primary:active, 
+.btn-outline-primary.active, 
+.btn-outline-primary.focus, 
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-soft-primary:hover, 
+.btn-soft-primary:focus, 
+.btn-soft-primary:active, 
+.btn-soft-primary.active, 
+.btn-soft-primary.focus,
+.badge-primary,
+.pagination .page-item.active .page-link,
+.custom-control-input:checked ~ .custom-control-label:before,
+.social-icon li a:hover,
+::selection,
+#topnav .navbar-toggle.open span:hover,
+.services:hover.serv-primary,
+.watch-video a .play-icon-circle,
+.pricing.hosting-rate:hover .plan-name,
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots.clickable .owl-dot:hover span,
+.sidebar .widget .tagcloud > a:hover {
+    background-color: #39aed6 !important;
+}
+
+.text-primary,
+.btn-soft-primary,
+.btn-outline-primary,
+.alert-outline-primary,
+.badge-outline-primary,
+.faq-content .card a.faq[data-toggle=collapse],
+.faq-content .card a.faq[data-toggle=collapse]:before,
+#topnav .has-submenu.active .submenu li.active > a,
+#topnav .navigation-menu > li > a:hover, #topnav .navigation-menu > li > a:active,
+#topnav .navigation-menu > li:hover > a,
+#topnav .navigation-menu > li.active > a,
+#topnav.scroll .navigation-menu > li:hover > a, #topnav.scroll .navigation-menu > li.active > a,
+#topnav.nav-sticky .navigation-menu.nav-light > li.active > a,
+#topnav.nav-sticky .navigation-menu.nav-light > li:hover > a, #topnav.nav-sticky .navigation-menu.nav-light > li.active > a,
+#topnav .navigation-menu > li .submenu li a:hover,
+#topnav .navigation-menu > li > a:hover,
+#topnav .navigation-menu > li .submenu li a:hover,
+#topnav .navigation-menu > li.has-submenu.open > a,
+#topnav .has-submenu.active a,
+.services .content .title:hover,
+.pricing.hosting-rate:hover.best-plan .lable .best,
+.blog-post .content .title:hover,
+.blog-post .content .post-meta .like:hover,
+.blog-post .content .post-meta .comment:hover,
+.blog-post .content .post-meta .read-more:hover,
+.sidebar .widget .catagory li a:hover,
+.sidebar .widget .post-recent .post-recent-content a:hover,
+.media-list .comment-desk a:hover,
+.breadcrumb .breadcrumb-item.active {
+    color: #39aed6 !important;
+}
+
+.btn-primary,
+.btn-outline-primary,
+.btn-outline-primary:hover, 
+.btn-outline-primary:focus, 
+.btn-outline-primary:active, 
+.btn-outline-primary.active, 
+.btn-outline-primary.focus, 
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-soft-primary:hover, 
+.btn-soft-primary:focus, 
+.btn-soft-primary:active, 
+.btn-soft-primary.active, 
+.btn-soft-primary.focus,
+.alert-primary,
+.alert-outline-primary,
+.badge-outline-primary,
+.pagination .page-item.active .page-link,
+.form-group .form-control:focus, .form-group .form-control.active,
+.custom-control-input:checked ~ .custom-control-label:before,
+.custom-control-input:focus ~ .custom-control-label::before,
+.form-control:focus,
+.social-icon li a:hover,
+#topnav .has-submenu.active .menu-arrow,
+#topnav.scroll .navigation-menu > li:hover > .menu-arrow, #topnav.scroll .navigation-menu > li.active > .menu-arrow,
+#topnav.nav-sticky .navigation-menu.nav-light > li:hover > .menu-arrow, #topnav.nav-sticky .navigation-menu.nav-light > li.active > .menu-arrow,
+#topnav .navigation-menu > li:hover > .menu-arrow {
+    border-color: #39aed6 !important;
+}
+
+a.text-primary:hover, 
+a.text-primary:focus, 
+a.text-primary:active, 
+a.text-primary.active, 
+a.text-primary.focus {
+    color: #2691b6 !important;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active, 
+.btn-primary.active, 
+.btn-primary.focus {
+    background-color: #2691b6 !important;
+    border-color: #2691b6 !important;
+}
+
+.btn-primary,
+.btn-soft-primary:hover, 
+.btn-soft-primary:focus, 
+.btn-soft-primary:active, 
+.btn-soft-primary.active, 
+.btn-soft-primary.focus,
+.btn-outline-primary:hover, 
+.btn-outline-primary:focus, 
+.btn-outline-primary:active, 
+.btn-outline-primary.active, 
+.btn-outline-primary.focus, 
+.btn-outline-primary:not(:disabled):not(.disabled):active {
+    box-shadow: 0 3px 7px rgba(57, 174, 214, 0.5) !important;
+}
+
+.btn-soft-primary {
+    background-color: rgba(57, 174, 214, 0.15) !important;
+    border-color: rgba(57, 174, 214, 0.1) !important;
+    box-shadow: 0 3px 7px rgba(57, 174, 214, 0.2);
+}
+
+.alert-primary,
+.pagination .page-item .page-link:hover {
+    background-color: rgba(57, 174, 214, 0.9);
+}
+
+.alert-primary .alert-link {
+    color: #144e62;
+}
+
+.pagination .page-item .page-link:hover {
+    border-color: rgba(57, 174, 214, 0.9);
+}
+
+.services .icon {
+    border: 3px solid rgba(57, 174, 214, 0.2);
+    background-color: rgba(57, 174, 214, 0.065);
+}
+
+.play-icon i {
+    -webkit-text-stroke: 2px #39aed6;
+    -webkit-text-fill-color: transparent;
+}
+
+.play-icon i:hover {
+    -webkit-text-stroke: 2px #39aed6;
+    -webkit-text-fill-color: #39aed6;
+}
+
+.owl-theme .owl-dots .owl-dot span {
+    background: rgba(57, 174, 214, 0.5) !important;
+}
+
+.gradient-overlay {
+    background: linear-gradient(to right, #39aed6, #5368f1) !important;
+}

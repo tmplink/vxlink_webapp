@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>vx.link</title>
+</head>
+
+<body>
+	<div id="admin_header"></div>
+
+	<div class="main shadow bg-white">
+
+		<!-- Main Title Start -->
+		<section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+			<div class="container mt-lg-0 mt-2">
+				<div class="row justify-content-center">
+					<div class="col-12">
+						<div class="text-center">
+							<h3 class="text-white font-weight-bold">收益</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Main Title End -->
+
+		<!-- Intro Start -->
+		<section class="section">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title mb-4">
+							<h4 class="title">
+								邀请码
+								<small id="loading_regcode_list">
+                                    <i class="fa fa-spinner-third fa-spin"></i>
+                                </small>
+							</h4>
+							<span class="btn-pointer" onclick="vxAffiliate.regcodeMake();">
+                                <i class="fal fa-plus-circle"></i>
+                                创建邀请码
+                            </span>
+							<span id="loading_regcode_make" style="display: none;">
+								<i class="fa fa-spinner-third fa-spin"></i>
+							</span>
+						</div>
+						<div id="regcode_list"></div>
+						<script type="text/template" id="regcode_list_tpl">
+							<div class="table-responsive mt-3">
+								<table class="table table-hover table-bordered table-vcenter text-nowrap card-table">
+									<thead>
+										<tr>
+											<th>邀请码</th>
+											<th>生成时间</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% for (let x in obj) { %>
+										<tr>
+											<td>
+												<div><% obj[x].code %></div>
+											</td>
+											<td>
+												<div><% obj[x].time %></div>
+											</td>
+										</tr>
+										<% } %>
+									</tbody>
+								</table>	
+							</div>
+						</script>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Intro End -->
+
+		<section class="section bg-light">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="section-title mb-4">
+							<h4 class="title">收益</h4>
+						</div>
+						<ul>
+							<li>通过您的 <b style="color:red;">邀请码</b> 邀请加入的<b style="color:red;">新用户</b>，会与您的账号建立长达1年的关联。</li>
+							<li>每当关联的账号消费1元，您将可以获得1积分。</li>
+							<li>每10积分可以获得2元的收益。</li>
+							<li>在下方填写您的支付宝收款账号，然后点击“提交请求”获得现金！</li>
+							<li>每次提交请求最低需要50积分，系统会在每月1号处理提取收益的请求。</li>
+							<li>* <b style="color:red;">新用户</b>指的是从未使用过微林的用户，自行注册等情况创建的账号不会被关联。</li>
+							<li>* 如果提交了错误的信息，在下月1日前可通过邮件联系我们进行修正。</li>
+							<li>* 请自行对接收收益的支付宝账号隐私设置进行检查，特别是邮箱和手机号的搜索这块设置（转账时用到）。</li>
+							<li>* 由于无法找到账号，或着名字与账号不匹配导致的转账失败，将不补发收益。</li>
+							<li>* 如果您有固定的渠道（博客，论坛等），可发邮件申请专用收益链接。</li>
+						</ul>
+						<div class="card p-4">
+							<h4>提取收益</h4>
+							<div class="form-group">
+								<label class="form-label">支付宝账号</label>
+								<input type="text" class="form-control" id="alipay_val_1" placeholder="收益将转入此账号">
+							</div>
+							<div class="form-group">
+								<label class="form-label">支付宝姓名</label>
+								<input type="text" class="form-control" id="alipay_val_2" placeholder="支付宝账号绑定的真实姓名">
+							</div>
+							<div id="payout_list"></div>
+							<div class="form-footer">
+								<a href="javascript:;" class="btn btn-primary btn-block" id="submit_getmoney">当前拥有积分，提交请求</a>
+							</div>
+						</div>
+						<div id="aff_list"></div>
+						<script type="text/template" id="aff_list_tpl">
+							<div class="table-responsive mt-3">
+								<table class="table table-hover table-bordered table-vcenter text-nowrap card-table">
+									<thead>
+										<tr>
+											<th>收益金额</th>
+											<th>收款账号</th>
+											<th>提交时间</th>
+											<th>处理状态</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% for (let x in obj) { %>
+										<tr>
+											<td>
+												<div><% obj[x].total %></div>
+											</td>
+											<td>
+												<div><% obj[x].pdata %></div>
+											</td>
+											<td>
+												<div><% obj[x].ctime %></div>
+											</td>
+											<td>
+												<div>
+													<% if (obj[x].status=='create') { %>
+														等待处理
+													<% }else{ %>
+														已到账
+													<% } %>
+												</div>
+											</td>
+										</tr>
+										<% } %>
+									</tbody>
+								</table>	
+							</div>
+						</script>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Footer Start -->
+		<div id="admin_footer"></div>
+		<!-- Footer End -->
+	</div>
+	<div id="init_affiliate"></div>
+</body>
+
+</html>
