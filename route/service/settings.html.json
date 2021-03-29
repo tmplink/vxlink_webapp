@@ -1,0 +1,8 @@
+{
+    "title": "微林 - Settings",
+    "preload": ["admin_ui","core","signin"],
+    "append": ["admin"],
+    "body": {
+        "/tpl-admin/settings.html": { "type": "html", "target": { "type": "body" } }
+    }
+}

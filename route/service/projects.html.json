@@ -1,0 +1,8 @@
+{
+    "title": "微林 - 其他项目",
+    "preload": ["admin_ui","core","signin"],
+    "append": ["admin"],
+    "body": {
+        "/tpl-admin/projects.html": { "type": "html", "target": { "type": "body" } }
+    }
+}

@@ -1,0 +1,281 @@
+<div id="tpl_header"></div>
+<!-- Home Start -->
+<section class="d-table w-100 bg-light d-print-none" id="home">
+    <div class="container bg-half-170" style="background: url('/static/img/vxTrans_pic.png') top right no-repeat;">
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <div class="title-heading text-center text-md-left">
+                    <h3>vxTrans 使用指南</h3>
+                    <p class="text-muted para-desc mt-3 mb-0">您想知道的一切都在这里</p>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </div>
+    <!--end container-->
+</section>
+<!--end section-->
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 1000 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 0 c 0 0 200 50 500 50 s 500 -50 500 -50 v 101 h -1000 v -100 z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Home End -->
+
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <!-- <div class="mx-auto mb-3">
+            <video preload="none" class="thumbnail" width="100%" autoplay loop muted controls style="border-radius: 20px;">
+                <source type="video/mp4"
+                    src="/static/video/vxtrans.mp4">
+                <p>您的浏览器需要支持HTML5才能观看此视频教程</p>
+            </video>
+        </div> -->
+
+        <div class="row">
+            <div class="col-lg-4 col-md-5 col-12 d-none d-md-block">
+                <div class="rounded-pill shadow p-4 component-wrapper">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-4"><a href="#intro" class="mouse-down h6 text-dark">概览</a></li>
+                        <li class="mb-4"><a href="#info" class="mouse-down h6 text-dark">为服务器添加授权</a></li>
+                        <li class="mb-4"><a href="#control" class="mouse-down h6 text-dark">创建连接点</a></li>
+                        <li class="mb-4"><a href="#activity" class="mouse-down h6 text-dark">测试</a></li>
+                        <li><a href="#question" class="mouse-down h6 text-dark">常见问题</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--end col-->
+
+            <div class="col-lg-8 col-md-7 col-12">
+                <div class="section-title" id="intro">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 概览</h4>
+                    <p class="text-muted mt-4">
+                        vxTrans 是一项简单易用的技术，其工作原理非常简单，就是在您与目标服务器中间建立一道桥梁，进而改善网络质量。
+                    </p>
+                    <p class="text-muted">
+                        在通常情况下，您与目标服务器的网络路由是固定的，这是由网络运营商决定的，当网络路由中的某一路由结点拥堵时，您的网络质量就会受到影响。<br>
+                        在长距离的跨国网络中，路由节点可能多达20多个，非常容易受到节点拥堵的影响。
+                    </p>
+                    <p class="text-muted">
+                        vxTrans 通过在适当的位置添加一个额外的网络路由节点，改变了您原本的路由，绕过某些拥堵的节点，并在可能的情况下缩短链路距离，进而改善了网络质量，就是这么简单。
+                    </p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="info">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 为服务器添加授权</h4>
+                    <p class="text-muted mt-4">您肯定不希望任何人都可以随便连接到您的服务器，我们也是如此。</p>
+                    <p class="text-muted">因此，要给服务器创建指向它的 vxTrans 连接点，首先需要为这个服务器进行授权。</p>
+                    <p class="text-muted">请先 <a tmpui-app="true" href="/signin.html"
+                            class="btn btn-sm btn-secondary">登录</a> 微林，然后点击顶部导航的 “vxTrans” 按钮进入 vxTrans 服务页面。</p>
+                    <p class="text-muted">请点击 “为服务器添加授权” 按钮获得用于授权的链接。</p>
+                    <p class="text-muted">如果服务器上运行的是 Windows（或者其它系统），可以在服务器的浏览器上访问这个授权链接来完成授权。</p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="control">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 创建连接点</h4>
+                    <p class="text-muted mt-4">请点击 “创建新的 vxTrans 链接点” 的按钮。</p>
+                    <p class="text-muted">在打开的新窗口中，主要关注 “目标地址” 和 “目标端口”，在 “目标地址” 中填入刚刚已经完成授权服务器IP地址。然后在 “目标端口”
+                        中填入应用程序的监听端口，比如 SSH 就是 22。</p>
+                    <p class="text-muted">“用量控制” 项，可以为连接点设定流量配额，当用量超出时，将自动关闭连接点。</p>
+                    <p class="text-muted">其它项目为选填项目，一般默认就行。准备就绪后，点击勾勾，然后您可能需要等到 1 分钟左右，连接点就会就绪。</p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="activity">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 测试</h4>
+                    <p class="text-muted mt-4">
+                        当您收到通知邮件时，连接点已经就绪了。
+                    </p>
+                    <p class="text-muted">
+                        您可以通过这个连接点直接访问到您的服务器。以本文为例，我们创建了指向 SSH 的连接点。在连接点卡片中，“<i class="fa-fw fal fa-plane-departure"></i> 入口” 处提供了连接入口。
+                    </p>
+                    <p class="text-muted">
+                        <i class="fa-fw fal fa-plane-departure"></i> 入口地址通常为 "xx.vxtrans.com:12345" 的格式，现在我们可以使用这个入口地址来连接到服务器，以 SSH 客户端为例，其连接命令为<br>
+                        <code>ssh root@xx.vxtrans.com -p 12345</code>
+                    </p>
+                    <p class="text-muted">
+                        其它类型的应用与此类似，只需要在客户端调整服务器的地址与端口为 vxTrans 连接点提供的地址和端口。
+                    </p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="question">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 常见问题</h4>
+                </div>
+
+                <div class="faq-content mt-4 pt-2">
+                    <div class="accordion" id="accordionExampletwo">
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapsefive" class="faq position-relative"
+                                aria-expanded="true" aria-controls="collapsefive">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingfive">
+                                    <h6 class="title mb-0">
+                                        如何选择合适的入口地址（服务区）
+                                    </h6>
+                                </div>
+                            </a>
+                            <div id="collapsefive" class="collapse show" aria-labelledby="headingfive"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        通常，我们推荐您选择距离您最近的服务区，比如如果客户端在中国，那么您应该选择中国的服务区。
+                                    </p>
+                                    <p class="text-muted mb-0 faq-ans">
+                                        例外的情况是您想要自定路由，那么选择对应地区的服务区即可。您可以通过设置多个 vxTrans
+                                        连接点互相跳转，来改变常规路由。(通常我们不推荐那么做，这也会导致费用大幅增加)
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapsesix" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapsesix">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingsix">
+                                    <h6 class="title mb-0"> 还有什么其它的黑科技吗 </h6>
+                                </div>
+                            </a>
+                            <div id="collapsesix" class="collapse" aria-labelledby="headingsix"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        主要是花钱。我们向ISP采购了一些罕见的链路资源，这些链路通常没什么人使用，基本不拥堵。<br>
+                                        尽管如此，我们还是在技术上作出了一些努力，比如适用于 SSH 协议的 “预交互” 技术，可以大幅降低 SSH 的操作延迟。等等类似的技术。<br>
+                                        某些独特的特性可能需要您在服务器端作出调整，我们会特别标注到服务页面。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapseseven" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapseseven">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingseven">
+                                    <h6 class="title mb-0"> 为什么服务速度不稳定 </h6>
+                                </div>
+                            </a>
+                            <div id="collapseseven" class="collapse" aria-labelledby="headingseven"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        正如概览中提及的 “当网络路由中的某一路由结点拥堵时，您的网络质量就会受到影响” 。vxTrans 只能努力改善这个问题，但不是绝对能改善。<br>
+                                        在检查您当前ISP到目标服务器的网络是否链路拥堵之前，建议先检查家里面的网络是否正常运行。下面有一些建议：
+                                    <ul class="list-unstyled text-muted mb-0 ml-4">
+                                        <li><i class="mdi mdi-arrow-right text-primary mr-1"></i>当前使用的设备是否是Wifi网络连接，如果是
+                                            2.4G 建议切换到 5G</li>
+                                        <li><i class="mdi mdi-arrow-right text-primary mr-1"></i>Ping 一下当前网关，看看是否存在丢包的情况
+                                        </li>
+                                        <li><i
+                                                class="mdi mdi-arrow-right text-primary mr-1"></i>如果是移动设备的运营商网络，则可能是与运营商网络的连接不稳定
+                                        </li>
+                                    </ul>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapseeight" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapseeight">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingeight">
+                                    <h6 class="title mb-0">有不能加速的应用吗</h6>
+                                </div>
+                            </a>
+                            <div id="collapseeight" class="collapse" aria-labelledby="headingeight"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">有一些采用了异构端口的应用无法加速，比如 FTP。FTP
+                                        在握手成功后，会使用额外的端口传输数据，因此无法通过 vxTrans 的连接点通信，导致通信失败。</p>
+                                    <p class="text-muted mb-0 faq-ans">如果要与服务器传输文件，可以用SFTP协议来传输文件。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapse1" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapse1">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="heading1">
+                                    <h6 class="title mb-0">如何给第三方代理的IP加速</h6>
+                                </div>
+                            </a>
+                            <div id="collapse1" class="collapse" aria-labelledby="heading1"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        vxTrans 也可以给第三方代理加速，不需要登录到第三方代理的服务器。
+                                    </p>
+                                    <p class="text-muted mb-0 faq-ans">将您的设备接入到第三方代理后，登录微林，获取授权连接，然后使用您设备的浏览器访问授权链接即可为第三方代理的 IP 添加授权。然后，您就可以给这个 IP 创建 vxTrans 连接点了。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapsenine" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapsenine">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingnine">
+                                    <h6 class="title mb-0"> 界面里的小图标是什么意思 </h6>
+                                </div>
+                            </a>
+                            <div id="collapsenine" class="collapse" aria-labelledby="headingnine"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <ul>
+                                        <li><i class="far fa-plus"></i> 添加连接点</li>
+                                        <li><i class="far fa-sync-alt"></i> 刷新数据</li>
+                                        <li><i class="far fa-unlock-alt"></i> 连接点模式：标准</li>
+                                        <li><i class="fas fa-lock"></i> 连接点模式：持久</li>
+                                        <li><i class="fas fa-eraser"></i> 调整连接点名称</li>
+                                        <li><i class="fal fa-retweet-alt"></i> 重新设定目标地址和端口</li>
+                                        <li><i class="far fa-edit"></i> 调整配额</li>
+                                        <li><i class="fal fa-redo-alt"></i> 统计数据清零</li>
+                                        <li><i class="far fa-trash-alt"></i> 删除连接点</li>
+                                        <li><i class="fal fa-tachometer-alt"></i> 查看传输量统计图</li>
+                                        <li><i class="far fa-signal"></i> 查看网络质量统计图</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded">
+                            <a data-toggle="collapse" href="#connector_rules" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="connector_rules">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingten">
+                                    <h6 class="title mb-0"> 连接点的有效期是多久 </h6>
+                                </div>
+                            </a>
+                            <div id="connector_rules" class="collapse" aria-labelledby="headingten"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <li>"标准"模式:连接点7天内未使用,会被系统移除.</li>
+                                    <li>"持久"模式:连接点14天内未使用,会被系统移除.</li>
+                                    <li>"持久"模式:每小时需要<b>额外消费2M点券</b>(无论是否使用).</li>
+                                    <li>每个账号最多能拥有50个常规连接点.</li>
+                                    <li>每个账号最多能拥有100个运维连接点(指向22端口).</li>
+                                    <li>如果您的账号没有可用点券包,所有连接点将被系统自动关闭.</li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    还有什么问题吗？<br>
+                    <a href="mailto:admin@vx.link" class="btn btn-primary d-print-none">联系我们</a>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </div>
+    <!--end container-->
+</section>
+<!--end section-->
+
+<div id="tpl_footer"></div>
+
+<!-- Back to top -->
+<a href="#" class="btn btn-icon btn-soft-primary back-to-top d-print-none"><i data-feather="arrow-up"
+        class="icons"></i></a>
+<!-- Back to top -->

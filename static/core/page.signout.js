@@ -1,0 +1,3 @@
+app.ready(() => {
+    vxUser.pageInit();
+});
