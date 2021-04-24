@@ -17,8 +17,7 @@
                 <div class="row justify-content-center">
                     <div class="col-12">
                         <div class="text-center">
-                            <h3 class="text-white font-weight-bold">vxTrans - 网络链接优化</h3>
-                            <p class="text-white">欢迎来到全新的控制面板</p>
+                            <h3 class="text-white font-weight-bold">网络链接优化</h3>
                             <p>
                                 <a href="/help/vxtrans.html" tmpui-app="true" class="btn btn-sm btn-light m-1" target="_blank">基本教程</a>
                                 <button class="btn btn-sm btn-light m-1"
@@ -41,15 +40,15 @@
                         <div class="section-title mb-4">
                             <h4 class="h3 font-weight-normal">
                                 已授权的地址
+                                <small class="btn-pointer" onclick="$('#trusted_addr_list').fadeToggle();">
+                                    <i class="fal fa-plus-circle"></i>
+                                    展开<span id="trusted_count"></span>
+                                </small>
                                 <small id="loading_vxtrans_trusted">
                                     <i class="fa fa-spinner-third fa-spin"></i>
                                 </small>
                             </h4>
-                            <span class="btn-pointer" onclick="$('#trusted_addr_list').fadeToggle();">
-                                <i class="fal fa-plus-circle"></i>
-                                展开<span id="trusted_count"></span>
-                            </span>
-                            <span class="btn-pointer" onclick="$('#trustedModal').modal('show')">
+                            <span class="btn-radius btn btn-success btn-sm" onclick="$('#trustedModal').modal('show')">
                                 <i class="fal fa-plus-circle"></i>
                                 为服务器添加授权。
                             </span>
@@ -87,12 +86,12 @@
                         <div class="section-title mb-4">
                             <h4 class="h3 font-weight-normal">
                                 链接点
+                                <small id="vxtrans_count"></small>
                                 <small id="loading_vxtrans_list">
                                     <i class="fa fa-spinner-third fa-spin"></i>
                                 </small>
                             </h4>
-                            <span id="vxtrans_count"></span>
-                            <span class="btn-pointer" onclick="$('#createVxtransModal').modal('show')">
+                            <span class="btn-radius btn btn-success btn-sm" onclick="$('#createVxtransModal').modal('show')">
                                 <i class="fal fa-plus-circle"></i>
                                 创建新的 vxTrans 链接点。
                             </span>
@@ -110,9 +109,9 @@
                                 <div class="d-inline h3 font-weight-light"><% obj[i].name %></div>
                             </span>
                         </div>
-                        <div class="row container">
+                        <div class="row">
                             <% for (let x in obj[i].list) { %>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pl-0 pr-3 pb-3" tldata="<% obj[i].list[x].id %>" id="vxtrans_unit_<% obj[i].list[x].id %>">
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-2" tldata="<% obj[i].list[x].id %>" id="vxtrans_unit_<% obj[i].list[x].id %>">
                                     <div class="card p-3 shadow-sm">
                                         <% if (obj[i].list[x].status!='ok') { %>
                                             <div class="overlay"></div>
