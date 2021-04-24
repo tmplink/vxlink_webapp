@@ -18,7 +18,7 @@
 				<div class="row justify-content-center">
 					<div class="col-12">
 						<div class="text-center">
-							<h3 class="text-white font-weight-bold">vxPing - 全球网络监测</h3>
+							<h3 class="text-white font-weight-bold">全球网络监测</h3>
 						</div>
 					</div>
 				</div>
@@ -33,11 +33,11 @@
 						<div class="section-title mb-4">
 							<h4 class="title">
 								提醒
+								<small id="alert_rules_count"></small>
 								<small id="loading_alert_rules">
 									<i class="fa fa-spinner-third fa-spin"></i>
 								</small>
 							</h4>
-							<span id="alert_rules_count"></span>
 						</div>
 					</div>
 				</div>
@@ -75,12 +75,12 @@
 						<div class="section-title mb-4">
 							<h4 class="title">
 								正在监测
+								<small id="vxping_monitor_count"></small>
 								<small id="loading_vxping_monitor_list">
 									<i class="fa fa-spinner-third fa-spin"></i>
 								</small>
 							</h4>
-							<span id="vxping_monitor_count"></span>
-							<span class="btn-pointer" onclick="vxPing.editerOpen()">
+							<span class="btn-radius btn btn-success btn-sm" onclick="vxPing.editerOpen()">
 								<i class="fal fa-plus-circle"></i>
 								添加监测点。
 							</span>

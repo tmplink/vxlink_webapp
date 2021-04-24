@@ -18,7 +18,7 @@
 				<div class="row justify-content-center">
 					<div class="col-12">
 						<div class="text-center">
-							<h3 class="text-white font-weight-bold">vxDNS - 功能强大的授权 DNS 服务</h3>
+							<h3 class="text-white font-weight-bold">功能强大的授权 DNS 服务</h3>
 							<p>
 								<button class="btn btn-sm btn-light m-1"
 									onclick="$('#vxdnsBaseModal').modal('show')">使用指南</button>
@@ -38,12 +38,12 @@
 					<div class="col-12">
 						<h4 class="title">
 							您托管的域名
+							<small id="vxdns_domain_count"></small>
 							<small id="loading_vxdns_domain_list">
 								<i class="fa fa-spinner-third fa-spin"></i>
 							</small>
 						</h4>
-						<span id="vxdns_domain_count"></span>
-						<span class="btn-pointer" onclick="vxDns.openAddDomain()">
+						<span class="btn-radius btn btn-success btn-sm" onclick="vxDns.openAddDomain()">
 							<i class="fal fa-plus-circle"></i>
 							添加域名
 						</span>
@@ -76,12 +76,12 @@
 								<i class="fal fa-chevron-circle-left"></i>
 							</span>
 							记录管理器: <span id="vxdns_record_of_domain"></span>
+							<small id="vxdns_record_count"></small>
 							<small id="loading_vxdns_record_list">
 								<i class="fa fa-spinner-third fa-spin"></i>
 							</small>
 						</h4>
-						<span id="vxdns_record_count"></span>
-						<span class="btn-pointer" onclick="vxDns.openAddRecord()">
+						<span class="btn-radius btn btn-success btn-sm" onclick="vxDns.openAddRecord()">
 							<i class="fal fa-plus-circle"></i>
 							添加记录
 						</span>
@@ -142,12 +142,12 @@
 					<div class="col-12">
 						<h4 class="title">
 							按区解析配置
+							<small id="vxdns_area_count"></small>
 							<small id="loading_vxdns_area_list">
 								<i class="fa fa-spinner-third fa-spin"></i>
 							</small>
 						</h4>
-						<span id="vxdns_area_count"></span>
-						<span class="btn-pointer" onclick="vxDns.openAddArean()">
+						<span class="btn-radius btn btn-success btn-sm" onclick="vxDns.openAddArean()">
 							<i class="fal fa-plus-circle"></i>
 							添加区域
 						</span>
