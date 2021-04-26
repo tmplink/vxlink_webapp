@@ -61,23 +61,22 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="section-title mb-4">
-							
+
 							<h4 class="title">
 								<span id="x2_chart_usage_title">正在处理...</span>
 								<small id="loading_usage">
 									<i class="fa fa-spinner-third fa-spin"></i>
 								</small>
 							</h4>
-							<span class="btn-pointer" onclick="$('#buyModal').modal('show')">
-                                <i class="fal fa-plus-circle"></i>
-                                购买点券
-                            </span>
 
-							<span class="btn-pointer" onclick="$('#bundle_delay_list').fadeIn();$(this).fadeOut();" id="home_bundle_delay_btn" style="display: none">
-                                <i class="fal fa-plus-circle"></i>
-                                您有 <span id="bundle_delay_count"></span> 个点券包未开始，可以点这里查阅。
-                            </span>
-							
+
+							<div class="mt-2">
+								<span class="btn-radius btn btn-success btn-sm" onclick="$('#buyModal').modal('show')">
+									<i class="fal fa-plus-circle"></i>
+									购买点券
+								</span>
+							</div>
+
 						</div>
 						<div style="text-align: center">
 							<button style="margin-top: 5px" onclick="vxHome.refreshUsage(0, '最近');"
@@ -93,12 +92,21 @@
 						</div>
 						<div id="x2_chart_usage" style="height: 200px;margin-bottom: 20px;"></div>
 
-						<div id="no_bundle" class="card-alert alert alert-warning mb-0 text-center" style="display: none">
+						<div id="no_bundle" class="card-alert alert alert-warning mb-0 text-center"
+							style="display: none">
 							您目前暂无可用点卷。请先购买一份点券。如果您没有任何点券，您无法使用微林的服务，正在运行的服务也会暂停。
 						</div>
-						
+
 						<div id="bundle_list" style="display: none">
 							<h5>正在生效</h5>
+						</div>
+
+						<div>
+							<span class="btn-pointer" onclick="$('#bundle_delay_list').fadeIn();$(this).fadeOut();"
+								id="home_bundle_delay_btn" style="display: none">
+								<i class="fal fa-plus-circle"></i>
+								您有 <span id="bundle_delay_count"></span> 个点券包未开始，可以点这里查阅。
+							</span>
 						</div>
 						<div id="bundle_delay_list" class="mt-2" style="display: none">
 							<h5>等待生效</h5>
@@ -166,10 +174,10 @@
 					</div>
 				</div>
 				<div>
-					<a style="font-size: 20px" href="#" target="_blank" id="rss_link">
-						<i class="fa fa-rss-square" aria-hidden="true" style="color: #cc6600"></i> 使用 RSS 订阅所有通知信息
+					<a class="btn-radius btn btn-success btn-sm" href="#" target="_blank" id="rss_link">
+						<i class="fa fa-rss-square" aria-hidden="true"></i> 使用 RSS 订阅所有通知信息
 					</a>
-				</div>
+				</div>	
 				<div id="notifications_list" class="mt-4"></div>
 				<script type="text/template" id="notifications_list_tpl">
 					<% for (let x in obj) { %>
@@ -206,8 +214,8 @@
 							<label>规格</label>
 							<div class="form-group">
 								<select name="bundle_type" id="select_bundle_type" class="form-control custom-select">
-									<option value="10xt" data-price="10"  selected="selected"">60G 点券 / 每天 0.33 元</option>
-									<option value="20xt" data-price="20">200G 点券 / 每天 0.66 元</option>
+									<option value="10xt" data-price="10" selected="selected"">60G 点券 / 每天 0.33 元</option>
+									<option value=" 20xt" data-price="20">200G 点券 / 每天 0.66 元</option>
 									<option value="45xt" data-price="45">500G 点券 / 每天 1.50 元</option>
 								</select>
 							</div>
@@ -240,7 +248,7 @@
 							<h3 style="color: red">需支付：<span id="buy_total"></span> 元</h3>
 							<a href="/tos.html" tmpui-app="true">购买即代表您同意服务条款</a>
 						</div>
-		
+
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
