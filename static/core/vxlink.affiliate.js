@@ -75,7 +75,7 @@ class vxlink_affiliate {
             $('#submit_getmoney').html('当前拥有' + this.core.user_rpoint +'积分，提交请求');
         }else{
             $('#submit_getmoney').attr('disabled',true);
-            $('#submit_getmoney').html('当前的积分不够提交一次请求');
+            $('#submit_getmoney').html('当前拥有' + this.core.user_rpoint +'积分，需要至少 50 积分才可提交申请');
         }
     }
 }
