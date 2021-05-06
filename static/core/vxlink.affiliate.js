@@ -8,6 +8,7 @@ class vxlink_affiliate {
     pageInit() {
         if (document.getElementById('init_affiliate') !== null) {
             $('#nav_affiliate').addClass('active');
+            this.rpointRefresh();
             this.regcodeList();
             this.moneyList();
         }
@@ -67,5 +68,14 @@ class vxlink_affiliate {
                 $('#submit_getmoney').html(rsp.data);
             }
         }, 'json');
+    }
+
+    rpointRefresh(){
+        if(this.core.user_rpoint>=50){
+            $('#submit_getmoney').html('当前拥有' + this.core.user_rpoint +'积分，提交请求');
+        }else{
+            $('#submit_getmoney').attr('disabled',true);
+            $('#submit_getmoney').html('当前拥有' + this.core.user_rpoint +'积分，需要至少 50 积分才可提交申请');
+        }
     }
 }
