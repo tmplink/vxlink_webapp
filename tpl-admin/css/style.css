@@ -989,7 +989,7 @@ footer {
   }
 }
 
-@media (max-height: 750px) {
+@media (max-height: 800px) {
   .bottom-social {
     margin-top: 30px;
     position: relative;

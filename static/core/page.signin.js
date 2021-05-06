@@ -23,6 +23,7 @@ app.ready(() => {
             vxAffiliate.pageInit();
             vxDbservice.pageInit();
             vxDns.pageInit();
+            vxServer.pageInit();
         }
     });
 });

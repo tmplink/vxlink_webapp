@@ -12,6 +12,7 @@ class vxlink_core{
     api_vxdns = 'https://vx.link/openapi/v1/vxdns'
     api_vxping = 'https://vx.link/openapi/v1/vxping'
     api_user = 'https://vx.link/openapi/v1/user'
+    api_vxserver = 'https://vx.link/openapi/v1/vxserver'
     api_token = 'https://vx.link/openapi/v1/token'
 
     op_user = null
