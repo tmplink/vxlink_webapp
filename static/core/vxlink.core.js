@@ -4,6 +4,7 @@ class vxlink_core{
     email_notification = null
     user_position = 0
     user_point = 0
+    user_rpoint = 0
     token = null
     ready = false
     api_chart = 'https://vx.link/api/chart'
@@ -28,6 +29,7 @@ class vxlink_core{
                     this.email_notification = rsp.data.subscribe;
                     this.user_position = rsp.data.position;
                     this.user_point = rsp.data.point;
+                    this.user_rpoint = rsp.data.rpoint;
                 }
                 this.ready = true;
             }, 'json');
