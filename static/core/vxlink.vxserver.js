@@ -16,15 +16,15 @@ class vxlink_vxserver {
     }
 
     refreshList() {
-        $('#loading_server_list').fadeIn();
-        $.post(this.core.api_dbs, { action: 'db_list', token: this.core.token }, function (rsp) {
+        $('#loading_vxserver_list').fadeIn();
+        $.post(this.core.api_vxserver, { action: 'list', token: this.core.token }, function (rsp) {
             if (rsp.status === 1) {
-                $('#server_count').html('一共有 ' + rsp.data.length + ' 个项目。');
-                $('#server_list').html(app.tpl('server_list_tpl', rsp.data));
+                $('#vxserver_count').html('一共有 ' + rsp.data.length + ' 个项目。');
+                $('#vxserver_list').html(app.tpl('vxserver_list_tpl', rsp.data));
             } else {
-                $('#server_list').html('暂无项目。');
+                $('#vxserver_list').html('暂无项目。');
             }
-            $('#loading_server_list').fadeOut();
+            $('#loading_vxserver_list').fadeOut();
         }, 'json');
     }
 
@@ -54,12 +54,23 @@ class vxlink_vxserver {
         $.post(this.core.api_vxserver, {action: 'add', title: title, domain: domain, repo: repo,cert:cert,token: this.core.token }, (rsp) => {
             if (rsp.status === 0) {
                 $('#box_post').html(rsp.data);
+                setTimeout(() =>{
+                    $('#box_post').removeAttr('disabled');
+                    $('#box_post').html('创建');
+                },3000);
             } else {
                 $('#box_post').removeAttr('disabled');
                 $('#box_post').html('创建');
                 $('#myModal').modal('hide');
+                this.refreshList();
             }
             $('#box_post_doing').fadeOut(300);
+        }, 'json');
+    }
+
+    delete(id){
+        $.post(this.core.api_vxserver, {action: 'del', id: id, token: this.core.token }, () => {
+            this.refreshList();
         }, 'json');
     }
 }
