@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>vx.link</title>
+</head>
+
+<body>
+    <div id="admin_header"></div>
+
+    <div class="main shadow bg-white">
+
+        <!-- Main Title Start -->
+        <section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+            <div class="container mt-lg-0 mt-2">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <h3 class="text-white font-weight-bold">托管服务</h3>
+                            <p class="text-white">将 Github 项目通过 Web 服务发布</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Main Title End -->
+
+        <!-- Intro Start -->
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-title mb-4">
+                            <h4 class="title">
+                                项目列表
+                                <small id="vxserver_count"></small>
+                                <small id="loading_vxserver_list">
+                                    <i class="fa fa-spinner-third fa-spin"></i>
+                                </small>
+                            </h4>
+                            <span class="btn-radius btn btn-success btn-sm" onclick="vxServer.addOpen(0)">
+                                <i class="fal fa-plus-circle"></i>
+                                创建新的托管项目
+                            </span>
+                        </div>
+                        <div id="vxserver_list"></div>
+                        <script type="text/template" id="vxserver_list_tpl">
+							<% for (let x in obj) { %>
+								<div class="row p-2 shadow-sm mb-2 mx-0 d-flex" tldata="<% obj[x].id %>" id="vxserver_unit_<% obj[x].id %>">
+									<div class="col-md-3 col-12 mb-1 px-0 d-flex align-items-center pl-1">
+										<i class="fa-fw fad fa-server"></i> <% obj[x].title %>
+									</div>
+
+									<div class="col-md-4 col-12 mb-1 px-0 d-flex align-items-center pl-1">
+										<i class="fa-fw fad fa-link"></i> <% obj[x].domain %>
+									</div>
+
+									<div class="col-md-3 col-12 mb-1 px-0 d-flex align-items-center pl-1">
+										<i class="fa-fw fab fa-github-square"></i> <% obj[x].repo %>
+									</div>
+
+									<div class="col-md-2 col-12 my-1 d-flex align-items-center justify-content-end pr-0 pl-1">
+										<button class="btn btn-sm m-1 btn-outline-primary" onclick="vxServer.delete('<% obj[x].id %>')">
+											<i class="fa-fw fad fa-trash"></i>
+										</button>
+									</div>
+								</div>
+							<% } %>
+						</script>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Intro End -->
+
+        <!-- Footer Start -->
+        <div id="admin_footer"></div>
+        <!-- Footer End -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog  modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">创建新的托管项目</h4>
+                    </div>
+                    <div class="modal-body" id="edit_box">
+                        <input type="hidden" id="edit_type" value="" />
+                        <input type="hidden" id="edit_id" value="" />
+                        <div class="form-group">
+                            <label for="set_title">名称</label>
+                            <input type="text" class="form-control" id="set_title" placeholder="填写项目名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="set_domain">域名</label>
+                            <input type="text" class="form-control" id="set_domain" placeholder="使用自己的域名来发布项目">
+                            <small class="from-text">将您的域名通过 CNAME 指向到 acc.vx-dns.com。</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="set_repo">Github 项目地址</label>
+                            <input type="text" class="form-control" id="set_repo" placeholder="username/repository/branch">
+                        </div>
+                        <div class="form-group">
+                            <label for="set_cert">Github 验证文件</label>
+                            <input type="text" class="form-control" id="set_cert" disabled>
+                            <small class="from-text">您需要在根目录下创建一个 verification.txt 的文件，并将内容设置为上方的值。</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <span id="box_post_doing" style="text-align: center;display: none;">
+                            <i class="fa fa-spinner-third fa-spin"></i>
+                        </span>
+                        <button id="box_post" type="button" onclick="vxServer.add()"
+                            class="btn btn-primary">创建</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="init_vxserver"></div>
+</body>
+
+</html>

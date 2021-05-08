@@ -8,6 +8,7 @@ var vxBilling = new vxlink_billing;
 var vxAffiliate = new vxlink_affiliate;
 var vxDbservice = new vxlink_dbservice;
 var vxDns = new vxlink_vxdns;
+var vxServer = new vxlink_vxserver;
 
 //init
 vxCore.init();
@@ -20,6 +21,7 @@ vxCore.bind('op_billing', vxBilling);
 vxCore.bind('op_affiliate', vxAffiliate);
 vxCore.bind('op_dbservice',vxDbservice);
 vxCore.bind('op_vxdns',vxDns);
+vxCore.bind('op_vxserver',vxServer);
 
 vxUser.init(vxCore);
 vxTrans.init(vxCore);
@@ -30,5 +32,6 @@ vxBilling.init(vxCore);
 vxAffiliate.init(vxCore)
 vxDbservice.init(vxCore)
 vxDns.init(vxCore);
+vxServer.init(vxCore);
 
 app.language_set('cn');
