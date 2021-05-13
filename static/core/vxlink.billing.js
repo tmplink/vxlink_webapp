@@ -7,7 +7,6 @@ class vxlink_billing {
 
     pageInit() {
         if (document.getElementById('init_billing') !== null) {
-            $('#nav_billing').addClass('active');
             this.refreshBilling();
         }
     }

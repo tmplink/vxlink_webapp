@@ -7,7 +7,6 @@ class vxlink_affiliate {
 
     pageInit() {
         if (document.getElementById('init_affiliate') !== null) {
-            $('#nav_affiliate').addClass('active');
             this.rpointRefresh();
             this.regcodeList();
             this.moneyList();

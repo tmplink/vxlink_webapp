@@ -1,0 +1,298 @@
+<!-- Main Title Start -->
+<section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+    <div class="container mt-lg-0 mt-2">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="text-center">
+                    <h3 class="text-white font-weight-bold">云数据库</h3>
+                    <p class="text-white">简单，易用，好维护</p>
+                    <p>
+                        <button class="btn btn-sm btn-light m-1" onclick="$('#priceModal').modal('show')">计费信息</button>
+                        <button class="btn btn-sm btn-light m-1" onclick="$('#helpModal').modal('show')">附加信息</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Main Title End -->
+
+<!-- Intro Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-4">
+                    <h4 class="title">
+                        数据库列表
+                        <small id="dbservice_count"></small>
+                        <small id="loading_dbservice_list">
+                            <i class="fa fa-spinner-third fa-spin"></i>
+                        </small>
+                    </h4>
+                    <span class="btn-radius btn btn-success btn-sm" onclick="vxDbservice.editerCreate(0)">
+                        <i class="fal fa-plus-circle"></i>
+                        创建新的云数据库
+                    </span>
+                </div>
+                <div id="dbservice_list"></div>
+                <script type="text/template" id="dbservice_list_tpl">
+                    <% for (let x in obj) { %>
+                        <div class="row p-2 shadow-sm mb-2 mx-0 d-flex" tldata="<% obj[x].id %>" id="dbservice_unit_<% obj[x].id %>">
+                            <div class="col-xl-2 col-5 mb-1 px-0 d-flex align-items-center pl-1">
+                                <i class="fa-fw fad fa-database"></i> <% obj[x].db_name %> (<% obj[x].db_disk_usage %>)
+                            </div>
+
+                            <div class="col-xl-3 col-7 mb-1 px-0 align-items-center p-0 d-none d-xl-flex">
+                                <i class="fa-fw fad fa-link"></i> <% obj[x].db_domain %>
+                            </div>
+                            <div class="col-xl-3 col-7 mb-1 px-0 align-items-center justify-content-end p-0 d-xl-none d-lg-flex d-md-flex d-sm-flex d-flex">
+                                <i class="fa-fw fad fa-link"></i> <% obj[x].db_domain %>
+                            </div>
+
+                            <div class="col-xl-5 col-sm-9 col-12 mb-1 px-0 pr-1 align-items-center justify-content-star d-flex">
+                                <i class="fa-fw fad fa-user"></i> <% obj[x].db_theid %> &nbsp <i class="fad fa-key"></i> &nbsp <% obj[x].db_password %>
+                            </div>
+
+                            <div class="col-xl-2 col-sm-3 col-12 my-1 d-flex align-items-center justify-content-end pr-0 pl-1">
+                                <button class="btn btn-sm m-1 btn-outline-primary" onclick="vxDbservice.editerPlanto('<% obj[x].id %>')">
+                                    <i class="fa-fw fad fa-layer-plus"></i>
+                                </button>
+                                <button class="btn btn-sm m-1 btn-outline-primary" onclick="vxDbservice.editerOpen('<% obj[x].cp %>')">
+                                    <i class="fa-fw fas fa-wrench"></i>
+                                </button>
+                                <button class="btn btn-sm m-1 btn-outline-primary" onclick="vxDbservice.editerDelete('<% obj[x].id %>')">
+                                    <i class="fa-fw fad fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="col-12 align-items-center p-0" style="margin-top:10px;">
+                                <div class="progress bg-cyan">
+                                    <div class="progress-bar bg-green" role="progressbar" style="width: <% obj[x].db_percent %>%;" aria-valuemin="25" aria-valuemax="100">
+                                        <span class="mx-3"><% obj[x].db_disk %></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </script>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer End -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">创建新的数据库实例</h4>
+            </div>
+            <div class="modal-body" id="edit_box">
+                <input type="hidden" id="edit_type" value="" />
+                <input type="hidden" id="edit_id" value="" />
+                <div class="form-group">
+                    <label for="set_name">名称</label>
+                    <input type="text" class="form-control" id="set_name" placeholder="填写数据库名称">
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="set_plan">
+                        规模
+                    </label>
+                    <select class="form-control" name="set_plan" id="set_plan"
+                        onclick="$('#box_post').removeAttr('disabled');$('#box_post').html('创建');"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="set_area">
+                        地区
+                    </label>
+                    <select class="form-control" name="set_area" id="set_area"
+                        onclick="$('#box_post').removeAttr('disabled');$('#box_post').html('创建');"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span id="box_post_doing" style="text-align: center;display: none;">
+                    <i class="fa fa-spinner-third fa-spin"></i>
+                </span>
+                <button id="box_post" type="button" onclick="vxDbservice.editerPost()" class="btn btn-primary"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="set_new_plan" tabindex="-1" role="dialog">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">调整数据库规模</h4>
+            </div>
+            <input type="hidden" id="edit_plan_id" value="" />
+            <div class="modal-body" id="edit_box">
+                <div class="form-group">
+                    <label class="control-label" for="set_newplan">
+                        选择您想要调整的目标规模
+                    </label>
+                    <select class="form-control" name="set_newplan" id="set_newplan"
+                        onclick="$('#box_plan').removeAttr('disabled').html('确定');"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span id="box_plan_doing" style="text-align: center;display: none;">
+                    <i class="fa fa-spinner-third fa-spin"></i>
+                </span>
+                <button id="box_plan" type="button" onclick="vxDbservice.editerPlan()"
+                    class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="priceModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="far fa-yen-sign"></i> 计费标准</h4>
+            </div>
+            <div class="table-responsive">
+                <table class="table card-table text-nowrap table-striped">
+                    <thead>
+                        <tr>
+                            <td>等级</td>
+                            <td>性能</td>
+                            <td>每小时点券消费</td>
+                            <td>每月点券消费</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>I</td>
+                            <td>128 MB存储,10 并发,25 IOPS</td>
+                            <td>1.2M 点券</td>
+                            <td>864M 点券</td>
+                        </tr>
+                        <tr>
+                            <td>II</td>
+                            <td>256 MB存储,10 并发,25 IOPS</td>
+                            <td>2.5M 点券</td>
+                            <td>1.8G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>III</td>
+                            <td>512 MB存储,10 并发,25 IOPS</td>
+                            <td>5M 点券</td>
+                            <td>3.6G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>X-I</td>
+                            <td>1 GB存储,10 并发,25 IOPS</td>
+                            <td>10M 点券</td>
+                            <td>7.2G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>X-II</td>
+                            <td>2 GB存储,25 并发,50 IOPS</td>
+                            <td>20M 点券</td>
+                            <td>14G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>X-III</td>
+                            <td>4 GB存储,50 并发,100 IOPS</td>
+                            <td>40M 点券</td>
+                            <td>28G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>X-IV</td>
+                            <td>8 GB存储,100 并发,200 IOPS</td>
+                            <td>80M 点券</td>
+                            <td>57G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>V-I</td>
+                            <td>16 GB存储,200 并发,400 IOPS</td>
+                            <td>160M 点券</td>
+                            <td>115G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>V-II</td>
+                            <td>32 GB存储,400 并发,800 IOPS</td>
+                            <td>320M 点券</td>
+                            <td>230G 点券</td>
+                        </tr>
+                        <tr>
+                            <td>V-III</td>
+                            <td>64 GB存储,800 并发,1600 IOPS</td>
+                            <td>640M 点券</td>
+                            <td>460G 点券</td>
+                        </tr>
+                </table>
+                <ul>
+                    <li>确保您的账号有足额的点券包，以免因欠费导致数据库被删除</li>
+                    <li>服务器能承载的数据库有限，可能无法申请较高规格的数据库实例</li>
+                    <li>数据库实例按小时计费</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="helpModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="far fa-book-heart"></i> 快捷帮助</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="accordion" id="accordionFAQ">
+                <div class="card border-0 rounded mb-2">
+                    <a data-toggle="collapse" href="#collapse1" class="faq position-relative collapsed"
+                        aria-expanded="false" aria-controls="collapse1">
+                        <div class="card-header border-0 bg-light p-3 pr-5" id="heading_1">
+                            <h6 class="title mb-0">
+                                DB Service 支持的存储引擎
+                            </h6>
+                        </div>
+                    </a>
+                    <div id="collapse1" class="collapse" aria-labelledby="heading_2" data-parent="#accordionFAQ">
+                        <div class="card-body px-4 py-4">
+                            <li>CSV</li>
+                            <li>MRG_MyISAM</li>
+                            <li>MyISAM</li>
+                            <li>ARCHIVE</li>
+                            <li>FEDERATED</li>
+                            <li>Aria</li>
+                            <li>InnoDB</li>
+                            <li style="color: red;">注意：DBS 不支持 Memory 存储引擎，如果您创建了此类型的数据表，可能随时丢失。</li>
+                        </div>
+                    </div>
+                    <a data-toggle="collapse" href="#collapse2" class="faq position-relative collapsed"
+                        aria-expanded="false" aria-controls="collapse2">
+                        <div class="card-header border-0 bg-light p-3 pr-5" id="heading_2">
+                            <h6 class="title mb-0">
+                                DB Service 的性能保障
+                            </h6>
+                        </div>
+                    </a>
+                    <div id="collapse2" class="collapse" aria-labelledby="heading_3" data-parent="#accordionFAQ">
+                        <div class="card-body px-4 py-4">
+                            <li>采用高规格硬件（基于 SSD 构建的 RAID 10 阵列，Intel多核处理器）</li>
+                            <li>针对硬件环境的配置调整，每隔24小时自动进行的配置优化。</li>
+                            <li>严格控制单个实例的配额资源，不存在超售的情况。</li>
+                        </div>
+                    </div>
+                    <a data-toggle="collapse" href="#collapse3" class="faq position-relative collapsed"
+                        aria-expanded="false" aria-controls="collapse3">
+                        <div class="card-header border-0 bg-light p-3 pr-5" id="heading_3">
+                            <h6 class="title mb-0">
+                                编程建议：如何更快？
+                            </h6>
+                        </div>
+                    </a>
+                    <div id="collapse3" class="collapse" aria-labelledby="heading_1" data-parent="#accordionFAQ">
+                        <div class="card-body px-4 py-4">
+                            数据库只是一个<b>存储数据</b>的地方，因此涉及到逻辑的部分应该尽可能避免使用数据库进行运算（比如排序）。<br>
+                            另外，<b>缓存</b>是一种非常有效的手段，从根源上直接降低了数据库的访问次数，进而提升整个系统的处理能力。<br>
+                            利用<b>计划程序</b>对数据进行预处理也是非常有效的，特别是读写频繁的表，定期运行优化语句可以有效提升查询速度。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="init_dbservice"></div>

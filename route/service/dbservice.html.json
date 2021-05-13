@@ -1,8 +1,0 @@
-{
-    "title": "微林 - DB Service",
-    "preload": ["admin_ui","core","signin"],
-    "append": ["admin"],
-    "body": {
-        "/tpl-admin/dbservice.html": { "type": "html", "target": { "type": "body" } }
-    }
-}

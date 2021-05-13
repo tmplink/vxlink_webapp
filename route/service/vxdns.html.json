@@ -1,9 +1,0 @@
-{
-    "title": "微林 - vxDNS",
-    "preload": ["admin_ui","core","signin"],
-    "append": ["admin"],
-    "body": {
-        "/tpl-admin/vxdns.html": { "type": "html", "target": { "type": "body" } },
-        "/tpl-admin/include/vxdns.area.preset.html": { "type": "html", "target": { "type": "id","val": "preset_area"} }
-    }
-}

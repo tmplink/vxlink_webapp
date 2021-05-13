@@ -10,7 +10,6 @@ class vxlink_vxdns {
     pageInit() {
         if (document.getElementById('init_vxdns') !== null) {
             //初始化
-            $('#nav_vxdns').addClass('active');
             this.refreshDomainList();
             this.refreshAreaList();
         }

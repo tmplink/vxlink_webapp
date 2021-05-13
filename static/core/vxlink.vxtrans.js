@@ -13,7 +13,6 @@ class vxlink_vxtrans {
     pageInit() {
         if (document.getElementById('init_vxtrans') !== null) {
             //初始化
-            $('#nav_vxtrans').addClass('active');
             this.refreshVxtransTrustedAddrList();
             this.refreshVxtransList();
             this.refreshServerList();

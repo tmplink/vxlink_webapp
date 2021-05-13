@@ -7,7 +7,6 @@ class vxlink_home {
 
     pageInit() {
         if (document.getElementById('init_home') !== null) {
-            $('#nav_home').addClass('active');
             this.refreshUsage(3, '过去一周');
             this.refreashMessage();
             this.refreshBundel();

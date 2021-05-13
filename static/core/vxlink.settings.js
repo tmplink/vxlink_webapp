@@ -7,7 +7,6 @@ class vxlink_settings {
 
     pageInit() {
         if (document.getElementById('init_settings') !== null) {
-            $('#nav_settings').addClass('active');
             $('#delete_code').html(this.core.uid);
 
             $('#current_email').html(this.core.email);

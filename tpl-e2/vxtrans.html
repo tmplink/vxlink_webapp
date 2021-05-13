@@ -1,0 +1,503 @@
+<section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+    <div class="container mt-lg-0 mt-2">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="text-center">
+                    <h3 class="text-white font-weight-bold">网络链接优化</h3>
+                    <p>
+                        <a href="/help/vxtrans.html" tmpui-app="true" class="btn btn-sm btn-light m-1"
+                            target="_blank">基本教程</a>
+                        <button class="btn btn-sm btn-light m-1" onclick="$('#priceModal').modal('show')">计费信息</button>
+                        <button class="btn btn-sm btn-light m-1" onclick="$('#ecnModal').modal('show')">优化性能</button>
+                        <button class="btn btn-sm btn-light m-1"
+                            onclick="$('#securityModal').modal('show')">安全增强</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-4">
+                    <h4 class="h3 font-weight-normal">
+                        已授权的地址
+                        <small class="btn-pointer" onclick="$('#trusted_addr_list').fadeToggle();">
+                            <i class="fal fa-plus-circle"></i>
+                            展开<span id="trusted_count"></span>
+                        </small>
+                        <small id="loading_vxtrans_trusted">
+                            <i class="fa fa-spinner-third fa-spin"></i>
+                        </small>
+                    </h4>
+                    <span class="btn-radius btn btn-success btn-sm" onclick="$('#trustedModal').modal('show')">
+                        <i class="fal fa-plus-circle"></i>
+                        为服务器添加授权
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div id="trusted_addr_list" style="display:none"></div>
+        </div>
+        <script type="text/template" id="trusted_addr_list_tpl">
+            <div class="row container">
+            <% for (let x in obj) { %>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 pr-2 pb-2 pl-0">
+                    <div class="row py-1 shadow-sm mx-0 bg-white" tldata="<% obj[x].id %>" id="trusted_unit_<% obj[x].id %>" style="border-radius: .25rem;">
+                        <div class="col-9 d-flex align-items-center">
+                            <i class="fad fa-server mr-1"></i> <% obj[x].ip %>
+                        </div>
+                        <div class="col-3 d-flex align-items-center justify-content-end">
+                            <button  id="btn_trusted_unit_<% obj[x].id %>" class="btn btn-sm btn-outline-danger mx-1" onclick="vxTrans.deleteTrustedAddr('<% obj[x].id %>')">
+                                <i class="fa-fw fad fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+            </div>
+        </script>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-4">
+                    <h4 class="h3 font-weight-normal">
+                        链接点
+                        <small id="vxtrans_count"></small>
+                        <small id="loading_vxtrans_list">
+                            <i class="fa fa-spinner-third fa-spin"></i>
+                        </small>
+                    </h4>
+                    <span class="btn-radius btn btn-success btn-sm" onclick="$('#createVxtransModal').modal('show')">
+                        <i class="fal fa-plus-circle"></i>
+                        创建新的 vxTrans 链接点
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="vxtrans_group_list"></div>
+        <script type="text/template" id="vxtrans_group_list_tpl">
+            <% for (let i in obj) { %>
+                <div class="mt-3 mb-3">
+                    <span>
+                        <i class="flag flag-<% obj[i].code %>" style="margin-bottom:0.5rem;height:25px;width: 32px;"></i>
+                    </span>
+                    <span>
+                        <div class="d-inline h3 font-weight-light"><% obj[i].name %></div>
+                    </span>
+                </div>
+                <div class="row">
+                    <% for (let x in obj[i].list) { %>
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-2" tldata="<% obj[i].list[x].id %>" id="vxtrans_unit_<% obj[i].list[x].id %>">
+                            <div class="card p-3 shadow-sm">
+                                <% if (obj[i].list[x].status!='ok') { %>
+                                    <div class="overlay"></div>
+                                <% } %>
+                                <div class="font-weight-bold">
+                                    <% obj[i].list[x].title %>
+                                </div>
+                                <div class="border-dashed"></div>
+                                <div>
+                                    <i class="fa-fw fal fa-plane-departure"></i> <% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>
+                                </div>
+                                <div>
+                                    <i class="fa-fw fal fa-plane-arrival"></i>  <% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>
+                                </div>
+                                <div>
+                                    <% if (obj[i].list[x].status=='ok') { %>
+                                        <i class="fa-fw fal fa-wifi"></i>
+                                        <% obj[i].list[x].ex_delay %>
+                                        <i class="fa-fw fad fa-sort-alt"></i>
+                                        <% obj[i].list[x].ex_trans %>
+                                        <% if (obj[i].list[x].limit!=0) { %>
+                                            <i class="fa-fw fal fa-chart-pie-alt"></i> 
+                                            <% obj[i].list[x].ex_limit %>
+                                        <% } %>
+                                    <% }else{ %>
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                    <% } %>
+                                </div>
+                                <div>
+                                    <% if (obj[i].list[x].protocol=='tcp') { %>
+                                        <i class="fa-fw fad fa-grip-lines"></i> TCP
+                                    <% }else{ %>
+                                        <i class="fa-fw fad fa-grip-horizontal"></i> UDP
+                                    <% } %>
+                                </div>
+                                <div class="border-dashed"></div>
+                                <div class="d-inline text-right mt-1">
+                                    <% if (obj[i].list[x].keep=='yes') { %>
+                                        <button class="btn btn-sm btn-outline-primary" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，链接点最多可闲置一周，然后会被回收。锁定后最多可闲置两周。">
+                                            <i class="fa-fw fas fa-lock"></i>
+                                        </button>
+                                    <% }else{ %>
+                                        <button class="btn btn-sm btn-outline-primary" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOn('<% obj[i].list[x].id %>')" title="未锁定时，链接点最多可闲置一周，然后会被回收。锁定后最多可闲置两周。">
+                                            <i class="fa-fw far fa-unlock-alt"></i>
+                                        </button>
+                                    <% } %>
+                                    <div class="dropdown dropleft d-inline">
+                                        <button class="btn btn-sm btn-outline-primary ml-1" data-toggle="dropdown">
+                                            <i class="fa-fw fas fa-wrench"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <button onclick="vxTrans.resetName('<% obj[i].list[x].id %>');" class="dropdown-item">
+                                                <i class="fa-fw fas fa-eraser"></i> 修改名称
+                                            </button>
+                                            <button onclick="vxTrans.resetDestination('<% obj[i].list[x].id %>', '<% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>');" class="dropdown-item">
+                                                <i class="fa-fw fal fa-retweet-alt"></i> 变更目标
+                                            </button>
+                                            <button onclick="vxTrans.resetLimit('<% obj[i].list[x].id %>');" class="dropdown-item">
+                                                <i class="fa-fw far fa-edit"></i> 调整配额
+                                            </button>
+                                            <button onclick="vxTrans.resetCounter('<% obj[i].list[x].id %>');" class="dropdown-item">
+                                                <i class="fa-fw fal fa-redo-alt"></i> 统计清零
+                                            </button>
+                                            <button class="dropdown-item text-red" onclick="vxTrans.deleteVxTrans('<% obj[i].list[x].id %>')">
+                                                <i class="fa-fw fad fa-trash"></i> 删除
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            <% } %>
+        </script>
+        <script type="text/template" id="vxtrans_list_tpl">
+            <% for (let x in obj) { %>
+                <div class="row p-2 shadow-sm mb-2 mx-0 d-flex" tldata="<% obj[x].id %>" id="vxtrans_unit_<% obj[x].id %>">
+                    <div class="col-xl-2 col-5 mb-1 px-0 d-flex align-items-center pl-1">
+                        <i class="flag flag-<% obj[x].ex_location.code %> mr-1"></i> <% obj[x].title %>
+                    </div>
+                    <div class="col-xl-3 col-7 mb-1 px-0 align-items-center p-0 d-none d-xl-flex">
+                        <% if (obj[x].status=='ok') { %>
+                            <i class="fa-fw fal fa-wifi mr-1 ml-1"></i>
+                            <% obj[x].ex_delay %>
+                            <i class="fa-fw fad fa-sort-alt mr-1 ml-1"></i>
+                            <% obj[x].ex_trans %>
+                        <% }else{ %>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        <% } %>
+                    </div>
+                    <div class="col-xl-3 col-7 mb-1 px-0 align-items-center justify-content-end p-0 d-xl-none d-lg-flex d-md-flex d-sm-flex d-flex">
+                        <% if (obj[x].status=='ok') { %>
+                            <i class="fa-fw fal fa-wifi mr-1 ml-1"></i>
+                            <% obj[x].ex_delay %>
+                            <i class="fa-fw fad fa-sort-alt mr-1 ml-1"></i>
+                            <% obj[x].ex_trans %>
+                        <% }else{ %>
+                            <i class="fas fa-spinner fa-spin"></i>
+                        <% } %>
+                    </div>
+                    <div class="col-xl-5 col-sm-9 col-12 mb-1 px-0 pr-1 align-items-center justify-content-star d-flex">
+                        <% obj[x].ex_location.addr %>:<% obj[x].localport %> &nbsp <i class="fal fa-plane-departure"></i> &nbsp <% obj[x].target_ip %>:<% obj[x].target_port %>
+                    </div>
+                    <div class="col-xl-2 col-sm-3 col-12 my-1 d-flex align-items-center justify-content-end pr-0 pl-1">
+                        <% if (obj[x].keep=='yes') { %>
+                            <button class="btn btn-sm m-1 btn-outline-primary" id="keep_<% obj[x].id %>" onclick="vxTrans.keepOff('<% obj[x].id %>')">
+                                <i class="fa-fw fas fa-lock"></i>
+                            </button>
+                        <% }else{ %>
+                            <button class="btn btn-sm m-1 btn-outline-primary" id="keep_<% obj[x].id %>" onclick="vxTrans.keepOn('<% obj[x].id %>')">
+                                <i class="fa-fw far fa-unlock-alt"></i>
+                            </button>
+                        <% } %>
+                        <div class="dropdown dropleft">
+                            <button class="btn btn-sm btn-outline-primary m-1" data-toggle="dropdown">
+                                <i class="fa-fw fas fa-wrench"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <button onclick="vxTrans.resetName('<% obj[x].id %>');" class="dropdown-item">
+                                    <i class="fa-fw fas fa-eraser"></i> 修改名称
+                                </button>
+                                <button onclick="vxTrans.resetDestination('<% obj[x].id %>', '<% obj[x].target_ip %>:<% obj[x].target_port %>');" class="dropdown-item">
+                                    <i class="fa-fw fal fa-retweet-alt"></i> 变更目标
+                                </button>
+                                <button onclick="vxTrans.resetLimit('<% obj[x].id %>');" class="dropdown-item">
+                                    <i class="fa-fw far fa-edit"></i> 调整配额
+                                </button>
+                                <button onclick="vxTrans.resetCounter('<% obj[x].id %>');" class="dropdown-item">
+                                    <i class="fa-fw fal fa-redo-alt"></i> 统计清零
+                                </button>
+                                <button class="dropdown-item text-red" onclick="vxTrans.deleteVxTrans('<% obj[x].id %>')">
+                                    <i class="fa-fw fad fa-trash"></i> 删除
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <% if (obj[x].limit!=0) { %>
+                        <div class="col-12 align-items-center p-0" style="margin-top:10px;">
+                            <div class="progress bg-cyan">
+                                <div class="progress-bar bg-green" role="progressbar" style="width: <% obj[x].ex_limit_percent %>%;" aria-valuemin="0" aria-valuemax="100">
+                                    <span class="mx-3"><% obj[x].ex_trans %> / <% obj[x].ex_limit %></span>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            <% } %>
+        </script>
+    </div>
+</section>
+
+<div class="modal fade" id="createVxtransModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">创建连接点</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="edit_box">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="form-group">
+                            <label class="control-label" for="set_location">
+                                选择入口地址
+                                <i data-toggle="tooltip" data-placement="top" title="你将从这里进行连接,抵达所设置的目标地址和端口"
+                                    class="fal fa-question-circle ml-1"></i>
+                            </label>
+                            <script type="text/template" id="set_location_tpl">
+                                        <% for (let x in obj) { %>
+                                            <div class="form-check form-control mb-1">
+                                                <input name="set_location"  type="radio" value="<% obj[x].code %>" id="spdx_<% obj[x].code %>">
+                                                <label id="spd_<% obj[x].code %>" data-text="<% obj[x].ex_name %> - <% obj[x].ex_country %>">
+                                                    <span id="spdtext_<% obj[x].code %>"><% obj[x].ex_name %> - <% obj[x].ex_country %></span>
+                                                </label>
+                                            </div>
+                                        <% } %>
+                                    </script>
+                            <div id="set_location">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="form-group">
+                            <label for="set_name">描述</label>
+                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control" id="set_name"
+                                placeholder="输入连接点的名字">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="set_protocol">
+                                选择传输层协议 (Layer 4 Protocol)
+                                <i data-toggle="tooltip" data-placement="top" title="选择数据传输协议"
+                                    class="fal fa-question-circle ml-1"></i>
+                            </label>
+                            <select class="form-control" name="set_protocol" id="set_protocol">
+                                <option value="tcp">TCP</option>
+                                <option value="udp">UDP</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="set_local_port">入口端口</label>
+                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control"
+                                id="set_local_port" placeholder="请填写连接点支持范围的端口,不填将自动分配.">
+                        </div>
+                        <div class="form-group">
+                            <label for="set_traget_ip">目标地址</label>
+                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control"
+                                id="set_traget_ip" placeholder="数据最终抵达的地址(您的服务器地址)">
+                        </div>
+                        <div class="form-group">
+                            <label for="set_target_port">目标端口</label>
+                            <input type="text" onfocus="vxTrans.editerRefresh();;" class="form-control"
+                                id="set_target_port" placeholder="数据最终抵达的端口(您的服务器端口)">
+                        </div>
+                        <div class="form-group">
+                            <label for="set_target_limit">用量控制</label>
+                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control"
+                                id="set_target_limit" placeholder="填入数字，单位是 GB，连接点流量超过此限制时，将自动关闭。留空则为不限制。">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="box_post" type="button" onclick="vxTrans.editerPost();" class="btn btn-primary">
+                    <i class="far fa-check"></i>
+                </button>
+                <button type="button" onclick="vxTrans.editerReset();" class="btn btn-warning">
+                    <i class="far fa-redo-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="trustedModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="far fa-shield-check"></i> 安全系统</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="card-alert alert alert-success mb-0">
+                例外：无需进行授权验证的特定服务。
+                <ul>
+                    <li>
+                        这些服务商的 RDS 服务无需授权: AWS,阿里云,腾讯云
+                    </li>
+                    <li>
+                        这些特定的 IP 无需授权: 8.8.8.8 和 1.1.1.1
+                    </li>
+                    <li>指向运维端口(22,3389)的连接点无需授权</li>
+                </ul>
+            </div>
+            <div class="card-alert alert mb-0">
+                要添加您的服务器 IP 地址到您的授权列表中，请在服务器中通过浏览器访问此 URL ：<br>
+                <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url"></code>
+                <div style="margin-top:5px;margin-bottom: 5px">
+                    对于大部分的 Linux 系统，在命令行下可以使用 curl 命令完成授权。
+                </div>
+                <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url_for_curl"></code>
+                <hr>
+                已授权的 IP 地址具备3个月有效期，过期后需要重新授权。<br>
+                正在使用中的已授权 IP 地址即使已过有效期也无需重新授权。
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ecnModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="far fa-shield-check"></i> TCP ECN</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    ECN 允许拥塞控制的端对端通知而避免丢包。ECN 为一项可选功能，如果底层网络设施支持，则可能被启用 ECN 的两个端点使用。<br />
+                    在您的目标服务器启用 ECN，vxTrans 服务器将能更好的度量网络通畅程度，并选择更高效率的传输方案以提高性能。
+                    此调整只需要在您的目标服务器上完成，客户端无需进行任何调整，关于 ECN 的更多信息，请参考<a
+                        href="https://zh.m.wikipedia.org/zh-hans/%E6%98%BE%E5%BC%8F%E6%8B%A5%E5%A1%9E%E9%80%9A%E7%9F%A5"
+                        target="_blank">这里</a>。
+                </p>
+                <hr />
+                <div style="margin-top:5px;margin-bottom: 5px">
+                    CentOS 系统可以通过调整 sysctl.conf 来快速实现对 ECN 的支持。
+                </div>
+                <code style="margin-top:5px;margin-bottom: 5px">
+                    echo 'net.ipv4.tcp_ecn = 2' >> /etc/sysctl.conf
+                </code>
+                <div style="margin-top:5px;margin-bottom: 5px">
+                    另外，如果服务器的 Linux 内核在 4.1 以上，还可以打开兼容性选项。
+                </div>
+                <code style="margin-top:5px;margin-bottom: 5px">
+                    echo 'net.ipv4.tcp_ecn_fallback = 1' >> /etc/sysctl.conf
+                </code>
+                <div style="margin-top:5px;margin-bottom: 5px">
+                    最后，使用 sysctl 命令来让此更改立即生效，无需重启系统。
+                </div>
+                <code style="margin-top:5px;margin-bottom: 5px">
+                    sysctl -p
+                </code>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="securityModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="far fa-shield-check"></i> 白名单</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="card-alert alert alert-success mb-0">
+                在服务器上针对您的 vxTrans 业务端口进行流量来源限制，以确保不被非法访问。<br>
+                这是一个可选项，可以帮助您的服务器更加安全，因此推荐采用此方案。
+            </div>
+            <div class="card-alert alert mb-0">
+                <div style="margin-top:5px;margin-bottom: 5px">
+                    第一步，获取白名单列表。<br>
+                    目前仅支持 Linux 下的 iptables，运行下面这个命令，将会在 iptables 中创建一份 vxlink_service 白名单。<br>
+                    由于白名单可能会进行调整，建议将此命令添加到计划任务中，每 10 分钟运行一次。<br>
+                    Windows 用户请自行处理此文件中涉及的 IP 地址。<br>
+                </div>
+                <code style="margin-top:5px;margin-bottom: 5px">
+                            curl -k 'https://vx.link/data/iptables.sh' | sh
+                        </code>
+                <hr>
+                <div style="margin-top:5px;margin-bottom: 5px">
+                    第二步，为业务端口添加规则。<br>
+                    （例子）下面这条命令会将业务端口 22 加入到 vxlink_service 白名单进行过滤，阻止白名单外的访问。
+                </div>
+                <code style="margin-top:5px;margin-bottom: 5px">
+                            iptables -I INPUT -p tcp --dport 22 -j vxlink_service
+                        </code>
+                <div style="margin-top:5px;margin-bottom: 5px">
+                    要将业务端口移出白名单，只需要将上面的 “ -I ” 改为 “ -D ”。
+                </div>
+                <code style="margin-top:5px;margin-bottom: 5px">
+                            iptables -D INPUT -p tcp --dport 22 -j vxlink_service
+                        </code>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="priceModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="far fa-yen-sign"></i> 计费标准</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <script type="text/template" id="server_list_tpl">
+                <% for (let x in obj) { %>
+                    <tr>
+                        <td><% obj[x].ex_country %></td>
+                        <td><% obj[x].ex_name %></td>
+                        <td><% obj[x].ex_specail %></td>
+                        <td><% obj[x].bw %></td>
+                        <td><% obj[x].port_range %></td>
+                        <td><% obj[x].ecn %></td>
+                        <td><% obj[x].fee %></td>
+                    </tr>
+                <% } %>
+            </script>
+            <div class="table-responsive">
+                <table class="table card-table text-nowrap table-striped">
+                    <thead>
+                        <tr>
+                            <th>国家或地区</th>
+                            <th>网络运营商</th>
+                            <th>特性</th>
+                            <th>带宽</th>
+                            <th>端口范围</th>
+                            <th>ECN</th>
+                            <th>费率</th>
+                        </tr>
+                    </thead>
+                    <tbody id="server_list"></tbody>
+                </table>
+                <ul>
+                    <li>带宽：保障值/最大限制。单位为 Mbps。</li>
+                    <li>ECN：服务区是否支持 ECN，在支持的情况下，目标服务器如果也同时支持 ECN，将能提高性能。</li>
+                    <li>费率：使用 vxTrans 每传输1字节时消费的点券数，上传与下载都会被计入。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="init_vxtrans"></div>

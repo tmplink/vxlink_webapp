@@ -1,0 +1,118 @@
+<!-- Main Title Start -->
+<section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+    <div class="container mt-lg-0 mt-2">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="text-center">
+                    <h3 class="text-white font-weight-bold">设置</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Main Title End -->
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-4">
+                    <h4 class="title">
+                        <span id="x2_chart_usage_title">邮件</span>
+                    </h4>
+                </div>
+                <p>您当前绑定的邮箱地址是 <span id="current_email"></span>
+                    ，请定期检查您的邮箱是否可以正常收到我们发出的邮件。因为在找回密码时，您只能通过绑定的邮箱接收相关邮件。</p>
+                <div class="card p-3">
+                    <form action="#" method="post" autocomplete="off">
+                        <div id="msgbox_email" class="card-alert alert alert-success mb-0 text-center"
+                            style="display: none;">
+                            ...
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">更换邮箱地址</label>
+                            <input type="email" class="form-control" id="email_val" placeholder="输入新的邮箱地址">
+                        </div>
+                    </form>
+                    <div class="form-footer mt-2">
+                        <button class="btn btn-primary btn-block" id="core_email"
+                            onclick="vxSettings.setEmail()">发送验证邮件</button>
+                    </div>
+                </div>
+                <div class="card p-3 mt-3">
+                    <label class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="email_notification_status"
+                            onclick="vxSettings.emailNotificationChange()">
+                        <span
+                            class="form-check-label">是否启用邮件通知。启用邮件通知后，您可以通过邮件收到我们发送的通知信息。关闭后，我们不会向您发送任何邮件。找回密码的邮件除外。关闭此设置后，您仍然可以通过
+                            RSS 来订阅通知信息。</span>
+                    </label>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-4">
+                    <h4 class="title">
+                        <span id="x2_chart_usage_title">密码</span>
+                    </h4>
+                </div>
+                <p>定期修改密码是保护账号的良好习惯。</p>
+                <div class="card p-3">
+                    <form action="#" method="post" autocomplete="off">
+                        <div id="msgbox_setpwd" class="card-alert alert alert-success mb-0 text-center"
+                            style="display: none;">
+                            ...
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">修改密码</label>
+                            <input type="password" class="form-control" id="password1_val">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">再次输入以确认</label>
+                            <input type="password" class="form-control" id="password2_val">
+                        </div>
+                    </form>
+                    <div class="form-footer mt-2">
+                        <button onclick="vxSettings.setPassword()" class="btn btn-primary btn-block"
+                            id="core_setpwd">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mb-4">
+                    <h4 class="title">
+                        <span id="x2_chart_usage_title">注销账号</span>
+                    </h4>
+                </div>
+                <p>您可以随时删除此账号,所有与此账号相关的信息都将被抹除.包括您此前使用的各种服务.</p>
+                <div class="card p-3">
+                    <form action="#" method="post" autocomplete="off">
+                        <div class="form-group">
+                            <label class="form-label">确认码(请输入:<span id="delete_code"></span>)</label>
+                            <input type="password" class="form-control" id="delete_code_val">
+                        </div>
+                    </form>
+                    <div class="form-footer mt-2">
+                        <button onclick="vxSettings.deleteAccount()" class="btn btn-danger btn-block"
+                            id="delete_account_btn">确定注销账号</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="init_settings"></div>

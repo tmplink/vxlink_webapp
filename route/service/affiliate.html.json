@@ -1,8 +1,0 @@
-{
-    "title": "微林 - affiliate",
-    "preload": ["admin_ui","core","signin"],
-    "append": ["admin"],
-    "body": {
-        "/tpl-admin/affiliate.html": { "type": "html", "target": { "type": "body" } }
-    }
-}

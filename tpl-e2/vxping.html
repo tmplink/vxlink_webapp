@@ -1,0 +1,251 @@
+<!-- Main Title Start -->
+<section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+	<div class="container mt-lg-0 mt-2">
+		<div class="row justify-content-center">
+			<div class="col-12">
+				<div class="text-center">
+					<h3 class="text-white font-weight-bold">全球网络监测</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Main Title End -->
+
+<section class="section bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title mb-4">
+					<h4 class="title">
+						提醒
+						<small id="alert_rules_count"></small>
+						<small id="loading_alert_rules">
+							<i class="fa fa-spinner-third fa-spin"></i>
+						</small>
+					</h4>
+				</div>
+			</div>
+		</div>
+		<div style="max-height: 300px;overflow-y: scroll;">
+			<div id="alert_rules_list"></div>
+		</div>
+		<script type="text/template" id="alert_rules_list_tpl">
+			<% for (let x in obj) { %>
+				<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_alert_rule_<% obj[x].id %>">
+					<div class="col-md-8 col-12 d-flex align-items-center">
+						<i class="fad fa-eye mr-1"></i> 在 <% obj[x].name %> 发生 <% obj[x].ex_type %> 时
+					</div>
+					<div class="col-md-3 col-10 d-flex align-items-center justify-content-end">
+						<% if (obj[x].status === 'wait') { %>
+							<i class="fa-fw fal fa-check-circle text-green"></i> 当前正常
+						<% }else{ %>
+							<i class="fa-fw fal fa-exclamation-circle text-red"></i> 告警已触发
+						<% } %>
+					</div>
+					<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
+						<button  id="btn_vxping_alert_rule_<% obj[x].id %>" class="btn btn-sm btn-outline-danger mx-1" onclick="vxPing.deleteAlert('<% obj[x].id %>')">
+							<i class="fa-fw fad fa-trash"></i>
+						</button>
+					</div>
+				</div>
+			<% } %>
+		</script>
+	</div>
+</section>
+
+<section class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title mb-4">
+					<h4 class="title">
+						正在监测
+						<small id="vxping_monitor_count"></small>
+						<small id="loading_vxping_monitor_list">
+							<i class="fa fa-spinner-third fa-spin"></i>
+						</small>
+					</h4>
+					<span class="btn-radius btn btn-success btn-sm" onclick="vxPing.editerOpen()">
+						<i class="fal fa-plus-circle"></i>
+						添加监测点
+					</span>
+				</div>
+			</div>
+		</div>
+		<div id="vxping_monitor_list"></div>
+		<script type="text/template" id="vxping_monitor_list_tpl">
+			<% for (let x in obj) { %>
+				<div class="row p-2 shadow-sm mb-2 mx-0 d-flex" tldata="<% obj[x].id %>" id="vxping_monitor_<% obj[x].id %>">
+					<div class="col-xl-2 col-sm-4 col-4 mb-1 px-0 d-flex align-items-center">
+						<i class="fa-fw fad fa-eye mr-1"></i> <% obj[x].name %>
+					</div>
+					<div class="col-xl-4 col-sm-8 col-8 mb-1 px-0 d-flex align-items-center p-0 justify-content-xl-start justify-content-end">
+						<% if (obj[x].retry < 10) { %>
+							<i class="fa-fw fal fa-check-circle text-green mr-1"></i> <% obj[x].ex_location.name %> - <% obj[x].destination %>
+						<% }else{ %>
+							<i class="fa-fw fal fa-exclamation-circle text-red mr-1"></i> <% obj[x].ex_location.name %> - <% obj[x].destination %>
+						<% } %>
+					</div>
+					<div class="col-xl-5 col-sm-9 col-12 mb-1 px-0 d-flex align-items-center p-0">
+						<% if (obj[x].lost !== undefined) { %>
+							<i class="fa-fw fad fa-monitor-heart-rate mr-1"></i> 平均:<% obj[x].v_avg %> &nbsp 最低:<% obj[x].v_min %>  &nbsp 最高:<% obj[x].v_max %>  &nbsp  丢包率: <% obj[x].v_lost %>
+						<% }else{ %>
+							<i class="fa-fw fa fa-spinner-third fa-spin mr-2"></i> 无数据，稍后再来。
+						<% } %>
+					</div>
+					<div class="col-xl-1 col-sm-3 col-12 my-1 d-flex align-items-center justify-content-end pr-0">
+						<button class="btn btn-sm m-1 btn-outline-primary" onclick="vxPing.drawIdSet('<% obj[x].id %>');vxPing.drawCharts(2, '24小时内');">
+							<i class="fa-fw far fa-chart-line"></i>
+						</button>
+						
+						<div class="dropdown dropleft">
+							<button class="btn btn-sm btn-outline-primary m-1" data-toggle="dropdown">
+								<i class="fa-fw fas fa-wrench"></i>
+							</button>
+							<div class="dropdown-menu">
+								<button onclick="vxPing.setAlert('<% obj[x].id %>','<% obj[x].name %>');" class="dropdown-item">
+									<i class="fa-fw fal fa-alarm-exclamation"></i> 设置告警
+								</button>
+								<button onclick="vxPing.downloadLog('<% obj[x].id %>');" class="dropdown-item">
+									<i class="fa-fw far fa-cloud-download-alt"></i> 下载日志
+								</button>
+								<button onclick="vxPing.deleteMonitor('<% obj[x].id %>')" class="dropdown-item text-red">
+									<i class="fa-fw fad fa-trash"></i> 移除监测
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% } %>
+		</script>
+	</div>
+</section>
+
+<div class="modal fade" id="vxping_monitor_create_Modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">创建监测项目</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="vxping_monitor_create_box">
+				<div class="form-group">
+					<label for="vxping_monitor_create_set_name">描述</label>
+					<input type="text" onfocus="vxPing.editerRefresh();" class="form-control"
+						id="vxping_monitor_create_set_name" placeholder="输入监测项目的名字">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="vxping_monitor_create_set_location">
+						选择监测点位置
+					</label>
+					<select class="form-control" name="set_location" id="vxping_monitor_create_set_location">
+						<option value="cn">深圳 - CN2</option>
+						<option value="cnc">深圳 - Unicom</option>
+						<option value="bgp-sz">深圳 - AliBGP</option>
+						<option value="bgp-gz">广州 - Qcloud</option>
+						<option value="jp">东京 - NTT</option>
+						<option value="us">洛杉矶 - NTT</option>
+						<option value="ca">蒙特利尔 - OVH</option>
+						<option value="fr">法国 - Telia</option>
+						<option value="hk">香港 - AliBGP</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="vxping_monitor_create_set_traget_ip">目标地址</label>
+					<input type="text" onfocus="vxPing.editerRefresh();" class="form-control"
+						id="vxping_monitor_create_set_traget_ip" placeholder="需要监测的服务器">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="vxping_monitor_create_post" type="button" onclick="vxPing.editerPost();"
+					class="btn btn-primary">
+					<i class="far fa-check"></i>
+				</button>
+				<button type="button" onclick="vxPing.editerReset();" class="btn btn-warning">
+					<i class="far fa-redo-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxping_charts_Modal">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">
+					监测日志
+					<small id="x2_chart_vxping_title"></small>
+					<i id="vxping_loading" class="fas fa-spinner fa-spin"></i>
+				</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div style="text-align: center">
+					<button style="margin-top: 5px" onclick="vxPing.drawCharts(0, '3小时内');"
+						class="btn btn-sm btn-outline-info">3小时内</button>
+					<button style="margin-top: 5px" onclick="vxPing.drawCharts(1, '12小时内');"
+						class="btn btn-sm btn-outline-info">12小时内</button>
+					<button style="margin-top: 5px" onclick="vxPing.drawCharts(2, '24小时内');"
+						class="btn btn-sm btn-outline-info">24小时内</button>
+					<button style="margin-top: 5px" onclick="vxPing.drawCharts(3, '过去7天');"
+						class="btn btn-sm btn-outline-info">过去7天</button>
+					<button style="margin-top: 5px" onclick="vxPing.drawCharts(4, '过去30天');"
+						class="btn btn-sm btn-outline-info">过去30天</button>
+					<button style="margin-top: 5px" onclick="vxPing.drawCharts(5, '过去90天');"
+						class="btn btn-sm btn-outline-info">过去90天</button>
+				</div>
+			</div>
+			<div id="drawBox">
+				<div id="x2_chart_vxping_ping" style="height: 200px;"></div>
+				<div id="x2_chart_vxping_lost" style="height: 200px;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxping_alert_Modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">创建告警项目</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="vxping_alert_box">
+				<div class="h3 text-center" id="vxping_alert_title"></div>
+				<div class="form-group">
+					<label class="control-label" for="vxping_alert_set_m_type">
+						选择监测的数据类型
+					</label>
+					<select class="form-control" name="vxping_alert_set_m_type" id="vxping_alert_set_m_type">
+						<option value="avg">Ping 平均值</option>
+						<option value="max">Ping 最大值</option>
+						<option value="min">Ping 最小值</option>
+						<option value="lost">丢包率</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="vxping_alert_set_m_method">
+						对比方法
+					</label>
+					<select class="form-control" name="vxping_alert_set_m_method" id="vxping_alert_set_m_method">
+						<option value="more">大于设定值</option>
+						<option value="less">小于设定值</option>
+						<option value="equal">等于设定值</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="set_m_val">设定值</label>
+					<input type="number" class="form-control" id="vxping_alert_set_m_val" placeholder="填入整数">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="vxping_alert_post" type="button" onclick="vxPing.alertPost();" class="btn btn-primary">
+					<i class="far fa-check"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="init_vxping"></div>

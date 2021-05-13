@@ -10,7 +10,6 @@ class vxlink_vxserver {
 
     pageInit() {
         if (document.getElementById('init_vxserver') !== null) {
-            $('#nav_vxserver').addClass('active');
             this.refreshList();
         }
     }

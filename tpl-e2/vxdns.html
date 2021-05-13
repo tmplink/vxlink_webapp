@@ -1,0 +1,688 @@
+<!-- Main Title Start -->
+<section class="py-5 mt-lg-0 mt-5 bg-primary" id="home">
+	<div class="container mt-lg-0 mt-2">
+		<div class="row justify-content-center">
+			<div class="col-12">
+				<div class="text-center">
+					<h3 class="text-white font-weight-bold">功能强大的授权 DNS 服务</h3>
+					<p>
+						<button class="btn btn-sm btn-light m-1"
+							onclick="$('#vxdnsBaseModal').modal('show')">使用指南</button>
+						<button class="btn btn-sm btn-light m-1"
+							onclick="$('#vxdnsPriceModal').modal('show')">计费信息</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Main Title End -->
+
+<section class="section" id="vxdns_domain_panel">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h4 class="title">
+					您托管的域名
+					<small id="vxdns_domain_count"></small>
+					<small id="loading_vxdns_domain_list">
+						<i class="fa fa-spinner-third fa-spin"></i>
+					</small>
+				</h4>
+				<span class="btn-radius btn btn-success btn-sm" onclick="vxDns.openAddDomain()">
+					<i class="fal fa-plus-circle"></i>
+					添加域名
+				</span>
+				<div id="domain_list" class="mt-4"></div>
+				<script type="text/template" id="domain_list_tpl">
+					<% for (let x in obj) { %>
+						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_unit_<% obj[x].domain_id %>">
+							<div class="col-md-8 col-10 d-flex align-items-center btn-pointer" onclick="vxDns.recordPannelOpen('<% obj[x].domain_id %>','<% obj[x].domain %>')">
+								<i class="fad fa-map-signs mr-2"></i> <% obj[x].domain %>
+							</div>
+							<div class="col-md-4 col-2 d-flex align-items-center justify-content-end">
+								<button class="btn btn-sm btn-outline-danger mx-1" onclick="vxDns.delDomain('<% obj[x].domain_id %>')">
+									<i class="fa-fw fad fa-trash"></i>
+								</button>
+							</div>
+						</div>
+					<% } %>
+				</script>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section" id="vxdns_record_panel" style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h4 class="title">
+					<span class="mr-1 btn-pointer" onclick="vxDns.backToDomainPannel()">
+						<i class="fal fa-chevron-circle-left"></i>
+					</span>
+					记录管理器: <span id="vxdns_record_of_domain"></span>
+					<small id="vxdns_record_count"></small>
+					<small id="loading_vxdns_record_list">
+						<i class="fa fa-spinner-third fa-spin"></i>
+					</small>
+				</h4>
+				<span class="btn-radius btn btn-success btn-sm" onclick="vxDns.openAddRecord()">
+					<i class="fal fa-plus-circle"></i>
+					添加记录
+				</span>
+				<div id="record_list" class="mt-4"></div>
+				<script type="text/template" id="record_list_tpl">
+					<% for (let x in obj) { %>
+						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_record_unit_<% obj[x].id %>">
+							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center">
+								<i class="far fa-map-signs mr-2"></i> <% obj[x].sorname %>
+							</div>
+							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center overflow-hidden">
+								<i class="fal fa-quote-left mr-2"></i> <% obj[x].content %>
+							</div>
+							<div class="col-lg-4 col-sm-6 col-12 d-flex align-items-center">
+								<i class="fa-fw fal fa-cabinet-filing mx-1"></i> <% obj[x].type %> 
+								<i class="fa-fw fal fa-alarm-clock mx-1"></i> <% obj[x].ttl %> 
+								<i class="fa-fw fal fa-compass mx-1"></i> <% obj[x].text_area %> 
+								<% if (obj[x].vx > 0) { %>
+									<i class="fa-fw fal fa-shield mx-1"></i> <% obj[x].mx %>
+								<% } %>
+							</div>
+							<div class="col-lg-2 col-sm-6 col-12 d-flex align-items-center justify-content-end">
+								<% if (obj[x].active === 'on') { %>
+									<button id="vxdns_unit_active_<% obj[x].id %>" class="btn btn-sm btn-success mx-1" onclick="vxDns.deActivateRecord('<% obj[x].id %>')">
+										<i class="fa-fw fas fa-check-circle"></i>
+									</button>
+								<% }else{ %>
+									<button id="vxdns_unit_active_<% obj[x].id %>" class="btn btn-sm btn-danger mx-1 bg-pink" onclick="vxDns.activeRecord('<% obj[x].id %>')">
+										<i class="fa-fw fas fa-stop-circle"></i>
+									</button>
+								<% } %>
+								<% if (obj[x].type === 'A') { %>
+									<% if (obj[x].check === '1') { %>
+										<button id="vxdns_unit_mon_<% obj[x].id %>" class="btn btn-sm btn-success mx-1" onclick="vxDns.unMonitorRecord('<% obj[x].id %>')">
+											<i class="fa-fw fal fa-monitor-heart-rate"></i>
+										</button>
+									<% }else{ %>
+										<button id="vxdns_unit_mon_<% obj[x].id %>" class="btn btn-sm btn-outline-success mx-1" onclick="vxDns.monitorRecord('<% obj[x].id %>')">
+											<i class="fa-fw fal fa-monitor-heart-rate"></i>
+										</button>
+									<% } %>
+								<% } %>
+								<button class="btn btn-sm btn-outline-danger mx-1" onclick="vxDns.delRecord('<% obj[x].id %>','<% obj[x].did %>')">
+									<i class="fa-fw fad fa-trash"></i>
+								</button>
+							</div>
+						</div>
+					<% } %>
+				</script>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section bg-light">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h4 class="title">
+					按区解析配置
+					<small id="vxdns_area_count"></small>
+					<small id="loading_vxdns_area_list">
+						<i class="fa fa-spinner-third fa-spin"></i>
+					</small>
+				</h4>
+				<span class="btn-radius btn btn-success btn-sm" onclick="vxDns.openAddArean()">
+					<i class="fal fa-plus-circle"></i>
+					添加区域
+				</span>
+				<div id="area_list" class="mt-4"></div>
+				<script type="text/template" id="area_list_tpl">
+					<% for (let x in obj) { %>
+						<div class="row p-2 shadow-sm mb-2 mx-0 bg-white" id="area_unit_<% obj[x].area_id %>">
+							<div class="col-md-8 col-10 d-flex align-items-center btn-pointer" onclick="vxDns.editArea('<% obj[x].area_id %>')">
+								<i class="fal fa-compass mr-2"></i> <% obj[x].title %>
+							</div>
+							<div class="col-md-4 col-2 d-flex align-items-center justify-content-end">
+								<button id="area_unit_del_<% obj[x].area_id %>" class="btn btn-sm btn-outline-danger mx-1" onclick="vxDns.delArea('<% obj[x].area_id %>')">
+									<i class="fa-fw fad fa-trash"></i>
+								</button>
+							</div>
+						</div>
+					<% } %>
+				</script>
+				<script type="text/template" id="area_list_for_record_tpl">
+					<% for (let x in obj) { %>
+						<option value="<% obj[x].area_id %>" data-data='{"image": "/static/flags/sliders-h-square.svg"}'><% obj[x].title %></option>
+					<% } %>
+				</script>
+			</div>
+		</div>
+	</div>
+</section>
+
+<div class="modal fade" id="vxdnsDomainModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">添加域名</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="set_domain">域名</label>
+					<input type="text" class="form-control" id="set_domain" placeholder="domain.com">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="domain_post" type="button" onclick="vxDns.addDomain();" class="btn btn-icon btn-success">
+					<i class="far fa-check"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxdnsAreaModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">区域配置器</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="set_name">描述</label>
+					<input type="text" class="form-control" id="set_area_name" placeholder="设定配置名字">
+				</div>
+				<div class="form-group">
+					<label class="form-label">内容</label>
+					<textarea class="form-control" name="example-textarea-input" rows="10" id="set_area_content"
+						placeholder="etc.. 1.1.1.1/24"></textarea>
+				</div>
+				<input type="hidden" id="set_area_id" value="0" />
+				<li>区域配置的内容格式，以 cidr 格式填写 IP 范围，每行一条记录。</li>
+				<li>目前仅支持 IPv4 。</li>
+			</div>
+			<div class="modal-footer">
+				<button id="area_post" type="button" onclick="vxDns.addArea();" class="btn btn-icon btn-success">
+					<i class="far fa-check"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxdnsRecordModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">添加记录</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				</button>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="set_r_did" />
+				<div class="form-group">
+					<label for="set_r_name">子域名</label>
+					<input type="text" class="form-control" id="set_r_name" placeholder="留空为顶级域名">
+				</div>
+				<div class="form-group">
+					<label for="set_r_content">记录内容</label>
+					<input type="text" class="form-control" id="set_r_content" placeholder="etc.. 1.1.1.1">
+				</div>
+				<div class="form-group">
+					<label for="set_r_ttl">TTL 存活时间</label>
+					<input type="text" class="form-control" id="set_r_ttl" placeholder="留空为 600">
+				</div>
+				<div class="form-group">
+					<label for="set_r_mx">MX 优先级</label>
+					<input type="text" class="form-control" id="set_r_mx" placeholder="留空为 0">
+				</div>
+				<div class="form-group">
+					<label for="set_r_type">记录类型</label>
+					<select class="form-control" id="set_r_type">
+						<option value="0" selected="selected">A</option>
+						<option value="1">AAAA</option>
+						<option value="2">CNAME</option>
+						<option value="9">XNAME</option>
+						<option value="3">MX</option>
+						<option value="4">TXT</option>
+						<option value="5">SRV</option>
+						<option value="6">CAA</option>
+					</select>
+				</div>
+				<div class="form-group" id="select_area">
+					<!--[need to donwload]-->
+				</div>
+				<div id="preset_area"></div>
+			</div>
+			<div class="modal-footer">
+				<button id="record_post" type="button" onclick="vxDns.addRecord();" class="btn btn-icon btn-success">
+					<i class="far fa-check"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxdnsPriceModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">服务价格</h4>
+			</div>
+			<div class="modal-body">
+				每个域名每小时消费 5M 点券。<br>
+				当账号没有可用点券时，域名的解析将停止。
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxdnsBaseModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">使用指南</h4>
+			</div>
+			<div class="modal-body">
+				<div class="accordion" id="accordionFAQ">
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse1" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse1">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_1">
+								<h6 class="title mb-0"> 调整授权服务器 </h6>
+							</div>
+						</a>
+						<div id="collapse1" class="collapse" aria-labelledby="heading_1" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								请到您的域名提供商处修改域名的 NS 记录，指向我们的 NS ，这样您在 vxDNS 中添加的记录才会生效。
+								<ul>
+									<li>ns1.vx-dns.com</li>
+									<li>ns2.vx-dns.com</li>
+									<li>ns3.vx-dns.com</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse2" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse2">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_2">
+								<h6 class="title mb-0"> 区域解析规则 </h6>
+							</div>
+						</a>
+						<div id="collapse2" class="collapse" aria-labelledby="heading_2" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								<ul>
+									<li>当您给某条记录设置区域解析时，这条记录就会在特定的区域被触发。</li>
+									<li>设置多条相同类型，相同区域的记录时，这些相同区域的记录会一起触发，形成负载均衡设计。</li>
+									<li>当存在网络范围交集的区域时，通过设置 MX 值，可以让高 MX 值的记录优先选中，进而单独覆盖子网下的用户。</li>
+									<li>自定区域配置规则的优先级高于内置规则。</li>
+								</ul>
+								<p>
+									关于 MX 值的额外说明：<br>
+									举例而言，“中国电信” 的网络归属于 “中国”， 如果将 “中国电信” 的 MX 值设定为 100，而 “中国” 的 MX值设定为50，那么客户如果处于
+									“中国电信”
+									网络下时，将能获得单独的解析结果（而不是 “中国” 区域下的结果），
+									而不处于 “中国电信” 网络下但是又在 “中国” 网络时，获得 “中国” 的解析结果。
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse3" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse3">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_3">
+								<h6 class="title mb-0"> 宕机监控 </h6>
+							</div>
+						</a>
+						<div id="collapse3" class="collapse" aria-labelledby="heading_3" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								vxDNS 支持针对每条 A 记录进行宕机监控，监控的方式时通过 Ping 监测（因此要求服务器响应 Ping）。<br>
+								监控频率为每分钟一次，一旦 3 次 Ping 无响应则暂停该记录。<br>
+								当服务器重新响应 Ping 时，被暂停的记录自动恢复正常解析。<br>
+								所有 A 记录默认都是不监控的，可以点击 <i class="fal fa-monitor-heart-rate text-warning"></i>
+								图标来启动监控。
+							</div>
+						</div>
+					</div>
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse4" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse4">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_4">
+								<h6 class="title mb-0"> 添加 SRV 记录 </h6>
+							</div>
+						</a>
+						<div id="collapse4" class="collapse" aria-labelledby="heading_4" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								在某些应用中可以使用 SRV 记录，比如 Minecraft。<br>
+								<br>
+								具体的格式为“权重 + 端口 + 地址”<br>
+								比如在记录内容中填写“5 123 game.example.com”，子域名中填写 “_minecraft._tcp.a”<br>
+								这样，可以在 MC 客户端中设置服务器地址为 “a.example.com”，客户端会连接到 game.example.com:123 。
+								<br>
+							</div>
+						</div>
+					</div>
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse5" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse5">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_5">
+								<h6 class="title mb-0"> 关于 XNAME 记录 </h6>
+							</div>
+						</a>
+						<div id="collapse5" class="collapse" aria-labelledby="heading_5" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								XNAME 记录是 vxDNS 中的特殊类型，他会将域名的 A 记录解析指向所设定的域名 A 记录。<br>
+								XNAME 记录要求目标域名必须在 vxDNS 中，否则无法正常解析。<br>
+								<br>
+								举个例子，您可以设置 vxdns.com 的 XNAME 指向 ip.vxdns.link。<br>
+								在您的用户访问 vxdns.com 时， vxDNS 将从 ip.vxdns.link 获取 A 记录返回给您的用户。<br>
+								<br>
+								这可能有点类似 CNAME，但是不一样的是，CNAME 是完全镜像到目标域名，而 XNAME 只镜像到 A 记录，不影响其他类型的记录。<br>
+								另外，镜像的过程是完全透明的，vxDNS 直接将 A 记录返回给用户，无需 CNAME 那样二次查询。<br>
+							</div>
+						</div>
+					</div>
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse6" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse6">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_6">
+								<h6 class="title mb-0"> 添加 CAA 记录 </h6>
+							</div>
+						</a>
+						<div id="collapse6" class="collapse" aria-labelledby="heading_6" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								在 vxDNS 中添加 CAA 记录非常简单，选择好记录类型为“CAA”，然后按如下格式填写“记录内容”即可：<br>
+								<code>flag tag values</code><br>
+								比如<br>
+								<code>0 issue "letsencrypt.org"</code>
+							</div>
+						</div>
+					</div>
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse7" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse7">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_7">
+								<h6 class="title mb-0"> 添加域名时提示已被使用 </h6>
+							</div>
+						</a>
+						<div id="collapse7" class="collapse" aria-labelledby="heading_7" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								如果您遇到此问题，请发送邮件与我们取得联系。
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script type="text/template" id="preset_area_tpl">
+    <label class="form-label" for="set_r_area">解析区域</label>
+    <select name="country" id="set_r_area" class="form-control custom-select">
+        <option value="0" data-data='{"image": "/static/flags/ban.svg"}' selected="selected">不设置</option>
+        <optgroup label="自定义区域配置" id="my_area"></optgroup>
+        <optgroup label="中国ISP区段">
+            <option value="CHINA_TELECOM" data-data='{"image": "/static/flags/cn.svg"}'>中国电信</option>
+            <option value="CHINA_UNICOM" data-data='{"image": "/static/flags/cn.svg"}'>中国联通</option>
+            <option value="CHINA_MOBILE" data-data='{"image": "/static/flags/cn.svg"}'>中国移动</option>
+        </optgroup>
+        <optgroup label="大洲区段">
+            <option value="APNIC" data-data='{"image": "/static/flags/globe-americas.svg"}'>亚洲东部 - APNIC
+            </option>
+            <option value="ARIN" data-data='{"image": "/static/flags/globe-americas.svg"}'>北美 - ARIN
+            </option>
+            <option value="AFRINIC" data-data='{"image": "/static/flags/globe-americas.svg"}'>非洲 -
+                AFRINIC</option>
+            <option value="LACNIC" data-data='{"image": "/static/flags/globe-americas.svg"}'>南美 - LACNIC
+            </option>
+            <option value="RIPE" data-data='{"image": "/static/flags/globe-americas.svg"}'>欧洲、中东和中亚 -
+                RIPE</option>
+        </optgroup>
+        <optgroup label="国家区段">
+            <option value="AD" data-data='{"image": "/static/flags/ad.svg"}'>AD</option>
+            <option value="AE" data-data='{"image": "/static/flags/ae.svg"}'>AE</option>
+            <option value="AF" data-data='{"image": "/static/flags/af.svg"}'>AF</option>
+            <option value="AG" data-data='{"image": "/static/flags/ag.svg"}'>AG</option>
+            <option value="AI" data-data='{"image": "/static/flags/ai.svg"}'>AI</option>
+            <option value="AL" data-data='{"image": "/static/flags/al.svg"}'>AL</option>
+            <option value="AM" data-data='{"image": "/static/flags/am.svg"}'>AM</option>
+            <option value="AO" data-data='{"image": "/static/flags/ao.svg"}'>AO</option>
+            <option value="AP" data-data='{"image": "/static/flags/ban.svg"}'>AP</option>
+            <option value="AQ" data-data='{"image": "/static/flags/aq.svg"}'>AQ</option>
+            <option value="AR" data-data='{"image": "/static/flags/ar.svg"}'>AR</option>
+            <option value="AS" data-data='{"image": "/static/flags/as.svg"}'>AS</option>
+            <option value="AT" data-data='{"image": "/static/flags/at.svg"}'>AT</option>
+            <option value="AU" data-data='{"image": "/static/flags/au.svg"}'>AU</option>
+            <option value="AW" data-data='{"image": "/static/flags/aw.svg"}'>AW</option>
+            <option value="AX" data-data='{"image": "/static/flags/ax.svg"}'>AX</option>
+            <option value="AZ" data-data='{"image": "/static/flags/az.svg"}'>AZ</option>
+            <option value="BA" data-data='{"image": "/static/flags/ba.svg"}'>BA</option>
+            <option value="BB" data-data='{"image": "/static/flags/bb.svg"}'>BB</option>
+            <option value="BD" data-data='{"image": "/static/flags/bd.svg"}'>BD</option>
+            <option value="BE" data-data='{"image": "/static/flags/be.svg"}'>BE</option>
+            <option value="BF" data-data='{"image": "/static/flags/bf.svg"}'>BF</option>
+            <option value="BG" data-data='{"image": "/static/flags/bg.svg"}'>BG</option>
+            <option value="BH" data-data='{"image": "/static/flags/bh.svg"}'>BH</option>
+            <option value="BI" data-data='{"image": "/static/flags/bi.svg"}'>BI</option>
+            <option value="BJ" data-data='{"image": "/static/flags/bj.svg"}'>BJ</option>
+            <option value="BL" data-data='{"image": "/static/flags/bl.svg"}'>BL</option>
+            <option value="BM" data-data='{"image": "/static/flags/bm.svg"}'>BM</option>
+            <option value="BN" data-data='{"image": "/static/flags/bn.svg"}'>BN</option>
+            <option value="BO" data-data='{"image": "/static/flags/bo.svg"}'>BO</option>
+            <option value="BQ" data-data='{"image": "/static/flags/bq.svg"}'>BQ</option>
+            <option value="BR" data-data='{"image": "/static/flags/br.svg"}'>BR</option>
+            <option value="BS" data-data='{"image": "/static/flags/bs.svg"}'>BS</option>
+            <option value="BT" data-data='{"image": "/static/flags/bt.svg"}'>BT</option>
+            <option value="BW" data-data='{"image": "/static/flags/bw.svg"}'>BW</option>
+            <option value="BY" data-data='{"image": "/static/flags/by.svg"}'>BY</option>
+            <option value="BZ" data-data='{"image": "/static/flags/bz.svg"}'>BZ</option>
+            <option value="CA" data-data='{"image": "/static/flags/ca.svg"}'>CA</option>
+            <option value="CD" data-data='{"image": "/static/flags/cd.svg"}'>CD</option>
+            <option value="CF" data-data='{"image": "/static/flags/cf.svg"}'>CF</option>
+            <option value="CG" data-data='{"image": "/static/flags/cg.svg"}'>CG</option>
+            <option value="CH" data-data='{"image": "/static/flags/ch.svg"}'>CH</option>
+            <option value="CI" data-data='{"image": "/static/flags/ci.svg"}'>CI</option>
+            <option value="CK" data-data='{"image": "/static/flags/ck.svg"}'>CK</option>
+            <option value="CL" data-data='{"image": "/static/flags/cl.svg"}'>CL</option>
+            <option value="CM" data-data='{"image": "/static/flags/cm.svg"}'>CM</option>
+            <option value="CN" data-data='{"image": "/static/flags/cn.svg"}'>CN</option>
+            <option value="CO" data-data='{"image": "/static/flags/co.svg"}'>CO</option>
+            <option value="CR" data-data='{"image": "/static/flags/cr.svg"}'>CR</option>
+            <option value="CU" data-data='{"image": "/static/flags/cu.svg"}'>CU</option>
+            <option value="CV" data-data='{"image": "/static/flags/cv.svg"}'>CV</option>
+            <option value="CW" data-data='{"image": "/static/flags/cw.svg"}'>CW</option>
+            <option value="CY" data-data='{"image": "/static/flags/cy.svg"}'>CY</option>
+            <option value="CZ" data-data='{"image": "/static/flags/cz.svg"}'>CZ</option>
+            <option value="DE" data-data='{"image": "/static/flags/de.svg"}'>DE</option>
+            <option value="DJ" data-data='{"image": "/static/flags/dj.svg"}'>DJ</option>
+            <option value="DK" data-data='{"image": "/static/flags/dk.svg"}'>DK</option>
+            <option value="DM" data-data='{"image": "/static/flags/dm.svg"}'>DM</option>
+            <option value="DO" data-data='{"image": "/static/flags/do.svg"}'>DO</option>
+            <option value="DZ" data-data='{"image": "/static/flags/dz.svg"}'>DZ</option>
+            <option value="EC" data-data='{"image": "/static/flags/ec.svg"}'>EC</option>
+            <option value="EE" data-data='{"image": "/static/flags/ee.svg"}'>EE</option>
+            <option value="EG" data-data='{"image": "/static/flags/eg.svg"}'>EG</option>
+            <option value="ER" data-data='{"image": "/static/flags/er.svg"}'>ER</option>
+            <option value="ES" data-data='{"image": "/static/flags/es.svg"}'>ES</option>
+            <option value="ET" data-data='{"image": "/static/flags/et.svg"}'>ET</option>
+            <option value="EU" data-data='{"image": "/static/flags/eu.svg"}'>EU</option>
+            <option value="FI" data-data='{"image": "/static/flags/fi.svg"}'>FI</option>
+            <option value="FJ" data-data='{"image": "/static/flags/fj.svg"}'>FJ</option>
+            <option value="FK" data-data='{"image": "/static/flags/fk.svg"}'>FK</option>
+            <option value="FM" data-data='{"image": "/static/flags/fm.svg"}'>FM</option>
+            <option value="FO" data-data='{"image": "/static/flags/fo.svg"}'>FO</option>
+            <option value="FR" data-data='{"image": "/static/flags/fr.svg"}'>FR</option>
+            <option value="GA" data-data='{"image": "/static/flags/ga.svg"}'>GA</option>
+            <option value="GB" data-data='{"image": "/static/flags/gb.svg"}'>GB</option>
+            <option value="GD" data-data='{"image": "/static/flags/gd.svg"}'>GD</option>
+            <option value="GE" data-data='{"image": "/static/flags/ge.svg"}'>GE</option>
+            <option value="GF" data-data='{"image": "/static/flags/gf.svg"}'>GF</option>
+            <option value="GG" data-data='{"image": "/static/flags/gg.svg"}'>GG</option>
+            <option value="GH" data-data='{"image": "/static/flags/gh.svg"}'>GH</option>
+            <option value="GI" data-data='{"image": "/static/flags/gi.svg"}'>GI</option>
+            <option value="GL" data-data='{"image": "/static/flags/gl.svg"}'>GL</option>
+            <option value="GM" data-data='{"image": "/static/flags/gm.svg"}'>GM</option>
+            <option value="GN" data-data='{"image": "/static/flags/gn.svg"}'>GN</option>
+            <option value="GP" data-data='{"image": "/static/flags/gp.svg"}'>GP</option>
+            <option value="GQ" data-data='{"image": "/static/flags/gq.svg"}'>GQ</option>
+            <option value="GR" data-data='{"image": "/static/flags/gr.svg"}'>GR</option>
+            <option value="GT" data-data='{"image": "/static/flags/gt.svg"}'>GT</option>
+            <option value="GU" data-data='{"image": "/static/flags/gu.svg"}'>GU</option>
+            <option value="GW" data-data='{"image": "/static/flags/gw.svg"}'>GW</option>
+            <option value="GY" data-data='{"image": "/static/flags/gy.svg"}'>GY</option>
+            <option value="HK" data-data='{"image": "/static/flags/hk.svg"}'>HK</option>
+            <option value="HN" data-data='{"image": "/static/flags/hn.svg"}'>HN</option>
+            <option value="HR" data-data='{"image": "/static/flags/hr.svg"}'>HR</option>
+            <option value="HT" data-data='{"image": "/static/flags/ht.svg"}'>HT</option>
+            <option value="HU" data-data='{"image": "/static/flags/hu.svg"}'>HU</option>
+            <option value="ID" data-data='{"image": "/static/flags/id.svg"}'>ID</option>
+            <option value="IE" data-data='{"image": "/static/flags/ie.svg"}'>IE</option>
+            <option value="IL" data-data='{"image": "/static/flags/il.svg"}'>IL</option>
+            <option value="IM" data-data='{"image": "/static/flags/im.svg"}'>IM</option>
+            <option value="IN" data-data='{"image": "/static/flags/in.svg"}'>IN</option>
+            <option value="IO" data-data='{"image": "/static/flags/io.svg"}'>IO</option>
+            <option value="IQ" data-data='{"image": "/static/flags/iq.svg"}'>IQ</option>
+            <option value="IR" data-data='{"image": "/static/flags/ir.svg"}'>IR</option>
+            <option value="IS" data-data='{"image": "/static/flags/is.svg"}'>IS</option>
+            <option value="IT" data-data='{"image": "/static/flags/it.svg"}'>IT</option>
+            <option value="JE" data-data='{"image": "/static/flags/je.svg"}'>JE</option>
+            <option value="JM" data-data='{"image": "/static/flags/jm.svg"}'>JM</option>
+            <option value="JO" data-data='{"image": "/static/flags/jo.svg"}'>JO</option>
+            <option value="JP" data-data='{"image": "/static/flags/jp.svg"}'>JP</option>
+            <option value="KE" data-data='{"image": "/static/flags/ke.svg"}'>KE</option>
+            <option value="KG" data-data='{"image": "/static/flags/kg.svg"}'>KG</option>
+            <option value="KH" data-data='{"image": "/static/flags/kh.svg"}'>KH</option>
+            <option value="KI" data-data='{"image": "/static/flags/ki.svg"}'>KI</option>
+            <option value="KM" data-data='{"image": "/static/flags/km.svg"}'>KM</option>
+            <option value="KN" data-data='{"image": "/static/flags/kn.svg"}'>KN</option>
+            <option value="KP" data-data='{"image": "/static/flags/kp.svg"}'>KP</option>
+            <option value="KR" data-data='{"image": "/static/flags/kr.svg"}'>KR</option>
+            <option value="KW" data-data='{"image": "/static/flags/kw.svg"}'>KW</option>
+            <option value="KY" data-data='{"image": "/static/flags/ky.svg"}'>KY</option>
+            <option value="KZ" data-data='{"image": "/static/flags/kz.svg"}'>KZ</option>
+            <option value="LA" data-data='{"image": "/static/flags/la.svg"}'>LA</option>
+            <option value="LB" data-data='{"image": "/static/flags/lb.svg"}'>LB</option>
+            <option value="LC" data-data='{"image": "/static/flags/lc.svg"}'>LC</option>
+            <option value="LI" data-data='{"image": "/static/flags/li.svg"}'>LI</option>
+            <option value="LK" data-data='{"image": "/static/flags/lk.svg"}'>LK</option>
+            <option value="LR" data-data='{"image": "/static/flags/lr.svg"}'>LR</option>
+            <option value="LS" data-data='{"image": "/static/flags/ls.svg"}'>LS</option>
+            <option value="LT" data-data='{"image": "/static/flags/lt.svg"}'>LT</option>
+            <option value="LU" data-data='{"image": "/static/flags/lu.svg"}'>LU</option>
+            <option value="LV" data-data='{"image": "/static/flags/lv.svg"}'>LV</option>
+            <option value="LY" data-data='{"image": "/static/flags/ly.svg"}'>LY</option>
+            <option value="MA" data-data='{"image": "/static/flags/ma.svg"}'>MA</option>
+            <option value="MC" data-data='{"image": "/static/flags/mc.svg"}'>MC</option>
+            <option value="MD" data-data='{"image": "/static/flags/md.svg"}'>MD</option>
+            <option value="ME" data-data='{"image": "/static/flags/me.svg"}'>ME</option>
+            <option value="MF" data-data='{"image": "/static/flags/mf.svg"}'>MF</option>
+            <option value="MG" data-data='{"image": "/static/flags/mg.svg"}'>MG</option>
+            <option value="MH" data-data='{"image": "/static/flags/mh.svg"}'>MH</option>
+            <option value="MK" data-data='{"image": "/static/flags/mk.svg"}'>MK</option>
+            <option value="ML" data-data='{"image": "/static/flags/ml.svg"}'>ML</option>
+            <option value="MM" data-data='{"image": "/static/flags/mm.svg"}'>MM</option>
+            <option value="MN" data-data='{"image": "/static/flags/mn.svg"}'>MN</option>
+            <option value="MO" data-data='{"image": "/static/flags/mo.svg"}'>MO</option>
+            <option value="MP" data-data='{"image": "/static/flags/mp.svg"}'>MP</option>
+            <option value="MQ" data-data='{"image": "/static/flags/mq.svg"}'>MQ</option>
+            <option value="MR" data-data='{"image": "/static/flags/mr.svg"}'>MR</option>
+            <option value="MT" data-data='{"image": "/static/flags/mt.svg"}'>MT</option>
+            <option value="MU" data-data='{"image": "/static/flags/mu.svg"}'>MU</option>
+            <option value="MV" data-data='{"image": "/static/flags/mv.svg"}'>MV</option>
+            <option value="MW" data-data='{"image": "/static/flags/mw.svg"}'>MW</option>
+            <option value="MX" data-data='{"image": "/static/flags/mx.svg"}'>MX</option>
+            <option value="MY" data-data='{"image": "/static/flags/my.svg"}'>MY</option>
+            <option value="MZ" data-data='{"image": "/static/flags/mz.svg"}'>MZ</option>
+            <option value="NA" data-data='{"image": "/static/flags/na.svg"}'>NA</option>
+            <option value="NC" data-data='{"image": "/static/flags/nc.svg"}'>NC</option>
+            <option value="NE" data-data='{"image": "/static/flags/ne.svg"}'>NE</option>
+            <option value="NF" data-data='{"image": "/static/flags/nf.svg"}'>NF</option>
+            <option value="NG" data-data='{"image": "/static/flags/ng.svg"}'>NG</option>
+            <option value="NI" data-data='{"image": "/static/flags/ni.svg"}'>NI</option>
+            <option value="NL" data-data='{"image": "/static/flags/nl.svg"}'>NL</option>
+            <option value="NO" data-data='{"image": "/static/flags/no.svg"}'>NO</option>
+            <option value="NP" data-data='{"image": "/static/flags/np.svg"}'>NP</option>
+            <option value="NR" data-data='{"image": "/static/flags/nr.svg"}'>NR</option>
+            <option value="NU" data-data='{"image": "/static/flags/nu.svg"}'>NU</option>
+            <option value="NZ" data-data='{"image": "/static/flags/nz.svg"}'>NZ</option>
+            <option value="OM" data-data='{"image": "/static/flags/om.svg"}'>OM</option>
+            <option value="PA" data-data='{"image": "/static/flags/pa.svg"}'>PA</option>
+            <option value="PE" data-data='{"image": "/static/flags/pe.svg"}'>PE</option>
+            <option value="PF" data-data='{"image": "/static/flags/pf.svg"}'>PF</option>
+            <option value="PG" data-data='{"image": "/static/flags/pg.svg"}'>PG</option>
+            <option value="PH" data-data='{"image": "/static/flags/ph.svg"}'>PH</option>
+            <option value="PK" data-data='{"image": "/static/flags/pk.svg"}'>PK</option>
+            <option value="PL" data-data='{"image": "/static/flags/pl.svg"}'>PL</option>
+            <option value="PM" data-data='{"image": "/static/flags/pm.svg"}'>PM</option>
+            <option value="PR" data-data='{"image": "/static/flags/pr.svg"}'>PR</option>
+            <option value="PS" data-data='{"image": "/static/flags/ps.svg"}'>PS</option>
+            <option value="PT" data-data='{"image": "/static/flags/pt.svg"}'>PT</option>
+            <option value="PW" data-data='{"image": "/static/flags/pw.svg"}'>PW</option>
+            <option value="PY" data-data='{"image": "/static/flags/py.svg"}'>PY</option>
+            <option value="QA" data-data='{"image": "/static/flags/qa.svg"}'>QA</option>
+            <option value="RE" data-data='{"image": "/static/flags/re.svg"}'>RE</option>
+            <option value="RO" data-data='{"image": "/static/flags/ro.svg"}'>RO</option>
+            <option value="RS" data-data='{"image": "/static/flags/rs.svg"}'>RS</option>
+            <option value="RU" data-data='{"image": "/static/flags/ru.svg"}'>RU</option>
+            <option value="RW" data-data='{"image": "/static/flags/rw.svg"}'>RW</option>
+            <option value="SA" data-data='{"image": "/static/flags/sa.svg"}'>SA</option>
+            <option value="SB" data-data='{"image": "/static/flags/sb.svg"}'>SB</option>
+            <option value="SC" data-data='{"image": "/static/flags/sc.svg"}'>SC</option>
+            <option value="SD" data-data='{"image": "/static/flags/sd.svg"}'>SD</option>
+            <option value="SE" data-data='{"image": "/static/flags/se.svg"}'>SE</option>
+            <option value="SG" data-data='{"image": "/static/flags/sg.svg"}'>SG</option>
+            <option value="SI" data-data='{"image": "/static/flags/si.svg"}'>SI</option>
+            <option value="SK" data-data='{"image": "/static/flags/sk.svg"}'>SK</option>
+            <option value="SL" data-data='{"image": "/static/flags/sl.svg"}'>SL</option>
+            <option value="SM" data-data='{"image": "/static/flags/sm.svg"}'>SM</option>
+            <option value="SN" data-data='{"image": "/static/flags/sn.svg"}'>SN</option>
+            <option value="SO" data-data='{"image": "/static/flags/so.svg"}'>SO</option>
+            <option value="SR" data-data='{"image": "/static/flags/sr.svg"}'>SR</option>
+            <option value="SS" data-data='{"image": "/static/flags/ss.svg"}'>SS</option>
+            <option value="ST" data-data='{"image": "/static/flags/st.svg"}'>ST</option>
+            <option value="SV" data-data='{"image": "/static/flags/sv.svg"}'>SV</option>
+            <option value="SX" data-data='{"image": "/static/flags/sx.svg"}'>SX</option>
+            <option value="SY" data-data='{"image": "/static/flags/sy.svg"}'>SY</option>
+            <option value="SZ" data-data='{"image": "/static/flags/sz.svg"}'>SZ</option>
+            <option value="TC" data-data='{"image": "/static/flags/tc.svg"}'>TC</option>
+            <option value="TD" data-data='{"image": "/static/flags/td.svg"}'>TD</option>
+            <option value="TG" data-data='{"image": "/static/flags/tg.svg"}'>TG</option>
+            <option value="TH" data-data='{"image": "/static/flags/th.svg"}'>TH</option>
+            <option value="TJ" data-data='{"image": "/static/flags/tj.svg"}'>TJ</option>
+            <option value="TK" data-data='{"image": "/static/flags/tk.svg"}'>TK</option>
+            <option value="TL" data-data='{"image": "/static/flags/tl.svg"}'>TL</option>
+            <option value="TM" data-data='{"image": "/static/flags/tm.svg"}'>TM</option>
+            <option value="TN" data-data='{"image": "/static/flags/tn.svg"}'>TN</option>
+            <option value="TO" data-data='{"image": "/static/flags/to.svg"}'>TO</option>
+            <option value="TR" data-data='{"image": "/static/flags/tr.svg"}'>TR</option>
+            <option value="TT" data-data='{"image": "/static/flags/tt.svg"}'>TT</option>
+            <option value="TV" data-data='{"image": "/static/flags/tv.svg"}'>TV</option>
+            <option value="TW" data-data='{"image": "/static/flags/tw.svg"}'>TW</option>
+            <option value="TZ" data-data='{"image": "/static/flags/tz.svg"}'>TZ</option>
+            <option value="UA" data-data='{"image": "/static/flags/ua.svg"}'>UA</option>
+            <option value="UG" data-data='{"image": "/static/flags/ug.svg"}'>UG</option>
+            <option value="US" data-data='{"image": "/static/flags/us.svg"}'>US</option>
+            <option value="UY" data-data='{"image": "/static/flags/uy.svg"}'>UY</option>
+            <option value="UZ" data-data='{"image": "/static/flags/uz.svg"}'>UZ</option>
+            <option value="VA" data-data='{"image": "/static/flags/va.svg"}'>VA</option>
+            <option value="VC" data-data='{"image": "/static/flags/vc.svg"}'>VC</option>
+            <option value="VE" data-data='{"image": "/static/flags/ve.svg"}'>VE</option>
+            <option value="VG" data-data='{"image": "/static/flags/vg.svg"}'>VG</option>
+            <option value="VI" data-data='{"image": "/static/flags/vi.svg"}'>VI</option>
+            <option value="VN" data-data='{"image": "/static/flags/vn.svg"}'>VN</option>
+            <option value="VU" data-data='{"image": "/static/flags/vu.svg"}'>VU</option>
+            <option value="WF" data-data='{"image": "/static/flags/wf.svg"}'>WF</option>
+            <option value="WS" data-data='{"image": "/static/flags/ws.svg"}'>WS</option>
+            <option value="YE" data-data='{"image": "/static/flags/ye.svg"}'>YE</option>
+            <option value="YT" data-data='{"image": "/static/flags/yt.svg"}'>YT</option>
+            <option value="ZA" data-data='{"image": "/static/flags/za.svg"}'>ZA</option>
+            <option value="ZM" data-data='{"image": "/static/flags/zm.svg"}'>ZM</option>
+            <option value="ZW" data-data='{"image": "/static/flags/zw.svg"}'>ZW</option>
+        </optgroup>
+    </select>
+</script>
+<div id="init_vxdns"></div>

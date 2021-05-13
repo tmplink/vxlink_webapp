@@ -10,7 +10,6 @@ class vxlink_dbservice {
 
     pageInit() {
         if (document.getElementById('init_dbservice') !== null) {
-            $('#nav_dbservice').addClass('active');
             this.refreshList();
             if(this.param_init===false){
                 this.paramInit();

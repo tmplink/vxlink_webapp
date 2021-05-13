@@ -11,7 +11,6 @@ class vxlink_vxping {
     pageInit() {
         if (document.getElementById('init_vxping') !== null) {
             //初始化
-            $('#nav_vxping').addClass('active');
             this.refreshAlertList();
             this.refreshMonitorList();
 

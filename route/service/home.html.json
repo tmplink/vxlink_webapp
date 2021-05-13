@@ -1,8 +1,0 @@
-{
-    "title": "微林 - Home",
-    "preload": ["admin_ui","core","signin"],
-    "append": ["admin"],
-    "body": {
-        "/tpl-admin/home.html": { "type": "html", "target": { "type": "body" } }
-    }
-}
