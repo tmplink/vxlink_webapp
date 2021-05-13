@@ -34,7 +34,7 @@ class vxlink_user {
                 $('#user-signup-box').prepend('<div class="overlay"></div>');
                 $('#msgbox').html('账号已登陆,正在进入...');
                 setTimeout(() => {
-                    app.open('/service/home.html');
+                    app.open('/e2/index.html');
                 }, 2000);
                 return true;
             }
@@ -56,7 +56,7 @@ class vxlink_user {
                 $('#user-signin-box').prepend('<div class="overlay"></div>');
                 $('#msgbox').html('账号已登陆,正在进入...');
                 setTimeout(() => {
-                    app.open('/service/home.html');
+                    app.open('/e2/index.html');
                 }, 2000);
                 return true;
             }
@@ -83,7 +83,7 @@ class vxlink_user {
     pageResetInit() {
         this.core.initExec(() => {
             if (this.core.uid != null) {
-                app.open('/service/home.html');
+                app.open('/e2/index.html');
                 return true;
             }
         });
@@ -140,7 +140,7 @@ class vxlink_user {
                 $('#msgbox').removeClass('alert-danger');
                 $('#msgbox').addClass('alert-success');
                 $('#msgbox').html('登录成功，正在进入');
-                app.open('/service/home.html');
+                app.open('/e2/index.html');
             } else {
                 $('#msgbox').html(rsp.data);
                 $('#msgbox').removeClass('alert-primary');
