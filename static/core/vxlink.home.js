@@ -19,14 +19,14 @@ class vxlink_home {
         $.post(this.core.api_user, {token: this.core.token, action: 'bundle_list2'}, function (rsp) {
             if (rsp.data.available !== false) {
                 $('#bundle_list').fadeIn(0);
-                $('#bundle_list').append(app.tpl('bundle_list_tpl', rsp.data.available));
+                $('#bundle_list').html(app.tpl('bundle_list_tpl', rsp.data.available));
             }else{
                 $('#no_bundle').fadeIn();
             }
             if (rsp.data.delay !== false) {
                 $('#home_bundle_delay_btn').fadeIn();
                 $('#bundle_delay_count').html(rsp.data.delay.length);
-                $('#bundle_delay_list').append(app.tpl('bundle_list_tpl', rsp.data.delay));
+                $('#bundle_delay_list').html(app.tpl('bundle_list_tpl', rsp.data.delay));
             }
         }, 'json');
     }
