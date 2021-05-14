@@ -45,6 +45,17 @@ class vxlink_home {
         }, 'json');
     }
 
+    giftRequest(){
+        $.post(this.core.api_user, {token: this.core.token, action: 'gift_req'},  (rsp) => {
+            if (rsp.status === 1) {
+                alert('领取成功');
+                this.refreshBundel();
+            }else{
+                alert('今天已经领取过了。请明日再来。');
+            }
+        }, 'json');
+    }
+
     refreshUsage(rt,title) {
         $('#loading_usage').fadeIn();
         $('#x2_chart_usage_title').html(title+'的点券使用情况');
