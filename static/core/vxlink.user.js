@@ -140,7 +140,10 @@ class vxlink_user {
                 $('#msgbox').removeClass('alert-danger');
                 $('#msgbox').addClass('alert-success');
                 $('#msgbox').html('登录成功，正在进入');
-                app.open('/e2/index.html');
+                //重新初始化用户信息
+                this.core.userInit(()=>{
+                    app.open('/e2/index.html');
+                });
             } else {
                 $('#msgbox').html(rsp.data);
                 $('#msgbox').removeClass('alert-primary');
