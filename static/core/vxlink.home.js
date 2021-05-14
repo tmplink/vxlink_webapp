@@ -49,7 +49,9 @@ class vxlink_home {
         $.post(this.core.api_user, {token: this.core.token, action: 'gift_req'},  (rsp) => {
             if (rsp.status === 1) {
                 alert('领取成功');
-                this.refreshBundel();
+                setTimeout(()=>{
+                    this.refreshBundel();
+                },3000);
             }else{
                 alert('今天已经领取过了。请明日再来。');
             }
