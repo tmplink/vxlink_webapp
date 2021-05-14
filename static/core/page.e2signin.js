@@ -2,6 +2,7 @@ var e2nav = new e2nav();
 app.ready(() => {
     vxCore.initExec(()=>{
         if(vxCore.uid==null){
+            //console.log('unknow user');
             window.location = '/';
         }else{
             if(vxCore.email==null&&vxCore.uid!=null){
@@ -15,15 +16,6 @@ app.ready(() => {
                     $('.user_point').html(vxCore.user_point);
                 }
             }
-            // vxUser.pageInit();
-            // vxTrans.pageInit();
-            // vxPing.pageInit();         
-            // vxSettings.pageInit();
-            // vxBilling.pageInit();
-            // vxAffiliate.pageInit();
-            // vxDbservice.pageInit();
-            // vxDns.pageInit();
-            // vxServer.pageInit();
             e2nav.home();
         }
     });

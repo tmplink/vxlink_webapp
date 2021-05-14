@@ -23,22 +23,29 @@ class vxlink_core{
             localStorage.setItem('rel',getQueryVariable('rel'));
         }
         this.initGetToken( () => {
-            $.post(this.api_user, { token: this.token, action: 'get_user' },  (rsp) => {
-                if(rsp.status){
-                    this.uid = rsp.data.uid;
-                    this.email = rsp.data.email;
-                    this.email_notification = rsp.data.subscribe;
-                    this.user_position = rsp.data.position;
-                    this.user_point = rsp.data.point;
-                    this.user_rpoint = rsp.data.rpoint;
-                }
-                this.ready = true;
-            }, 'json');
+            this.userInit();
         });
     }
 
     bind(op,ops){
         this[op] = ops;
+    }
+
+    userInit(cb){
+        $.post(this.api_user, { token: this.token, action: 'get_user' },  (rsp) => {
+            if(rsp.status){
+                this.uid = rsp.data.uid;
+                this.email = rsp.data.email;
+                this.email_notification = rsp.data.subscribe;
+                this.user_position = rsp.data.position;
+                this.user_point = rsp.data.point;
+                this.user_rpoint = rsp.data.rpoint;
+            }
+            this.ready = true;
+            if(typeof(cb)==='function'){
+                cb();
+            }
+        }, 'json');
     }
 
     initExec(cb){
