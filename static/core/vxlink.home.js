@@ -12,6 +12,8 @@ class vxlink_home {
             this.refreshBundel();
             this.navFuncions();
             this.navBuyCheck();
+            $('.dpp_start').html(Number(vxCore.user_point)+Number(vxCore.user_rpoint)+64);
+            $('.dpp_end').html(2048);
         }
     }
 

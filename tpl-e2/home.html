@@ -51,7 +51,10 @@
 						</span>
 						<span class="btn-radius btn btn-danger btn-sm" onclick="vxHome.giftRequest()">
 							<i class="fa-fw fad fa-gift-card"></i>
-							开发者礼物(每日)
+							开发者幸运福利包
+						</span>
+						<span class="btn-radius btn" onclick="$('#dpModal').modal('show')">
+							<i class="fa-fw fas fa-question-circle"></i>
 						</span>
 					</div>
 
@@ -226,6 +229,26 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				<button type="button" class="btn btn-primary" onclick="vxHome.navBuyConfirm();">去支付</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="dpModal">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">开发者幸运福利包</h4>
+			</div>
+			<div class="modal-body">
+				开发者幸运福利包每天可领取一次，额度从 <span class="dpp_start">.</span> 至 <span class="dpp_end">.</span> 中随机抽取。<br>
+				其中，起始额度由 “64M” + “积分” + “活跃” 决定。<br>
+
+				<li>积分：在 “推荐奖励” 中参与活动获得。</li>
+				<li>活跃：在过去一年中消费总额。</li>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			</div>
 		</div>
 	</div>

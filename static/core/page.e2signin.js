@@ -12,7 +12,7 @@ app.ready(() => {
             }else{
                 //账号已经登陆，初始化 header
                 if (document.getElementById('init_header') !== null) {
-                    $('.user_position').html(vxCore.user_position);
+                    $('.user_rpoint').html(vxCore.user_rpoint);
                     $('.user_point').html(vxCore.user_point);
                 }
             }
