@@ -8,6 +8,8 @@ class e2nav{
             $('#nav_'+title).addClass('active');
             this.current=title;
         }
+        //初始化链接
+        app.linkRebind();
     }
 
     home(){
