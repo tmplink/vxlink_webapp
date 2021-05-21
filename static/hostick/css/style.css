@@ -3439,3 +3439,9 @@ footer.footer.footer-line {
 .card-d  > a :hover {
   color: #ffffff  !important;
 }
+.btn-radius{
+  padding: 5px !important;
+  padding-left: 10px !important;
+  padding-right : 10px !important;
+  border-radius: 20px !important;
+}
