@@ -3427,3 +3427,15 @@ footer.footer.footer-line {
   padding: 30px 0;
   border-top: 1px solid #555d65;
 }
+
+.card-d  > a > h5 {
+  color: #0c0e0f !important;
+}
+
+.card-d  > a ：selection{
+  color: #ffffff !important;
+}
+
+.card-d  > a :hover {
+  color: #ffffff  !important;
+}
