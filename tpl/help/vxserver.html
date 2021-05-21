@@ -1,0 +1,151 @@
+<div id="tpl_header"></div>
+<!-- Home Start -->
+<section class="d-table w-100 bg-light d-print-none" id="home">
+    <div class="container bg-half-170" style="background: url('/static/img/bg/page.png') top center no-repeat;">
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <div class="title-heading text-center text-md-left">
+                    <h3>静态托管 vxServer 使用指南</h3>
+                    <p class="text-muted para-desc mt-3 mb-0">将您的 Github 仓库变为静态服务器</p>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </div>
+    <!--end container-->
+</section>
+<!--end section-->
+<div class="position-relative">
+    <div class="shape overflow-hidden text-white">
+        <svg viewBox="0 0 1000 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 0 0 c 0 0 200 50 500 50 s 500 -50 500 -50 v 101 h -1000 v -100 z" fill="currentColor"></path>
+        </svg>
+    </div>
+</div>
+<!-- Home End -->
+
+<!-- Start -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 col-12 d-none d-md-block">
+                <div class="rounded-pill shadow p-4 component-wrapper">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-4"><a href="#intro" class="mouse-down h6 text-dark">概览</a></li>
+                        <li class="mb-4"><a href="#info" class="mouse-down h6 text-dark">创建项目</a></li>
+                        <li><a href="#question" class="mouse-down h6 text-dark">常见问题</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!--end col-->
+
+            <div class="col-lg-8 col-md-7 col-12">
+                <div class="section-title" id="intro">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 概览</h4>
+                    <p class="text-muted mt-4">
+                        vxServer 可以将您的 Github 仓库变为静态服务器。简单的说，具有如下几个优点：
+                    </p>
+                    <ul>
+                        <li>灵活。您可以自由设置将哪个分支作为静态服务器的根目录，可以绑定自己的域名，还可以设置 SSL 的支持(即将实装此功能)。</li>
+                        <li>借助微林 CDN 网络，相比 Github Pages 或者其它服务，访问速度更快。 </li>
+                        <li>完全实时。vxServer 与 Github 仓库实时同步，这无需单独设置 webhook 。</li>
+                        <li>免费的 *.code.so 二级域名。</li>
+                        <li>完全免费。</li>
+                    </ul>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="info">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 创建项目</h4>
+                    <p class="text-muted help_signout d-none">请先 <a href="/signin.html" tmpui-app="true" target="_blank"
+                            class="btn btn-sm btn-secondary">登录</a> 微林</p>
+                    <p class="text-muted help_signin d-none">请先 <a href="/e2/index.html" tmpui-app="true" target="_blank"
+                            class="btn btn-sm btn-secondary">回到后台界面</a></p>
+                    <p class="text-muted">点击左侧导航的"静态托管"按钮进入服务页面。</p>
+                    <p class="text-muted">请点 “创建新的托管项目”。</p>
+                    <p class="text-muted">在您要托管的 Github 仓库的目标分支下，创建 “verification.txt”，其内容为 “Github 验证文件” 一栏中提供的内容。</p>
+                    <p class="text-muted">设定 “名称”、“域名”、“Github 项目地址”。点击 “创建”。</p>
+                    <p class="text-muted">创建完成后，请移除 “verification.txt”。</p>
+                </div>
+
+                <div class="section-title mt-4 pt-2" id="question">
+                    <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 常见问题</h4>
+                </div>
+
+                <div class="faq-content mt-4 pt-2">
+                    <div class="accordion" id="accordionExampletwo">
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapsefive" class="faq position-relative"
+                                aria-expanded="true" aria-controls="collapsefive">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingfive">
+                                    <h6 class="title mb-0">
+                                        如何计费
+                                    </h6>
+                                </div>
+                            </a>
+                            <div id="collapsefive" class="collapse show" aria-labelledby="headingfive"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        vxServer 目前完全免费
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapsesix" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapsesix">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="headingsix">
+                                    <h6 class="title mb-0"> 有什么限制吗 </h6>
+                                </div>
+                            </a>
+                            <div id="collapsesix" class="collapse" aria-labelledby="headingsix"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        请勿滥用此服务
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 rounded mb-2">
+                            <a data-toggle="collapse" href="#collapse666" class="faq position-relative collapsed"
+                                aria-expanded="false" aria-controls="collapse666">
+                                <div class="card-header border-0 bg-light p-3 pr-5" id="heading666">
+                                    <h6 class="title mb-0"> 我没有自己的域名怎么办 </h6>
+                                </div>
+                            </a>
+                            <div id="collapse666" class="collapse" aria-labelledby="heading666"
+                                data-parent="#accordionExampletwo">
+                                <div class="card-body px-2 py-4">
+                                    <p class="text-muted mb-0 faq-ans">
+                                        vxServer 为大家提供了 code.so 的二级域名。<br>
+                                        在创建项目时，可以自己填写一个喜欢的域名，比如 “caddy.code.so”。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-2">
+                    还有什么问题吗？<br>
+                    <a href="mailto:admin@vx.link" class="btn btn-primary d-print-none">联系我们</a>
+                </div>
+            </div>
+            <!--end col-->
+        </div>
+        <!--end row-->
+    </div>
+    <!--end container-->
+</section>
+<!--end section-->
+
+<div id="tpl_footer"></div>
+
+<!-- Back to top -->
+<a href="#" class="btn btn-icon btn-soft-primary back-to-top d-print-none"><i data-feather="arrow-up"
+        class="icons"></i></a>
+<!-- Back to top -->

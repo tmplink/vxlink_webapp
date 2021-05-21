@@ -1,6 +1,6 @@
 {
     "title": "微林 - vxPing",
-    "preload": ["index"],
+    "preload": ["core","index","help"],
     "append": ["document"],
     "body": {
         "/tpl/help/vxping.html": { "type": "html", "target": { "type": "body" } }

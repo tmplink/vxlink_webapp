@@ -1,6 +1,6 @@
 {
     "title": "微林 - vxTrans",
-    "preload": ["index"],
+    "preload": ["core","index","help"],
     "append": ["document"],
     "body": {
         "/tpl/help/vxtrans.html": { "type": "html", "target": { "type": "body" } }
