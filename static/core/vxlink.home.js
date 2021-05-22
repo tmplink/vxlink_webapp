@@ -197,7 +197,7 @@ class vxlink_home {
     }
     
     navBuyConfirm(){
-        let checkouturl = 'https://pay.vezii.com/id1/v2_pay?uid='+ this.core.uid + '&price=' + this.modal_buy_price+ '&time=' + this.modal_buy_time+ '&type=' + this.modal_buy_type+ '&code=' + this.modal_buy_code;
+        let checkouturl = 'https://pay.vezii.com/id1/v2_pay?token='+ this.core.token + '&price=' + this.modal_buy_price+ '&time=' + this.modal_buy_time+ '&type=' + this.modal_buy_type+ '&code=' + this.modal_buy_code;
         window.open(checkouturl);
         setTimeout('location.reload()', 3000);
     }
