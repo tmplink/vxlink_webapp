@@ -49,12 +49,9 @@
 							<i class="fa-fw fal fa-plus-circle"></i>
 							购买点券
 						</span>
-						<span class="btn-radius btn btn-danger btn-sm" onclick="vxHome.giftRequest()">
+						<span class="btn-radius btn btn-danger btn-sm" onclick="$('#dpModal').modal('show')">
 							<i class="fa-fw fad fa-gift-card"></i>
-							开发者幸运福利包
-						</span>
-						<span class="btn-radius btn" onclick="$('#dpModal').modal('show')">
-							<i class="fa-fw fas fa-question-circle"></i>
+							开发者福利包
 						</span>
 					</div>
 
@@ -191,7 +188,7 @@
 					<div class="form-group">
 						<select name="bundle_type" id="select_bundle_type" class="form-control custom-select">
 							<option value="10xt" data-price="10" selected="selected"">100G 点券 / 每天 0.33 元</option>
-							<option value="20xt" data-price="20">300G 点券 / 每天 0.66 元</option>
+							<option value=" 20xt" data-price="20">300G 点券 / 每天 0.66 元</option>
 							<option value="45xt" data-price="45">800G 点券 / 每天 1.50 元</option>
 						</select>
 					</div>
@@ -241,13 +238,28 @@
 				<h4 class="modal-title">开发者幸运福利包</h4>
 			</div>
 			<div class="modal-body">
+				<h5>概览</h5>
 				开发者幸运福利包每天可领取一次，额度从 <span class="dpp_start">.</span> 至 <span class="dpp_end">.</span> 中随机抽取。<br>
 				其中，起始额度由 “64M” + “积分” + “活跃” 决定。<br>
 
 				<li>积分：在 “推荐奖励” 中参与活动获得。</li>
 				<li>活跃：在过去一年中消费总额。</li>
+				<div class="card p-3 mt-3">
+					<h5>设定:通知选项</h5>
+					<label class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" id="dpp_notification_status"
+							onclick="vxHome.dppNotificationChange()">
+						<span class="form-check-label">
+							是否启用配额通知，启动本选项时，奖励福利包将在剩余 10% 时发送邮件通知到您。此选项是在领取时设定，针对每个福利包单独设定。
+						</span>
+					</label>
+				</div>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" onclick="vxHome.giftRequest()">
+					<i class="fa-fw fad fa-gift-card"></i>
+					领取福利包
+				</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			</div>
 		</div>

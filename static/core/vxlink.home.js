@@ -1,5 +1,6 @@
 class vxlink_home {
     core = null
+    dpp_notice = 0
 
     init(core) {
         this.core = core;
@@ -12,8 +13,29 @@ class vxlink_home {
             this.refreshBundel();
             this.navFuncions();
             this.navBuyCheck();
+            this.dppInit();
             $('.dpp_start').html(Number(vxCore.user_point)+Number(vxCore.user_rpoint)+64);
             $('.dpp_end').html(2048);
+        }
+    }
+
+    dppInit(){
+        let dpp_notice = localStorage.getItem('dpp_notice');
+        this.dpp_notice = dpp_notice;
+        if(dpp_notice===null||dpp_notice==='1'){
+            localStorage.setItem('dpp_notice',1);
+            $('#dpp_notification_status').attr('checked',true);
+        }
+    }
+
+    dppNotificationChange(){
+        let status = ($('#dpp_notification_status').is(':checked')) ? 'yes' : 'no';
+        if(status==='yes'){
+            localStorage.setItem('dpp_notice',1);
+            this.dpp_notice = 1;
+        }else{
+            localStorage.setItem('dpp_notice',0);
+            this.dpp_notice = 0;
         }
     }
 
@@ -48,7 +70,7 @@ class vxlink_home {
     }
 
     giftRequest(){
-        $.post(this.core.api_user, {token: this.core.token, action: 'gift_req'},  (rsp) => {
+        $.post(this.core.api_user, {token: this.core.token,notice:this.dpp_notice, action: 'gift_req'},  (rsp) => {
             if (rsp.status === 1) {
                 alert('领取成功');
                 setTimeout(()=>{
