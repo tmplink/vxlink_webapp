@@ -30,7 +30,6 @@ class vxlink_dbservice {
         this.servicesize += '<option value="7">64GB存储,800并发连接,1600IOPS</option>';
 
         this.servicearea += '<option value="c-cn">中国广州</option>';
-        this.servicearea += '<option value="c-hk">中国香港</option>';
         this.servicearea += '<option value="c-jp">日本东京</option>';
         this.servicearea += '<option value="c-us">美国洛杉矶</option>';
         this.servicearea += '<option value="c-ca">加拿大多伦多</option>';
