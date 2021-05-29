@@ -69,6 +69,8 @@ class vxlink_vxtrans {
 
         $('.trusted_auth_url').html("https://vx.link/service/vxtrans/core?action=auth&token=" + this.core.token);
         $('.trusted_auth_url_for_curl').html("curl -k 'https://vx.link/service/vxtrans/core?action=auth&token=" + this.core.token + "'");
+        $('.trusted_auth_url_cp').attr('data-clipboard-text',"https://vx.link/service/vxtrans/core?action=auth&token=" + this.core.token);
+        $('.trusted_auth_url_for_curl_cp').attr('data-clipboard-text',"curl -k 'https://vx.link/service/vxtrans/core?action=auth&token=" + this.core.token + "'");
         $('#loading_vxtrans_trusted').fadeIn();
 
         $.post(this.core.api_vxtrans, {

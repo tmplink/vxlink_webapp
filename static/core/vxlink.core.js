@@ -25,6 +25,12 @@ class vxlink_core{
         this.initGetToken( () => {
             this.userInit();
         });
+
+        //绑定粘贴
+        let clipboard = new ClipboardJS('.btncp');
+        clipboard.on('success', function (e) {
+            alert('复制完成: ' + e.text);
+        });
     }
 
     bind(op,ops){

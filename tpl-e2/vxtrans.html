@@ -7,8 +7,10 @@
                     <p>
                         <a href="/help/vxtrans.html" tmpui-app="true" class="btn-radius btn btn-success m-1"
                             target="_blank">使用教程</a>
-                        <button class="btn-radius btn btn-success m-1" onclick="$('#priceModal').modal('show')">线路与费率</button>
-                        <button class="btn-radius btn btn-warning m-1" onclick="$('#ecnModal').modal('show')">优化性能</button>
+                        <button class="btn-radius btn btn-success m-1"
+                            onclick="$('#priceModal').modal('show')">线路与费率</button>
+                        <button class="btn-radius btn btn-warning m-1"
+                            onclick="$('#ecnModal').modal('show')">优化性能</button>
                         <button class="btn-radius btn btn-warning m-1"
                             onclick="$('#securityModal').modal('show')">安全增强</button>
                     </p>
@@ -33,10 +35,17 @@
                             <i class="fa fa-spinner-third fa-spin"></i>
                         </small>
                     </h4>
-                    <span class="btn-radius btn btn-success btn-sm" onclick="$('#trustedModal').modal('show')">
-                        <i class="fal fa-plus-circle"></i>
-                        为服务器添加授权
-                    </span>
+                    <div>
+                        <div class="badge badge-pill badge-warning">
+                            活跃值达到 100 时，将不需要进行授权。
+                        </div>
+                    </div>
+                    <div onclick="$('#trustedModal').modal('show')">
+                        <div class="btn-radius btn btn-success btn-sm">
+                            <i class="fal fa-plus-circle"></i>
+                            为服务器添加授权
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,6 +119,7 @@
                                 <div class="border-dashed"></div>
                                 <div>
                                     <i class="fa-fw fal fa-plane-departure"></i> <% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>
+                                    <i class="fa-fw fad fa-copy text-blue btncp" data-clipboard-text="<% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>"></i>
                                 </div>
                                 <div>
                                     <i class="fa-fw fal fa-plane-arrival"></i>  <% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>
@@ -203,6 +213,7 @@
                     </div>
                     <div class="col-xl-5 col-sm-9 col-12 mb-1 px-0 pr-1 align-items-center justify-content-star d-flex">
                         <% obj[x].ex_location.addr %>:<% obj[x].localport %> &nbsp <i class="fal fa-plane-departure"></i> &nbsp <% obj[x].target_ip %>:<% obj[x].target_port %>
+                        <i class="fa-fw fad fa-copy text-blue btncp" data-clipboard-text="<% obj[x].ex_location.addr %>:<% obj[x].localport %>"></i>
                     </div>
                     <div class="col-xl-2 col-sm-3 col-12 my-1 d-flex align-items-center justify-content-end pr-0 pl-1">
                         <% if (obj[x].keep=='yes') { %>
@@ -342,7 +353,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><i class="far fa-shield-check"></i> 安全系统</h4>
+                <h4 class="modal-title">授权</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i class="fal fa-times"></i>
                 </button>
@@ -361,14 +372,25 @@
             </div>
             <div class="card-alert alert mb-0">
                 要添加您的服务器 IP 地址到您的授权列表中，请在服务器中通过浏览器访问此 URL ：<br>
-                <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url"></code>
+                <div>
+                    <span class="btn-radius btn btn-sm btn-primary">
+                        <i class="fa-fw fad fa-copy btncp trusted_auth_url_cp"></i>
+                    </span>
+                    <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url"></code>
+                </div>
                 <div style="margin-top:5px;margin-bottom: 5px">
                     对于大部分的 Linux 系统，在命令行下可以使用 curl 命令完成授权。
                 </div>
-                <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url_for_curl"></code>
+                <div>
+                    <span class="btn-radius btn btn-sm btn-primary">
+                        <i class="fa-fw fad fa-copy btncp trusted_auth_url_for_curl_cp"></i>
+                    </span>
+                    <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url_for_curl"></code>
+                </div>
                 <hr>
                 已授权的 IP 地址具备3个月有效期，过期后需要重新授权。<br>
-                正在使用中的已授权 IP 地址即使已过有效期也无需重新授权。
+                正在使用中的已授权 IP 地址即使已过有效期也无需重新授权。<br>
+                活跃值达到 100 时，创建连接点将不需要进行授权。
             </div>
         </div>
     </div>
@@ -378,7 +400,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><i class="far fa-shield-check"></i> TCP ECN</h4>
+                <h4 class="modal-title">性能优化</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i class="fal fa-times"></i>
                 </button>
@@ -419,7 +441,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><i class="far fa-shield-check"></i> 白名单</h4>
+                <h4 class="modal-title">安全名单</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i class="fal fa-times"></i>
                 </button>

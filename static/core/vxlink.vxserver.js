@@ -37,6 +37,8 @@ class vxlink_vxserver {
     cert_request(){
         $.post(this.core.api_vxserver, { action: 'cert_request', token: this.core.token }, (rsp) => {
             $('#set_cert').val(rsp.data);
+            $('.set_cert_cp').html(rsp.data);
+            $('.set_cert_btncp').attr('data-clipboard-text',rsp.data);
         }, 'json');    
     }
 
