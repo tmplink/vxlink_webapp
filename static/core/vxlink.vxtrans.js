@@ -14,7 +14,7 @@ class vxlink_vxtrans {
         if (document.getElementById('init_vxtrans') !== null) {
             //初始化
             if(this.core.user_point<100){
-                this.refreshVxtransTrustedAddrList();
+                //this.refreshVxtransTrustedAddrList();
             }else{
                 $('#vxtrans_trustip_list').hide();
                 $('#vxtrans_trustip_list_without').fadeIn();
@@ -24,10 +24,10 @@ class vxlink_vxtrans {
 
             //安装定时器
             if(this.core.user_point<100){
-                if(!this.refresh_vxtrans_trusted_addr_list_init){
-                    this.refresh_vxtrans_trusted_addr_list_init = true;
-                    setInterval(()=>{this.refreshVxtransTrustedAddrList()},60000);
-                }
+                // if(!this.refresh_vxtrans_trusted_addr_list_init){
+                //     this.refresh_vxtrans_trusted_addr_list_init = true;
+                //     setInterval(()=>{this.refreshVxtransTrustedAddrList()},60000);
+                // }
             }
             if(!this.refresh_vxtrans_list_init){
                 this.refresh_vxtrans_list_init = true;

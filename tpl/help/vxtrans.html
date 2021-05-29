@@ -41,7 +41,7 @@
                 <div class="rounded-pill shadow p-4 component-wrapper">
                     <ul class="list-unstyled mb-0">
                         <li class="mb-4"><a href="#intro" class="mouse-down h6 text-dark">概览</a></li>
-                        <li class="mb-4"><a href="#info" class="mouse-down h6 text-dark">为服务器添加授权</a></li>
+                        <!-- <li class="mb-4"><a href="#info" class="mouse-down h6 text-dark">为服务器添加授权</a></li> -->
                         <li class="mb-4"><a href="#control" class="mouse-down h6 text-dark">创建连接点</a></li>
                         <li class="mb-4"><a href="#activity" class="mouse-down h6 text-dark">测试</a></li>
                         <li><a href="#question" class="mouse-down h6 text-dark">常见问题</a></li>
@@ -65,7 +65,7 @@
                     </p>
                 </div>
 
-                <div class="section-title mt-4 pt-2" id="info">
+                <!-- <div class="section-title mt-4 pt-2" id="info">
                     <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 为服务器添加授权</h4>
                     <li class="text-muted mt-4">您肯定不希望任何人都可以随便连接到您的服务器，我们也是如此。</li>
                     <li class="text-muted">因此，要给服务器创建指向它的 vxTrans 连接点，首先需要为这个服务器进行授权。</li>
@@ -76,10 +76,15 @@
                     <li class="text-muted">点击左侧导航的 “流量优化” 按钮进入服务页面。</li>
                     <li class="text-muted">请点击 “为服务器添加授权” 按钮获得用于授权的链接。</li>
                     <li class="text-muted">如果服务器上运行的是 Windows（或者其它系统），可以在服务器的浏览器上访问这个授权链接来完成授权。</li>
-                </div>
+                </div> -->
 
                 <div class="section-title mt-4 pt-2" id="control">
                     <h4><i class="mdi mdi-18px mdi-arrow-right"></i> 创建连接点</h4>
+                    <li class="text-muted help_signout d-none">请先 <a href="/signin.html" tmpui-app="true"
+                            target="_blank" class="text-blue">登录</a> 微林</li>
+                    <li class="text-muted help_signin d-none">请先 <a href="/e2/index.html" tmpui-app="true"
+                            target="_blank" class="text-blue">回到后台界面</a></li>
+                    <li class="text-muted">点击左侧导航的 “流量优化” 按钮进入服务页面。</li>
                     <li class="text-muted mt-4">请点击 “创建新的 vxTrans 链接点” 的按钮。</li>
                     <li class="text-muted">在打开的新窗口中，主要关注 “目标地址” 和 “目标端口”，在 “目标地址” 中填入刚刚已经完成授权服务器IP地址。然后在 “目标端口”
                         中填入应用程序的监听端口，比如 SSH 就是 22。</li>
@@ -93,10 +98,12 @@
                         当您收到通知邮件时，连接点已经就绪了。
                     </p>
                     <p class="text-muted">
-                        您可以通过这个连接点直接访问到您的服务器。以本文为例，我们创建了指向 SSH 的连接点。在连接点卡片中，“<i class="fa-fw fal fa-plane-departure"></i> 入口” 处提供了连接入口。
+                        您可以通过这个连接点直接访问到您的服务器。以本文为例，我们创建了指向 SSH 的连接点。在连接点卡片中，“<i
+                            class="fa-fw fal fa-plane-departure"></i> 入口” 处提供了连接入口。
                     </p>
                     <p class="text-muted">
-                        <i class="fa-fw fal fa-plane-departure"></i> 入口地址通常为 "xx.vxtrans.com:12345" 的格式，现在我们可以使用这个入口地址来连接到服务器，以 SSH 客户端为例，其连接命令为<br>
+                        <i class="fa-fw fal fa-plane-departure"></i> 入口地址通常为 "xx.vxtrans.com:12345"
+                        的格式，现在我们可以使用这个入口地址来连接到服务器，以 SSH 客户端为例，其连接命令为<br>
                         <code>ssh root@xx.vxtrans.com -p 12345</code>
                     </p>
                     <p class="text-muted">
@@ -196,7 +203,7 @@
                             </div>
                         </div>
 
-                        <div class="card border-0 rounded mb-2">
+                        <!-- <div class="card border-0 rounded mb-2">
                             <a data-toggle="collapse" href="#collapse1" class="faq position-relative collapsed"
                                 aria-expanded="false" aria-controls="collapse1">
                                 <div class="card-header border-0 bg-light p-3 pr-5" id="heading1">
@@ -209,10 +216,12 @@
                                     <p class="text-muted mb-0 faq-ans">
                                         vxTrans 也可以给第三方代理加速，不需要登录到第三方代理的服务器。
                                     </p>
-                                    <p class="text-muted mb-0 faq-ans">将您的设备接入到第三方代理后，登录微林，获取授权连接，然后使用您设备的浏览器访问授权链接即可为第三方代理的 IP 添加授权。然后，您就可以给这个 IP 创建 vxTrans 连接点了。</p>
+                                    <p class="text-muted mb-0 faq-ans">
+                                        将您的设备接入到第三方代理后，登录微林，获取授权连接，然后使用您设备的浏览器访问授权链接即可为第三方代理的 IP 添加授权。然后，您就可以给这个 IP 创建
+                                        vxTrans 连接点了。</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="card border-0 rounded mb-2">
                             <a data-toggle="collapse" href="#collapsenine" class="faq position-relative collapsed"
