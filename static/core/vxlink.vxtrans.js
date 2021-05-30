@@ -101,7 +101,7 @@ class vxlink_vxtrans {
                 if (rsp.status === 1) {
                     this.server_list = rsp.data;
                     $('#server_list').html(app.tpl('server_list_tpl', rsp.data));
-                    $('#set_location').html(app.tpl('set_location_tpl', rsp.data));
+                    $('#server_area_list').html(app.tpl('server_area_list_tpl', rsp.data));
                     this.speedTest();
                     console.log('Server List Loaded');
                 }
@@ -186,6 +186,21 @@ class vxlink_vxtrans {
         }
     }
 
+    areaSelected(code,name){
+        $('#set_location').val(code);
+        $('#server_area_selected').html(' : '+name);
+        $('#server_area_redo').fadeIn();
+        $('#vxtrans_stage_1').hide();
+        $('#vxtrans_stage_2').show();
+    }
+
+    areaSelectRede(){
+        $('#vxtrans_stage_1').show();
+        $('#vxtrans_stage_2').fadeOut();
+        $('#server_area_selected').html('');
+        $('#server_area_redo').fadeOut();
+    }
+
     deleteVxTrans(id) {
         if (confirm('您确定要关闭该连接点吗?')) {
             $.post(this.core.api_vxtrans, {
@@ -248,8 +263,9 @@ class vxlink_vxtrans {
         $('#set_target_port').val('');
         $('#set_local_port').val('');
         $('#box_post').html('<i class="far fa-check"></i>');
-        $('#set_location').find("option[value='1']").attr("selected", true);
+        $('#set_location').val('');
         $('#box_post').removeAttr('disabled');
+        this.areaSelectRede();
     }
 
     editerRefresh() {
@@ -260,7 +276,7 @@ class vxlink_vxtrans {
     editerPost() {
         //收集数据
         var name = $('#set_name').val();
-        var location = $('input[name="set_location"]:checked').val();
+        var location = $('#set_location').val();
         var target_ip = $('#set_traget_ip').val();
         var target_port = $('#set_target_port').val();
         var local_port = $('#set_local_port').val();
@@ -324,6 +340,10 @@ class vxlink_vxtrans {
                     $('#spdtext_' + server).html(text + ' - ' + dtPingRaw + ' ms');
                     $('#spdx_' + server).removeAttr('disabled');
                     $('#spdtext_' + server).addClass(this.textColorSelect(dtPingRaw));
+                    //
+                    $('#select_area_' + server).removeAttr('class');
+                    $('#select_area_' + server).html(dtPingRaw + ' ms');
+                    $('#select_area_' + server).addClass(this.textColorSelect(dtPingRaw));
                     // $('.spdc_' + server).each(function () {
                     // 	$(this).html('(+' + dtPingRaw + ' ms)');
                     // });

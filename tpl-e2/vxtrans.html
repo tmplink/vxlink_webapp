@@ -88,7 +88,8 @@
                             <i class="fa fa-spinner-third fa-spin"></i>
                         </small>
                     </h4>
-                    <span class="btn-radius btn btn-success btn-sm" onclick="$('#createVxtransModal').modal('show')">
+                    <span class="btn-radius btn btn-success btn-sm"
+                        onclick="vxTrans.editerReset();$('#createVxtransModal').modal('show');">
                         <i class="fal fa-plus-circle"></i>
                         创建新的 vxTrans 链接点
                     </span>
@@ -273,68 +274,97 @@
                 </button>
             </div>
             <div class="modal-body" id="edit_box">
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <div class="form-group">
-                            <label class="control-label" for="set_location">
-                                选择入口地址
-                                <i data-toggle="tooltip" data-placement="top" title="你将从这里进行连接,抵达所设置的目标地址和端口"
-                                    class="fal fa-question-circle ml-1"></i>
-                            </label>
-                            <script type="text/template" id="set_location_tpl">
-                                        <% for (let x in obj) { %>
-                                            <div class="form-check form-control mb-1">
-                                                <input name="set_location"  type="radio" value="<% obj[x].code %>" id="spdx_<% obj[x].code %>">
-                                                <label id="spd_<% obj[x].code %>" data-text="<% obj[x].ex_name %> - <% obj[x].ex_country %>">
-                                                    <span id="spdtext_<% obj[x].code %>"><% obj[x].ex_name %> - <% obj[x].ex_country %></span>
-                                                </label>
-                                            </div>
-                                        <% } %>
-                                    </script>
-                            <div id="set_location">
-                            </div>
-                        </div>
+                <h5>选择线路
+                    <small id="server_area_selected"></small>
+                    <small id="server_area_redo" class="btn-pointer" style="display: none"
+                        onclick="vxTrans.areaSelectRede()"> <i class="fad fa-minus-circle text-danger"></i> </small>
+                </h5>
+                <div id="vxtrans_stage_1">
+                    <div class="table-responsive">
+                        <table class="table card-table text-nowrap table-hover">
+                            <thead>
+                                <tr>
+                                    <th>线路</th>
+                                    <th>特性</th>
+                                    <th>延迟</th>
+                                    <th>带宽</th>
+                                    <th>费率</th>
+                                </tr>
+                            </thead>
+                            <tbody id="server_area_list"></tbody>
+                        </table>
+                        <ul>
+                            <li>带宽：保障值/最大限制。单位为 Mbps。</li>
+                            <li>延迟：抵达服务器的距离，采用 TCP 测速。</li>
+                            <li>费率：每传输1字节时消费的点券数。</li>
+                        </ul>
+                        <script type="text/template" id="server_area_list_tpl">
+                            <% for (let x in obj) { %>
+                                <tr onclick="vxTrans.areaSelected('<% obj[x].code %>','<% obj[x].ex_country %>');" class="btn-pointer">
+                                    <td>
+                                        <span class="text-blue">
+                                            <i class="fad fa-check-square" class="fa-fw"></i>
+                                        </span>
+                                        <% obj[x].ex_country %>
+                                    </td>
+                                    <td><% obj[x].ex_specail %></td>
+                                    <td id="select_area_<% obj[x].code %>">wait</td>
+                                    <td><% obj[x].bw %></td>
+                                    <td><% obj[x].fee %></td>
+                                </tr>
+                            <% } %>
+                        </script>
                     </div>
-                    <div class="col-md-6 col-12">
+                </div>
+                <div id="vxtrans_stage_2">
+                    <h5>配置节点</h5>
+                    <input type="hidden" id="set_location">
+                    <div class="form-group">
+                        <label for="set_traget_ip">目标地址</label>
+                        <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control" id="set_traget_ip"
+                            placeholder="要加速的服务器 IP">
+                    </div>
+                    <div class="form-group">
+                        <label for="set_target_port">目标端口</label>
+                        <input type="text" onfocus="vxTrans.editerRefresh();;" class="form-control" id="set_target_port"
+                            placeholder="服务进程监听的端口">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="set_protocol">
+                            选择传输层协议 (Layer 4 Protocol)
+                            <i data-toggle="tooltip" data-placement="top" title="选择数据传输协议"
+                                class="fal fa-question-circle ml-1"></i>
+                        </label>
+                        <select class="form-control" name="set_protocol" id="set_protocol">
+                            <option value="tcp">TCP</option>
+                            <option value="udp">UDP</option>
+                        </select>
+                    </div>
+
+                    <h5>
+                        进阶选项
+                        <small id="server_area_redo" class="btn-pointer"
+                        onclick="$('#vxtrans_advance').fadeToggle()"> <i class="fad fa-plus-circle text-azure"></i> </small>
+                    </h5>
+                    <div id="vxtrans_advance" style="display: none">
                         <div class="form-group">
                             <label for="set_name">描述</label>
                             <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control" id="set_name"
                                 placeholder="输入连接点的名字">
                         </div>
-
-                        <div class="form-group">
-                            <label class="control-label" for="set_protocol">
-                                选择传输层协议 (Layer 4 Protocol)
-                                <i data-toggle="tooltip" data-placement="top" title="选择数据传输协议"
-                                    class="fal fa-question-circle ml-1"></i>
-                            </label>
-                            <select class="form-control" name="set_protocol" id="set_protocol">
-                                <option value="tcp">TCP</option>
-                                <option value="udp">UDP</option>
-                            </select>
-                        </div>
-
                         <div class="form-group">
                             <label for="set_local_port">入口端口</label>
-                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control"
-                                id="set_local_port" placeholder="请填写连接点支持范围的端口,不填将自动分配.">
-                        </div>
-                        <div class="form-group">
-                            <label for="set_traget_ip">目标地址</label>
-                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control"
-                                id="set_traget_ip" placeholder="数据最终抵达的地址(您的服务器地址)">
-                        </div>
-                        <div class="form-group">
-                            <label for="set_target_port">目标端口</label>
-                            <input type="text" onfocus="vxTrans.editerRefresh();;" class="form-control"
-                                id="set_target_port" placeholder="数据最终抵达的端口(您的服务器端口)">
+                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control" id="set_local_port"
+                                placeholder="请填写连接点支持范围的端口,不填将自动分配.">
                         </div>
                         <div class="form-group">
                             <label for="set_target_limit">用量控制</label>
-                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control"
-                                id="set_target_limit" placeholder="填入数字，单位是 GB，连接点流量超过此限制时，将自动关闭。留空则为不限制。">
+                            <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control" id="set_target_limit"
+                                placeholder="填入数字，单位是 GB，连接点流量超过此限制时，将自动关闭。留空则为不限制。">
                         </div>
                     </div>
+                    
                 </div>
             </div>
             <div class="modal-footer">
@@ -417,7 +447,8 @@
                 <div style="margin-top:5px;margin-bottom: 5px">
                     CentOS 系统可以通过调整 sysctl.conf 来快速实现对 ECN 的支持。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp" data-clipboard-text="echo 'net.ipv4.tcp_ecn = 2' >> /etc/sysctl.conf">
+                <span class="btn-radius btn btn-sm btn-primary btncp"
+                    data-clipboard-text="echo 'net.ipv4.tcp_ecn = 2' >> /etc/sysctl.conf">
                     <i class="fa-fw fad fa-copy"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
@@ -426,7 +457,8 @@
                 <div style="margin-top:5px;margin-bottom: 5px">
                     另外，如果服务器的 Linux 内核在 4.1 以上，还可以打开兼容性选项。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp" data-clipboard-text="echo 'net.ipv4.tcp_ecn_fallback = 1' >> /etc/sysctl.conf">
+                <span class="btn-radius btn btn-sm btn-primary btncp"
+                    data-clipboard-text="echo 'net.ipv4.tcp_ecn_fallback = 1' >> /etc/sysctl.conf">
                     <i class="fa-fw fad fa-copy"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
@@ -466,7 +498,8 @@
                     由于白名单可能会进行调整，建议将此命令添加到计划任务中，每 10 分钟运行一次。<br>
                     Windows 用户请自行处理此文件中涉及的 IP 地址。<br>
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp" data-clipboard-text="curl -k 'https://vx.link/data/iptables.sh' | sh">
+                <span class="btn-radius btn btn-sm btn-primary btncp"
+                    data-clipboard-text="curl -k 'https://vx.link/data/iptables.sh' | sh">
                     <i class="fa-fw fad fa-copy"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
@@ -477,7 +510,8 @@
                     第二步，为业务端口添加规则。<br>
                     （例子）下面这条命令会将业务端口 22 加入到 vxlink_service 白名单进行过滤，阻止白名单外的访问。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp"  data-clipboard-text="iptables -I INPUT -p tcp --dport 22 -j vxlink_service">
+                <span class="btn-radius btn btn-sm btn-primary btncp"
+                    data-clipboard-text="iptables -I INPUT -p tcp --dport 22 -j vxlink_service">
                     <i class="fa-fw fad fa-copy"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
@@ -486,7 +520,8 @@
                 <div style="margin-top:5px;margin-bottom: 5px">
                     要将业务端口移出白名单，只需要将上面的 “ -I ” 改为 “ -D ”。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp" data-clipboard-text="iptables -D INPUT -p tcp --dport 22 -j vxlink_service">
+                <span class="btn-radius btn btn-sm btn-primary btncp"
+                    data-clipboard-text="iptables -D INPUT -p tcp --dport 22 -j vxlink_service">
                     <i class="fa-fw fad fa-copy"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
