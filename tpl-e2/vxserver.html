@@ -38,11 +38,14 @@
                             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-2" tldata="<% obj[x].id %>" id="vxserver_unit_<% obj[x].id %>">
                                 <div class="card p-3 shadow-sm">
                                     <div class="font-weight-bold text-truncate" title="<% obj[x].title %>">
+                                        <% if (obj[x].ssl_status==='yes') { %>
+                                            <i class="fa-fw fad fa-shield-check text-azure"></i>
+                                        <% } %>
                                         <% obj[x].title %>
                                     </div>
                                     <div class="border-dashed"></div>
                                     <div class="text-truncate" title="<% obj[x].domain %>">
-                                        <a href="<% obj[x].domain %>" target="_blank">
+                                        <a href="http://<% obj[x].domain %>" target="_blank">
                                             <i class="fa-fw fad fa-link"></i> <% obj[x].domain %>
                                         </a>
                                     </div>
@@ -98,6 +101,22 @@
                         <code style="margin-top:5px;margin-bottom: 5px" class="set_cert_cp"></code>
                     </div>
                     <small class="from-text">您需要在根目录下创建一个 verification.txt 的文件，并将内容设置为上方的值。</small>
+                </div>
+                <div class="card p-3 mt-3">
+                    <label class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="vxserver_enable_ssl" onclick="vxServer.sslEnable()">
+                        <span class="form-check-label">是否启用 SSL</span>
+                    </label>
+                    <div id="vxserver_enable_ssl_box" style="display: none">
+                        <div class="form-group">
+                            <label for="set_ssl_cert">证书</label>
+                            <textarea class="form-control" id="set_ssl_cert" rows="3" placeholder="第一份证书为域名证书，然后是 CA 证书链。&#13;&#10;请以 Nginx 支持的格式填写。"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="set_ssl_key">私钥</label>
+                            <textarea class="form-control" id="set_ssl_key" rows="3" placeholder="在此处填入私钥。"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
