@@ -50,26 +50,11 @@ class vxlink_vxserver {
         var cert = $('#set_cert').val();
         var ssl_cert = $('#set_ssl_cert').val();
         var ssl_key = $('#set_ssl_key').val();
+        let ssl_enable = ($('#vxserver_enable_ssl').is(':checked')) ? 'yes' : 'no';
+        
         $('#box_post').html('正在处理');
         $('#box_post').attr('disabled', 'true');
         $('#box_post_doing').fadeIn(300);
-        //如果启用了 SSL 的支持
-        let ssl_enable = ($('#vxserver_enable_ssl').is(':checked')) ? 'yes' : 'no';
-
-        if(ssl_enable==='yes'){
-            //验证证书与密钥
-            $.post(this.core.api_vxserver, {action: 'ssl', ssl_cert:ssl_cert, ssl_key:ssl_key,token: this.core.token }, (rsp) => {
-                if (rsp.status === 0) {
-                    $('#box_post').html('证书或私钥错误.');
-                    setTimeout(() =>{
-                        $('#box_post').removeAttr('disabled');
-                        $('#box_post').html('创建');
-                    },3000);
-                    return false;
-                }
-                $('#box_post_doing').fadeOut(300);
-            }, 'json');
-        }
 
         //发送请求
         $.post(this.core.api_vxserver, {
