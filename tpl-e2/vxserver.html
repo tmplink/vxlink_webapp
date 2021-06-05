@@ -89,16 +89,17 @@
                 </div>
                 <div class="form-group">
                     <label for="set_repo">Github 项目地址</label>
-                    <input type="text" class="form-control" id="set_repo" placeholder="username/repository/branch">
+                    <input type="text" class="form-control" id="set_repo" placeholder="格式：用户名/仓库/分支">
+                    <small id="check_repo_msg" class="from-text text-danger" style="display: none"></small>
                 </div>
                 <div class="form-group">
                     <label for="set_cert">Github 验证文件</label>
                     <input type="hidden" class="form-control" id="set_cert" disabled>
                     <div>
-                        <span class="btn-radius btn btn-sm btn-primary">
-                            <i class="fa-fw fad fa-copy btncp set_cert_btncp"></i>
+                        <span class="btn-pointer btncp" id="set_cert_cp">
+                            <i class="fa-fw fad fa-copy text-blue"></i>
                         </span>
-                        <code style="margin-top:5px;margin-bottom: 5px" class="set_cert_cp"></code>
+                        <code style="margin-top:5px;margin-bottom: 5px" id="set_cert_code"></code>
                     </div>
                     <small class="from-text">您需要在根目录下创建一个 verification.txt 的文件，并将内容设置为上方的值。</small>
                 </div>

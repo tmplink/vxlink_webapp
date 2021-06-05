@@ -120,10 +120,15 @@
                                 <div class="border-dashed"></div>
                                 <div>
                                     <i class="fa-fw fal fa-plane-departure"></i> <% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>
-                                    <i class="fa-fw fad fa-copy text-blue btncp" data-clipboard-text="<% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>"></i>
+                                    <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>">
+                                        <i class="fa-fw fad fa-copy text-blue"></i>
+                                    </span>
                                 </div>
                                 <div>
                                     <i class="fa-fw fal fa-plane-arrival"></i>  <% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>
+                                    <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>">
+                                        <i class="fa-fw fad fa-copy text-blue"></i>
+                                    </span>
                                 </div>
                                 <div>
                                     <% if (obj[i].list[x].status=='ok') { %>
@@ -379,7 +384,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="trustedModal" tabindex="-1" role="dialog">
+<!-- <div class="modal fade" id="trustedModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -406,6 +411,7 @@
                     <span class="btn-radius btn btn-sm btn-primary">
                         <i class="fa-fw fad fa-copy btncp trusted_auth_url_cp"></i>
                     </span>
+
                     <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url"></code>
                 </div>
                 <div style="margin-top:5px;margin-bottom: 5px">
@@ -424,7 +430,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="modal fade" id="ecnModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -447,19 +453,17 @@
                 <div style="margin-top:5px;margin-bottom: 5px">
                     CentOS 系统可以通过调整 sysctl.conf 来快速实现对 ECN 的支持。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp"
-                    data-clipboard-text="echo 'net.ipv4.tcp_ecn = 2' >> /etc/sysctl.conf">
-                    <i class="fa-fw fad fa-copy"></i>
-                </span>
+                <span class="btn-pointer btncp" data-clipboard-text="echo 'net.ipv4.tcp_ecn = 2' >> /etc/sysctl.conf">
+                    <i class="fa-fw fad fa-copy text-blue"></i>
+                </span>             
                 <code style="margin-top:5px;margin-bottom: 5px">
                     echo 'net.ipv4.tcp_ecn = 2' >> /etc/sysctl.conf
                 </code>
                 <div style="margin-top:5px;margin-bottom: 5px">
                     另外，如果服务器的 Linux 内核在 4.1 以上，还可以打开兼容性选项。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp"
-                    data-clipboard-text="echo 'net.ipv4.tcp_ecn_fallback = 1' >> /etc/sysctl.conf">
-                    <i class="fa-fw fad fa-copy"></i>
+                <span class="btn-pointer btncp" data-clipboard-text="echo 'net.ipv4.tcp_ecn_fallback = 1' >> /etc/sysctl.conf">
+                    <i class="fa-fw fad fa-copy text-blue"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
                     echo 'net.ipv4.tcp_ecn_fallback = 1' >> /etc/sysctl.conf
@@ -467,8 +471,8 @@
                 <div style="margin-top:5px;margin-bottom: 5px">
                     最后，使用 sysctl 命令来让此更改立即生效，无需重启系统。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp" data-clipboard-text="sysctl -p">
-                    <i class="fa-fw fad fa-copy"></i>
+                <span class="btn-pointer btncp" data-clipboard-text="sysctl -p">
+                    <i class="fa-fw fad fa-copy text-blue"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
                     sysctl -p
@@ -498,9 +502,8 @@
                     由于白名单可能会进行调整，建议将此命令添加到计划任务中，每 10 分钟运行一次。<br>
                     Windows 用户请自行处理此文件中涉及的 IP 地址。<br>
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp"
-                    data-clipboard-text="curl -k 'https://vx.link/data/iptables.sh' | sh">
-                    <i class="fa-fw fad fa-copy"></i>
+                <span class="btn-pointer btncp" data-clipboard-text="curl -k 'https://vx.link/data/iptables.sh' | sh">
+                    <i class="fa-fw fad fa-copy text-blue"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
                     curl -k 'https://vx.link/data/iptables.sh' | sh
@@ -510,9 +513,8 @@
                     第二步，为业务端口添加规则。<br>
                     （例子）下面这条命令会将业务端口 22 加入到 vxlink_service 白名单进行过滤，阻止白名单外的访问。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp"
-                    data-clipboard-text="iptables -I INPUT -p tcp --dport 22 -j vxlink_service">
-                    <i class="fa-fw fad fa-copy"></i>
+                <span class="btn-pointer btncp" data-clipboard-text="iptables -I INPUT -p tcp --dport 22 -j vxlink_service">
+                    <i class="fa-fw fad fa-copy text-blue"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
                     iptables -I INPUT -p tcp --dport 22 -j vxlink_service
@@ -520,9 +522,8 @@
                 <div style="margin-top:5px;margin-bottom: 5px">
                     要将业务端口移出白名单，只需要将上面的 “ -I ” 改为 “ -D ”。
                 </div>
-                <span class="btn-radius btn btn-sm btn-primary btncp"
-                    data-clipboard-text="iptables -D INPUT -p tcp --dport 22 -j vxlink_service">
-                    <i class="fa-fw fad fa-copy"></i>
+                <span class="btn-pointer btncp" data-clipboard-text="iptables -D INPUT -p tcp --dport 22 -j vxlink_service">
+                    <i class="fa-fw fad fa-copy text-blue"></i>
                 </span>
                 <code style="margin-top:5px;margin-bottom: 5px">
                     iptables -D INPUT -p tcp --dport 22 -j vxlink_service
