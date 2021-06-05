@@ -34,6 +34,7 @@ class vxlink_core {
     }
 
     bindCopyBtn() {
+        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
         this.clipboard = new ClipboardJS('.btncp');
         this.clipboard.on('success', (e) => {
             let tmp = $(e.trigger).html();

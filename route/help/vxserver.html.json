@@ -1,6 +1,6 @@
 {
     "title": "微林 - vxServer",
-    "preload": ["core","index","help"],
+    "preload": ["index","help","core"],
     "append": ["document"],
     "body": {
         "/tpl/help/vxserver.html": { "type": "html", "target": { "type": "body" } }
