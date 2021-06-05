@@ -37,8 +37,8 @@ class vxlink_vxserver {
     cert_request(){
         $.post(this.core.api_vxserver, { action: 'cert_request', token: this.core.token }, (rsp) => {
             $('#set_cert').val(rsp.data);
-            $('.set_cert_cp').html(rsp.data);
-            $('.set_cert_btncp').attr('data-clipboard-text',rsp.data);
+            $('#set_cert_code').html(rsp.data);
+            $('#set_cert_cp').attr('data-clipboard-text',rsp.data);
         }, 'json');    
     }
 
@@ -52,6 +52,11 @@ class vxlink_vxserver {
         var ssl_key = $('#set_ssl_key').val();
         let ssl_enable = ($('#vxserver_enable_ssl').is(':checked')) ? 'yes' : 'no';
         
+        //Prepared
+        if(this.check_repo_format(repo)===false){
+            return false;
+        }
+
         $('#box_post').html('正在处理');
         $('#box_post').attr('disabled', 'true');
         $('#box_post_doing').fadeIn(300);
@@ -76,6 +81,21 @@ class vxlink_vxserver {
             }
             $('#box_post_doing').fadeOut(300);
         }, 'json');
+    }
+
+    check_repo_format(repo){
+        $('#check_repo_msg').show();
+        if(repo.indexOf('https://')!=-1){
+            $('#check_repo_msg').html('无需输入网址，请按格式输入，比如 tmplink/demo/main.');
+            return false;
+        }
+
+        let repo_arr = repo.split('/');
+        if(repo_arr.length!=3){
+            $('#check_repo_msg').html('格式错误，请按格式输入，比如 tmplink/demo/main.');
+            return false;
+        }
+        $('#check_repo_msg').hide();
     }
 
     delete(id){
