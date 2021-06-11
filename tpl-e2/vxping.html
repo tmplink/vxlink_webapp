@@ -14,7 +14,7 @@
 
 <section class="section">
 	<div class="container">
-		<div class="row">
+		<div class="row card p-3 shadow-sm">
 			<div class="col-12">
 				<div class="section-title mb-4">
 					<h4 class="title">
@@ -25,10 +25,10 @@
 						</small>
 					</h4>
 				</div>
+				<div style="max-height: 300px;overflow-y: scroll;">
+					<div id="alert_rules_list"></div>
+				</div>
 			</div>
-		</div>
-		<div style="max-height: 300px;overflow-y: scroll;">
-			<div id="alert_rules_list"></div>
 		</div>
 		<script type="text/template" id="alert_rules_list_tpl">
 			<% for (let x in obj) { %>
@@ -56,7 +56,7 @@
 
 <section class="section">
 	<div class="container">
-		<div class="row">
+		<div class="row card p-3 shadow-sm">
 			<div class="col-12">
 				<div class="section-title mb-4">
 					<h4 class="title">
@@ -71,9 +71,10 @@
 						添加监测点
 					</span>
 				</div>
+				<div id="vxping_monitor_list"></div>
 			</div>
 		</div>
-		<div id="vxping_monitor_list"></div>
+		
 		<script type="text/template" id="vxping_monitor_list_tpl">
 			<% for (let x in obj) { %>
 				<div class="row p-2 shadow-sm mb-2 mx-0 d-flex" tldata="<% obj[x].id %>" id="vxping_monitor_<% obj[x].id %>">

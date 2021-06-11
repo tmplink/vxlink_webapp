@@ -7,6 +7,10 @@ html body{
   position: relative;
 }
 
+.card{
+  border-radius: .6rem;
+}
+
 .btn-radius {
   padding: 5px !important;
   padding-left: 10px !important;

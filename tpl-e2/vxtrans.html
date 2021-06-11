@@ -154,16 +154,16 @@
                                 <div class="border-dashed"></div>
                                 <div class="d-inline text-right mt-1">
                                     <% if (obj[i].list[x].keep=='yes') { %>
-                                        <button class="btn btn-sm btn-outline-primary" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，链接点最多可闲置一周，然后会被回收。锁定后最多可闲置两周。">
+                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，链接点最多可闲置 30 天，然后会被回收。锁定后最多可闲置 60 天。">
                                             <i class="fa-fw fas fa-lock"></i>
                                         </button>
                                     <% }else{ %>
-                                        <button class="btn btn-sm btn-outline-primary" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOn('<% obj[i].list[x].id %>')" title="未锁定时，链接点最多可闲置一周，然后会被回收。锁定后最多可闲置两周。">
+                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOn('<% obj[i].list[x].id %>')" title="未锁定时，链接点最多可闲置 30 天，然后会被回收。锁定后最多可闲置 60 天。">
                                             <i class="fa-fw far fa-unlock-alt"></i>
                                         </button>
                                     <% } %>
                                     <div class="dropdown dropleft d-inline">
-                                        <button class="btn btn-sm btn-outline-primary ml-1" data-toggle="dropdown">
+                                        <button class="btn btn-sm btn-outline-primary btn-radius ml-1" data-toggle="dropdown">
                                             <i class="fa-fw fas fa-wrench"></i>
                                         </button>
                                         <div class="dropdown-menu">
