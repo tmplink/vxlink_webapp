@@ -89,11 +89,13 @@ class vxlink_vxping {
         //收集数据
         let name = $('#vxping_monitor_create_set_name').val();
         let location = $('#vxping_monitor_create_set_location').val();
+        let model = $('#vxping_monitor_create_set_model').val();
         let target_ip = $('#vxping_monitor_create_set_traget_ip').val();
         $('#vxping_monitor_create_post').html('<i class="fas fa-spinner fa-spin"></i>');
         $('#vxping_monitor_create_post').attr('disabled', 'true');
+        
         //发送请求
-        $.post(this.core.api_vxping, { name: name, action: 'add_monitor', location: location, to_ip: target_ip, token: this.core.token }, (rsp) => {
+        $.post(this.core.api_vxping, { name: name, action: 'add_monitor', location: location, to_ip: target_ip, model:model, token: this.core.token }, (rsp) => {
             if (rsp.status === 1) {
                 $('#vxping_monitor_create_post').html('<i class="far fa-check"></i>');
                 this.refreshMonitorList();
@@ -101,7 +103,6 @@ class vxlink_vxping {
             } else {
                 $('#vxping_monitor_create_post').html('创建失败：' + rsp.data);
             }
-
         }, 'json');
     }
 
