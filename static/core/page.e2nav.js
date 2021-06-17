@@ -1,4 +1,4 @@
-class e2nav{
+class e2Pages{
 
     current = null
 

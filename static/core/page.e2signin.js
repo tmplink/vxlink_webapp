@@ -1,4 +1,4 @@
-var e2nav = new e2nav();
+var e2nav = new e2Pages();
 app.ready(() => {
     vxCore.initExec(()=>{
         if(vxCore.uid==null){
