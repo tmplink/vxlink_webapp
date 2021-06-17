@@ -1,6 +1,7 @@
 class vxlink_vxping {
     core = null
     alert_list = null
+    monitor_list = null
     refresh_alert_list_init = false
     refresh_monitor_list_init = false
 
@@ -11,14 +12,9 @@ class vxlink_vxping {
     pageInit() {
         if (document.getElementById('init_vxping') !== null) {
             //初始化
-            this.refreshAlertList();
             this.refreshMonitorList();
 
             //安装定时器
-            if (!this.refresh_alert_list_init) {
-                this.refresh_alert_list_init = true;
-                setInterval(() => { this.refreshAlertList() }, 60000);
-            }
             if (!this.refresh_monitor_list_init) {
                 this.refresh_monitor_list_init = true;
                 setInterval(() => { this.refreshMonitorList() }, 60000);
@@ -26,23 +22,35 @@ class vxlink_vxping {
         }
     }
 
-    refreshAlertList() {
-        if (document.getElementById('loading_alert_rules') === null) {
-            return false;
-        }
-
-        $('#loading_alert_rules').fadeIn();
+    refreshAlertAllList() {
         $.post(this.core.api_vxping, { action: 'list_alert', token: this.core.token }, (rsp) => {
-            $('#loading_alert_rules').fadeOut();
             if (rsp.status === 1) {
                 for (let i in rsp.data) {
                     rsp.data[i].bg_color = rsp.data[i].status === 'wait' ? 'bg-white' : 'bg-pink';
                 }
-                $('#alert_rules_list').html(app.tpl('alert_rules_list_tpl', rsp.data));
-                $('#alert_rules_count').html('一共有 ' + rsp.data.length + ' 个告警规则。');
+                $('#vxping_alert_all_list_box').html(app.tpl('vxping_alert_all_list_tpl', rsp.data));
                 console.log('vxPing Alert List Loaded');
+            }else{
+                $('#vxping_alert_all_list_box').html('目前没有设置告警器');
             }
         }, 'json');
+    }
+
+    openAlertAllList(){
+        this.refreshAlertAllList();
+        $('#vxping_alert_all_list_Modal').modal('show');
+    }
+
+    refreshAlertList(id) {
+        $('#vxping_alert_list_Modal').modal('show');
+        let alert_list = this.monitor_list;
+        for (let i in alert_list) {
+            if(alert_list[i].id==id){
+                console.log(alert_list[i]);
+                $('#vxping_alert_list_box').html(app.tpl('vxping_alert_list_tpl', alert_list[i].alert_list));
+                return true;
+            }
+        }
     }
 
     refreshMonitorList() {
@@ -54,6 +62,7 @@ class vxlink_vxping {
         $.post(this.core.api_vxping, { action: 'list_monitor', token: this.core.token }, (rsp) => {
             $('#loading_vxping_monitor_list').fadeOut();
             if (rsp.status === 1) {
+                this.monitor_list = rsp.data;
                 for (let i in rsp.data) {
                     rsp.data[i].bg_color = rsp.data[i].status === 'wait' ? 'bg-white' : 'bg-pink';
                 }
@@ -66,6 +75,11 @@ class vxlink_vxping {
 
     deleteAlert(id) {
         $('#vxping_alert_rule_' + id).fadeOut();
+        $.post(this.core.api_vxping, { action: 'del_alert', id: id, token: this.core.token });
+    }
+
+    deleteAlertUnit(id) {
+        $('#vxping_alert_unit_rule_' + id).fadeOut();
         $.post(this.core.api_vxping, { action: 'del_alert', id: id, token: this.core.token });
     }
 
@@ -138,7 +152,7 @@ class vxlink_vxping {
 
         $.post(this.core.api_vxping, { token: this.core.token, action: 'add_alert', type: type, val: val, check_type: check_type, ping_id: this.alert_add_id }, (rsp) => {
             if (rsp.status === 1) {
-                this.refreshAlertList();
+                this.refreshMonitorList();
                 $('#vxping_alert_Modal').modal('hide');
             } else {
                 alert('创建失败：' + rsp.data);

@@ -11,50 +11,8 @@
 		</div>
 	</div>
 </section>
+
 <!-- Main Title End -->
-
-<section class="section">
-	<div class="container">
-		<div class="row card p-3 shadow-sm">
-			<div class="col-12">
-				<div class="section-title mb-4">
-					<h4 class="title">
-						提醒
-						<small id="alert_rules_count"></small>
-						<small id="loading_alert_rules">
-							<i class="fa fa-spinner-third fa-spin"></i>
-						</small>
-					</h4>
-				</div>
-				<div style="max-height: 300px;overflow-y: scroll;">
-					<div id="alert_rules_list"></div>
-				</div>
-			</div>
-		</div>
-		<script type="text/template" id="alert_rules_list_tpl">
-			<% for (let x in obj) { %>
-				<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_alert_rule_<% obj[x].id %>">
-					<div class="col-md-8 col-12 d-flex align-items-center">
-						<i class="fad fa-eye mr-1"></i> 在 <% obj[x].name %> 发生 <% obj[x].ex_type %> 时
-					</div>
-					<div class="col-md-3 col-10 d-flex align-items-center justify-content-end">
-						<% if (obj[x].status === 'wait') { %>
-							<i class="fa-fw fal fa-check-circle text-green"></i> 当前正常
-						<% }else{ %>
-							<i class="fa-fw fal fa-exclamation-circle text-red"></i> 告警已触发
-						<% } %>
-					</div>
-					<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
-						<button  id="btn_vxping_alert_rule_<% obj[x].id %>" class="btn btn-sm btn-outline-danger mx-1" onclick="vxPing.deleteAlert('<% obj[x].id %>')">
-							<i class="fa-fw fad fa-trash"></i>
-						</button>
-					</div>
-				</div>
-			<% } %>
-		</script>
-	</div>
-</section>
-
 <section class="section">
 	<div class="container">
 		<div class="row">
@@ -71,6 +29,10 @@
 						<i class="fal fa-plus-circle"></i>
 						添加监测点
 					</span>
+					<span class="btn-radius btn btn-primary btn-sm" onclick="vxPing.openAlertAllList()">
+						<i class="fal fa-alarm-exclamation"></i>
+						所有告警器
+					</span>
 				</div>
 				<div id="vxping_monitor_list"></div>
 			</div>
@@ -79,10 +41,15 @@
 		<script type="text/template" id="vxping_monitor_list_tpl">
 			<div class="row">
 				<% for (let x in obj) { %>
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-2" tldata="<% obj[x].id %>" id="vxping_monitor_<% obj[x].id %>">
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-4" tldata="<% obj[x].id %>" id="vxping_monitor_<% obj[x].id %>">
 						<div class="card p-3 shadow-sm">
 							<div class="font-weight-bold text-truncate" title="<% obj[x].name %>">
 								<% obj[x].name %>
+								<% if (obj[x].alert_list !== 0) { %>
+									<span class="ml-1 badge badge-pill badge-warning btn-pointer" onclick="vxPing.refreshAlertList('<% obj[x].id %>')">
+										<% obj[x].alert_list.length %> 个告警器
+									</span>
+								<% } %>
 							</div>
 							<div class="border-dashed"></div>
 							<div class="text-truncate">
@@ -236,10 +203,10 @@
 			</div>
 			<div class="modal-footer">
 				<button id="vxping_monitor_create_post" type="button" onclick="vxPing.editerPost();"
-					class="btn btn-primary">
+					class="btn btn-sm btn-primary btn-radius">
 					<i class="far fa-check"></i>
 				</button>
-				<button type="button" onclick="vxPing.editerReset();" class="btn btn-warning">
+				<button type="button" onclick="vxPing.editerReset();" class="btn btn-sm btn-warning btn-radius">
 					<i class="far fa-redo-alt"></i>
 				</button>
 			</div>
@@ -261,17 +228,17 @@
 			<div class="modal-body">
 				<div style="text-align: center">
 					<button style="margin-top: 5px" onclick="vxPing.drawCharts(0, '3小时内');"
-						class="btn btn-sm btn-outline-info">3小时内</button>
+						class="btn btn-sm btn-outline-primary btn-radius">3小时内</button>
 					<button style="margin-top: 5px" onclick="vxPing.drawCharts(1, '12小时内');"
-						class="btn btn-sm btn-outline-info">12小时内</button>
+						class="btn btn-sm btn-outline-primary btn-radius">12小时内</button>
 					<button style="margin-top: 5px" onclick="vxPing.drawCharts(2, '24小时内');"
-						class="btn btn-sm btn-outline-info">24小时内</button>
+						class="btn btn-sm btn-outline-primary btn-radius">24小时内</button>
 					<button style="margin-top: 5px" onclick="vxPing.drawCharts(3, '过去7天');"
-						class="btn btn-sm btn-outline-info">过去7天</button>
+						class="btn btn-sm btn-outline-primary btn-radius">过去7天</button>
 					<button style="margin-top: 5px" onclick="vxPing.drawCharts(4, '过去30天');"
-						class="btn btn-sm btn-outline-info">过去30天</button>
+						class="btn btn-sm btn-outline-primary btn-radius">过去30天</button>
 					<button style="margin-top: 5px" onclick="vxPing.drawCharts(5, '过去90天');"
-						class="btn btn-sm btn-outline-info">过去90天</button>
+						class="btn btn-sm btn-outline-primary btn-radius">过去90天</button>
 				</div>
 			</div>
 			<div id="drawBox">
@@ -318,11 +285,82 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id="vxping_alert_post" type="button" onclick="vxPing.alertPost();" class="btn btn-primary">
+				<button id="vxping_alert_post" type="button" onclick="vxPing.alertPost();" class="btn btn-sm btn-primary btn-radius">
 					<i class="far fa-check"></i>
 				</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="vxping_alert_list_Modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">告警项目列表</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="vxping_alert_list_box">
+				
+			</div>
+			<script type="text/template" id="vxping_alert_list_tpl">
+				<% for (let x in obj) { %>
+					<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_alert_unit_rule_<% obj[x].id %>">
+						<div class="col-md-8 col-12 d-flex align-items-center">
+							<i class="fad fa-eye mr-1"></i>发生 <% obj[x].ex_type %> 时
+						</div>
+						<div class="col-md-3 col-10 d-flex align-items-center justify-content-end">
+							<% if (obj[x].status === 'wait') { %>
+								<i class="fa-fw fal fa-check-circle text-green"></i> 当前正常
+							<% }else{ %>
+								<i class="fa-fw fal fa-exclamation-circle text-red"></i> 告警已触发
+							<% } %>
+						</div>
+						<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
+							<button  id="btn_vxping_alert_unit_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlertUnit('<% obj[x].id %>')">
+								<i class="fa-fw fad fa-trash"></i>
+							</button>
+						</div>
+					</div>
+				<% } %>
+			</script>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxping_alert_all_list_Modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">全部告警项目</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="vxping_alert_all_list_box">
+				
+			</div>
+			<script type="text/template" id="vxping_alert_all_list_tpl">
+				<% for (let x in obj) { %>
+					<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_alert_rule_<% obj[x].id %>">
+						<div class="col-md-8 col-12 d-flex align-items-center">
+							<i class="fad fa-eye mr-1"></i> 在 <% obj[x].name %> 发生 <% obj[x].ex_type %> 时
+						</div>
+						<div class="col-md-3 col-10 d-flex align-items-center justify-content-end">
+							<% if (obj[x].status === 'wait') { %>
+								<i class="fa-fw fal fa-check-circle text-green"></i> 当前正常
+							<% }else{ %>
+								<i class="fa-fw fal fa-exclamation-circle text-red"></i> 告警已触发
+							<% } %>
+						</div>
+						<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
+							<button  id="btn_vxping_alert_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlert('<% obj[x].id %>')">
+								<i class="fa-fw fad fa-trash"></i>
+							</button>
+						</div>
+					</div>
+				<% } %>
+			</script>
+		</div>
+	</div>
+</div>
+
 <div id="init_vxping"></div>
