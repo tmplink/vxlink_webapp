@@ -25,13 +25,17 @@
 							<i class="fa fa-spinner-third fa-spin"></i>
 						</small>
 					</h4>
-					<span class="btn-radius btn btn-success btn-sm" onclick="vxPing.editerOpen()">
-						<i class="fal fa-plus-circle"></i>
+					<span class="btn-radius btn btn-success" onclick="vxPing.editerOpen()">
+						<i class="fa-fw fal fa-plus-circle"></i>
 						添加监测点
 					</span>
-					<span class="btn-radius btn btn-primary btn-sm" onclick="vxPing.openAlertAllList()">
-						<i class="fal fa-alarm-exclamation"></i>
+					<span class="btn-radius btn btn-primary" onclick="vxPing.openAlertAllList()">
+						<i class="fa-fw fal fa-alarm-exclamation"></i>
 						所有告警器
+					</span>
+					<span class="btn-radius btn btn-primary" onclick="$('#vxping_help_Modal').modal('show')">
+						<i class="fa-fw fad fa-book-reader"></i>
+						说明书
 					</span>
 				</div>
 				<div id="vxping_monitor_list"></div>
@@ -45,11 +49,6 @@
 						<div class="card p-3 shadow-sm">
 							<div class="font-weight-bold text-truncate" title="<% obj[x].name %>">
 								<% obj[x].name %>
-								<% if (obj[x].alert_list !== 0) { %>
-									<span class="ml-1 badge badge-pill badge-warning btn-pointer" onclick="vxPing.refreshAlertList('<% obj[x].id %>')">
-										<% obj[x].alert_list.length %> 个告警器
-									</span>
-								<% } %>
 							</div>
 							<div class="border-dashed"></div>
 							<div class="text-truncate">
@@ -88,7 +87,29 @@
 								<% } %>
 							</div>
 							<div class="border-dashed"></div>
-							<div class="d-inline text-right mt-1">
+							<div class="d-inline text-right">
+								<% if (obj[x].alert_list !== 0) { %>
+									<span class="ml-1 badge badge-pill badge-warning btn-pointer" onclick="vxPing.refreshAlertList('<% obj[x].id %>')">
+										<% obj[x].alert_list.length %> 个告警器
+									</span>
+								<% } %>
+								<% if (obj[x].status === 'suspend') { %>
+									<span class="ml-1 badge badge-pill badge-warning btn-pointer">
+										暂停
+									</span>
+								<% } %>
+								<% if (obj[x].status === 'stop') { %>
+									<span class="ml-1 badge badge-pill badge-dark btn-pointer">
+										终止
+									</span>
+								<% } %>
+								<% if (obj[x].status === 'ok') { %>
+									<span class="ml-1 badge badge-pill badge-success btn-pointer">
+										运行
+									</span>
+								<% } %>
+							</div>
+							<div class="d-inline text-right mt-2">
 								<button class="btn btn-sm btn-outline-primary btn-radius ml-1" onclick="vxPing.drawIdSet('<% obj[x].id %>');vxPing.drawCharts(2, '24小时内');">
 									<i class="fa-fw far fa-chart-line"></i>
 								</button>
@@ -359,6 +380,62 @@
 					</div>
 				<% } %>
 			</script>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="vxping_help_Modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">说明书</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>
+					欢迎使用 vxPing。</br>
+					vxPing 可以帮助您快速建立针对服务器的网络监测机制，并且可以导出监测数据。
+				</p>
+
+				<h5>费用</h5>
+				<p>
+					每个监测点，每小时消费 5M 点券。
+				</p>
+
+				<h5>ICMP 与 TCP</h5>
+				<p>
+					在使用 Ping 命令时，是通过 ICMP 数据包通信的。而创建 TCP 监控，则可以通过 TCP 协议创建完整的 TCP 链接进行测试。<br>
+					通过 TCP 模式监控，可以直接监控到业务端口，还能提供更贴近实际场景的数据。 
+				</p>
+
+				<h5>监控方法和周期</h5>
+				<p>
+					无论采用 ICMP 还是 TCP 模式，监控器每次任务都会进行 100 次数据采集操作，并分析出平均值，最大值，最小值以及丢包率。</br>
+					每 10 分钟运行一次监控任务。
+				</p>
+				
+				<h5>状态含义</h5>
+				<p>
+					<li>
+						<span class="ml-1 badge badge-pill badge-warning btn-pointer">
+							暂停
+						</span>
+						由于账号没有可用点券，监控器暂停运行，会在恢复点券供应后自动重启工作。
+					</li>
+					<li>
+						<span class="ml-1 badge badge-pill badge-dark btn-pointer">
+							终止
+						</span>
+						监控器已经停止工作。因为目标无法给出响应的次数超过了 10 次。
+					</li>
+					<li>
+						<span class="ml-1 badge badge-pill badge-success btn-pointer">
+							运行
+						</span>
+						监控器正常运行中。
+					</li>
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
