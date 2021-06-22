@@ -22,8 +22,8 @@
 
                             <div class="card login-page border-0 shadow mt-4" style="z-index: 1">
                                 <div class="card-body p-4" id="user-signup-box">
-                                    <h4 class="card-title text-center">新用户加入</h4>
-                                    <div id="msgbox" class="card-alert alert alert-success mb-0 text-center">
+                                    <h4 class="card-title text-center">欢迎加入</h4>
+                                    <div id="msgbox" class="card-alert alert mb-0 text-center" style="display: none">
                                         欢迎。
                                     </div>
                                     <div class="login-form mt-4">
@@ -42,19 +42,19 @@
                                                         required="">
                                                 </div>
                                             </div>
-                                            <div class="col-md-12" id="regcodex_box" style="display: none">
+                                            <div class="col-md-12" id="regcodex_box">
                                                 <div class="form-group position-relative">
-                                                    <label>邀请码</label>
+                                                    <label>邀请码 <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="regcodex">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <div class="custom-control custom-checkbox">
+                                                    <!-- <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input"
                                                             id="customCheck2">
                                                         <label class="custom-control-label" for="customCheck2" onclick="$('#regcodex_box').fadeToggle()">我有邀请码</label>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="custom-control custom-checkbox">
                                                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                         <label class="custom-control-label" for="customCheck1">已阅读并接受

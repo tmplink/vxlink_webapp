@@ -97,6 +97,8 @@ class vxlink_user {
         var username = $('#username').val();
         var password = $('#password').val();
         var regcode = $('#regcodex').val();
+        $('#msgbox').fadeIn();
+        $('#msgbox').addClass('alert-primary');
         $('#msgbox').html('正在进行...');
         $('#reg').addClass('disabled');
 
@@ -105,6 +107,7 @@ class vxlink_user {
             $('#reg').removeClass('disabled');
             return false;
         }
+
         if ($('#customCheck1').is(':checked') === false) {
             $('#msgbox').html('您需要同意服务条款和隐私政策才能进行注册。');
             $('#reg').removeClass('disabled');
@@ -112,7 +115,10 @@ class vxlink_user {
         }
 
         $.post(this.core.api_user, { token: this.core.token, username: username, password: password, regcode: regcode, action: 'reg' }, (rsp) => {
+            $('#msgbox').removeClass('alert-primary');
             if (rsp.status === 1) {
+                $('#msgbox').removeClass('alert-danger');
+                $('#msgbox').addClass('alert-success');
                 $('#msgbox').html('创建成功，正在进入');
                 $.post(this.core.api_user, { token: this.core.token, username: username, password: password, action: 'login' }, (rsp) => {
                     if (rsp.status === 1) {
@@ -120,6 +126,8 @@ class vxlink_user {
                     }
                 }, 'json');
             } else {
+                $('#msgbox').removeClass('alert-success');
+                $('#msgbox').addClass('alert-danger');
                 $('#msgbox').html('失败，' + rsp.data);
                 $('#reg').removeClass('disabled');
             }
