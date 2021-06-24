@@ -14,6 +14,7 @@ app.ready(() => {
                 if (document.getElementById('init_header') !== null) {
                     $('.user_rpoint').html(vxCore.user_rpoint);
                     $('.user_point').html(vxCore.user_point);
+                    $('.user_coins').html(vxCore.user_coin);
                 }
             }
             e2nav.home();

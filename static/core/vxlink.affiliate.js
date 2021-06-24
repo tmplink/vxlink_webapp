@@ -31,6 +31,7 @@ class vxlink_affiliate {
             $('#loading_regcode_make').fadeOut();
             if (rsp.status === 1) {
                 this.regcodeList();
+                this.core.user_coin = this.core.user_coin - 100;
             } else {
                 $('#regcodeadd').html('没有足够的EXP，请先使用服务。');
             }

@@ -16,6 +16,10 @@ class vxlink_home {
             this.dppInit();
             $('.dpp_start').html(Number(vxCore.user_point)+Number(vxCore.user_rpoint)+64);
             $('.dpp_end').html(2048);
+
+            $('.user_rpoint').html(vxCore.user_rpoint);
+            $('.user_point').html(vxCore.user_point);
+            $('.user_coins').html(vxCore.user_coin);
         }
     }
 

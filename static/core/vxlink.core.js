@@ -58,6 +58,7 @@ class vxlink_core {
                 this.user_position = rsp.data.position;
                 this.user_point = rsp.data.point;
                 this.user_rpoint = rsp.data.rpoint;
+                this.user_coin = rsp.data.coin;
             }
             this.ready = true;
             if (typeof (cb) === 'function') {
