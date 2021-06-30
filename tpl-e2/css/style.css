@@ -945,7 +945,7 @@ footer {
   .sidenav {
     position: fixed;
     height: 100%;
-    width: 270px;
+    width: 280px;
     z-index: 1;
     top: 0;
     left: 0;
@@ -1006,7 +1006,7 @@ footer {
   }
 }
 
-@media (max-height: 800px) {
+@media (max-height: 820px) {
   .bottom-social {
     margin-top: 30px;
     position: relative;
