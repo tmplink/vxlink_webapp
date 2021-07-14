@@ -34,4 +34,4 @@ vxDbservice.init(vxCore)
 vxDns.init(vxCore);
 vxServer.init(vxCore);
 
-app.language_set('cn');
+app.languageSet('cn');
