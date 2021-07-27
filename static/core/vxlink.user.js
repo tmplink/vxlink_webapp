@@ -122,7 +122,7 @@ class vxlink_user {
                 $('#msgbox').html('创建成功，正在进入');
                 $.post(this.core.api_user, { token: this.core.token, username: username, password: password, action: 'login' }, (rsp) => {
                     if (rsp.status === 1) {
-                        app.open('/init.html');
+                        app.open('/signin.html');
                     }
                 }, 'json');
             } else {
