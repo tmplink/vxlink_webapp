@@ -126,6 +126,10 @@ class vxlink_user {
                     }
                 }, 'json');
             } else {
+                if(rsp.data==='无效的邀请码'){
+                    $('#regcodex_box').show();
+                    $('#regcodex').val('');
+                }
                 $('#msgbox').removeClass('alert-success');
                 $('#msgbox').addClass('alert-danger');
                 $('#msgbox').html('失败，' + rsp.data);
