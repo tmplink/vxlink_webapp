@@ -1,7 +1,7 @@
 {
     "title": "微林 - 注册新用户",
-    "preload": ["index","core","signout"],
-    "append": ["index"],
+    "preload": ["index","core"],
+    "append": ["index","pageReady"],
     "body": {
         "/tpl/signup.html": { "type": "html", "target": { "type": "body" } }
     }

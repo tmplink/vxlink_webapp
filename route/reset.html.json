@@ -1,7 +1,7 @@
 {
     "title": "微林 - 找回密码",
-    "preload": ["index","core","signout"],
-    "append": ["index"],
+    "preload": ["index","core"],
+    "append": ["index","pageReady"],
     "body": {
         "/tpl/reset.html": { "type": "html", "target": { "type": "body" } }
     }

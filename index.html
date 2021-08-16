@@ -15,7 +15,7 @@
     <script type="text/javascript" src="./tmpui.js"></script>
     <script type="text/javascript">
         var app = new tmpUI({
-            "version": 192,
+            "version": 193,
             "siteRoot":"/",
             "dynamicRouter": "route",
             "googleAnalytics": "UA-50345450-1",
@@ -103,7 +103,7 @@
                     "/static/core/init.js": { "type": "js", "reload": false }
                 },
                 "signout": {
-                    "/static/core/page.signout.js": { "type": "js" }
+                    "/static/core/page.signout.js": { "type": "js"}
                 },
                 "help": {
                     "/static/core/page.help.js": { "type": "js" }
@@ -127,6 +127,9 @@
                     "/static/hostick/js/contact.js": { "type": "js" },
                     "/tpl/include/head_doc.html": { "type": "html", "target": { "type": "id", "val": "tpl_header" } },
                     "/tpl/include/foot.html": { "type": "html", "target": { "type": "id", "val": "tpl_footer" } }
+                },
+                "pageReady": {
+                    "/static/core/page.signout.js": { "type": "js"}
                 }
             },
             "path": {
