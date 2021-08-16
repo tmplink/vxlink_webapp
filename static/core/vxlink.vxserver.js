@@ -3,6 +3,7 @@ class vxlink_vxserver {
     servicesize = ''
     servicearea = ''
     param_init = false
+    id = 0
 
     init(core) {
         this.core = core;
@@ -40,6 +41,10 @@ class vxlink_vxserver {
             $('#set_cert_code').html(rsp.data);
             $('#set_cert_cp').attr('data-clipboard-text',rsp.data);
         }, 'json');    
+    }
+
+    updateCertOpen(id){
+        $('#updateCertModal').modal('show');
     }
 
     add() {
