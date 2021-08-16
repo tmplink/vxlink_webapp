@@ -45,7 +45,38 @@ class vxlink_vxserver {
 
     updateCertOpen(id){
         $('#updateCertModal').modal('show');
+        this.id = id;
     }
+
+    updateCertPost(){
+        let ssl_cert = $('#set_update_ssl_cert').val();
+        let ssl_key = $('#set_update_ssl_key').val();
+        //界面效果
+        $('#box_update_post').html('正在处理');
+        $('#box_update_post').attr('disabled', 'true');
+        $('#box_update_post_doing').fadeIn(300);
+        //发送请求
+        $.post(this.core.api_vxserver, {
+            ssl_cert:ssl_cert, ssl_key:ssl_key,id:this.id,
+            action: 'ssl_update', token: this.core.token 
+        }, (rsp) => {
+            if (rsp.status === 0) {
+                $('#box_update_post').html('更新失败，证书验证失败。');
+                setTimeout(() =>{
+                    $('#box_update_post').removeAttr('disabled');
+                    $('#box_update_post').html('更新');
+                },3000);
+            } else {
+                $('#box_update_post').html('完成');
+                setTimeout(() =>{
+                    $('#box_update_post').removeAttr('disabled');
+                    $('#box_update_post').html('更新');
+                },3000);
+            }
+            $('#box_update_post_doing').fadeOut(300);
+        }, 'json');
+    }
+
 
     add() {
         //收集数据
