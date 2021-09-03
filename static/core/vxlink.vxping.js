@@ -105,11 +105,27 @@ class vxlink_vxping {
         let location = $('#vxping_monitor_create_set_location').val();
         let model = $('#vxping_monitor_create_set_model').val();
         let target_ip = $('#vxping_monitor_create_set_traget_ip').val();
+        let triger = $("input[name=trigger_options]:checked").val();
         $('#vxping_monitor_create_post').html('<i class="fas fa-spinner fa-spin"></i>');
         $('#vxping_monitor_create_post').attr('disabled', 'true');
+
+        //根据触发器类型获取相应的数据
+        if(triger=='webhook'){
+            let trigger_params = $('#vxping_alert_set_m_webhook_url').val();
+            let trigger_type = 'webhook';
+        }
+
+        if(triger=='email'){
+            let trigger_params = '';
+            let trigger_type = 'email';
+        }
         
         //发送请求
-        $.post(this.core.api_vxping, { name: name, action: 'add_monitor', location: location, to_ip: target_ip, model:model, token: this.core.token }, (rsp) => {
+        $.post(this.core.api_vxping, { 
+            name: name, action: 'add_monitor', location: location, to_ip: target_ip,
+            model:model, token: this.core.token,
+            trigger_type:trigger_type, trigger_params:trigger_params
+        }, (rsp) => {
             if (rsp.status === 1) {
                 $('#vxping_monitor_create_post').html('<i class="far fa-check"></i>');
                 this.refreshMonitorList();
@@ -118,6 +134,16 @@ class vxlink_vxping {
                 $('#vxping_monitor_create_post').html('创建失败：' + rsp.data);
             }
         }, 'json');
+    }
+
+    triggerAddonAreaOnChange() {
+        let triger = $("input[name=trigger_options]:checked").val();
+        //隐藏其它的区域
+        $('.trigger_addon_area').hide();
+
+        if(triger=='webhook'){
+            $('#trigger_addon_area_webhook').show();
+        }
     }
 
     editerReset() {

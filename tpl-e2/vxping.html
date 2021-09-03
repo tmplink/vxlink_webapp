@@ -304,6 +304,20 @@
 					<label for="set_m_val">设定值</label>
 					<input type="number" class="form-control" id="vxping_alert_set_m_val" placeholder="填入整数">
 				</div>
+				<div class="form-group text-center">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons" id="vxping_alert_set_m_trigger" onchange="vxPing.triggerAddonAreaOnChange()">
+						<label class="btn btn-success active">
+						  <input type="radio" name="trigger_options" autocomplete="off" value="email" checked> 邮件通知
+						</label>
+						<label class="btn btn-success">
+						  <input type="radio" name="trigger_options" autocomplete="off" value="webhook"> WebHook
+						</label>
+					</div>
+				</div>
+				<div class="form-group trigger_addon_area" id="trigger_addon_area_webhook" style="display: none;">
+					<label for="vxping_alert_set_m_webhook_url">设定 WebHook 地址</label>
+					<input type="text" class="form-control" id="vxping_alert_set_m_webhook_url" placeholder="填入 URL">
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button id="vxping_alert_post" type="button" onclick="vxPing.alertPost();" class="btn btn-sm btn-primary btn-radius">
