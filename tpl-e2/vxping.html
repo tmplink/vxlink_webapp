@@ -30,7 +30,7 @@
 						添加监测点
 					</span>
 					<span class="btn-radius btn btn-primary" onclick="vxPing.openAlertAllList()">
-						<i class="fa-fw fal fa-alarm-exclamation"></i>
+						<i class="fa-fw fal fa-dog"></i>
 						所有告警器
 					</span>
 					<span class="btn-radius btn btn-primary" onclick="$('#vxping_help_Modal').modal('show')">
@@ -114,7 +114,7 @@
 									<i class="fa-fw far fa-chart-line"></i>
 								</button>
 								<button onclick="vxPing.setAlert('<% obj[x].id %>','<% obj[x].name %>');" class="btn btn-sm btn-outline-primary btn-radius ml-1">
-									<i class="fa-fw fal fa-alarm-exclamation"></i>
+									<i class="fa-fw fal fa-dog"></i>
 								</button>
 								<button onclick="vxPing.downloadLog('<% obj[x].id %>');" class="btn btn-sm btn-outline-primary btn-radius ml-1">
 									<i class="fa-fw fad fa-download"></i>
@@ -160,7 +160,7 @@
 							</button>
 							<div class="dropdown-menu">
 								<button onclick="vxPing.setAlert('<% obj[x].id %>','<% obj[x].name %>');" class="dropdown-item">
-									<i class="fa-fw fal fa-alarm-exclamation"></i> 设置告警
+									<i class="fa-fw fal fa-dog"></i> 设置告警
 								</button>
 								<button onclick="vxPing.downloadLog('<% obj[x].id %>');" class="dropdown-item">
 									<i class="fa-fw far fa-cloud-download-alt"></i> 下载日志
@@ -271,7 +271,7 @@
 </div>
 
 <div class="modal" id="vxping_alert_Modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">创建告警项目</h4>
@@ -304,6 +304,39 @@
 					<label for="set_m_val">设定值</label>
 					<input type="number" class="form-control" id="vxping_alert_set_m_val" placeholder="填入整数">
 				</div>
+				<div class="form-group text-center">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons" id="vxping_alert_set_m_trigger" onchange="vxPing.triggerAddonAreaOnChange()">
+						<label class="btn btn-success active">
+						  <input type="radio" name="trigger_options" autocomplete="off" value="email" checked> 邮件通知
+						</label>
+						<label class="btn btn-success">
+						  <input type="radio" name="trigger_options" autocomplete="off" value="webhook"> WebHook
+						</label>
+					</div>
+				</div>
+				<div class="form-group trigger_addon_area" id="trigger_addon_area_webhook" style="display: none;">
+					<label for="vxping_alert_set_m_webhook_url">设定 WebHook 地址</label>
+					<input type="url" class="form-control" id="vxping_alert_set_m_webhook_url" placeholder="填入 URL">
+
+					<div class="card mt-2">
+						<div class="card-body">
+							<h4>响应 Ping 请求</h4>
+							<p>在添加 WebHook 时，这个地址必须响应一次 {action:ping} 的 POST 请求，其返回值为 200。</p>
+							<h4>触发时</h4>
+							<p>告警信息的触发模式与邮件一致，为“首次触发”和“结束时触发”。</p>
+							<h4>信息格式</h4>
+							<p>触发时，会向 WebHook 地址发送一个 JSON 格式的数据，其中包含以下内容：</p>
+							<ul>
+								<li>name : 告警项目名称</li>
+								<li>addr : 告警项目地址</li>
+								<li>status : 告警状态，可能值为：'wait'(等待触发)、'happen'(正在发生)</li>
+								<li>values : 触发值</li>
+								<li>rule : 告警触发的详细规则</li>
+								<li>time : 告警触发的时间</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button id="vxping_alert_post" type="button" onclick="vxPing.alertPost();" class="btn btn-sm btn-primary btn-radius">
@@ -327,10 +360,17 @@
 			<script type="text/template" id="vxping_alert_list_tpl">
 				<% for (let x in obj) { %>
 					<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_alert_unit_rule_<% obj[x].id %>">
-						<div class="col-md-8 col-12 d-flex align-items-center">
+						<div class="col-md-6 col-12 d-flex align-items-center">
 							<i class="fad fa-eye mr-1"></i>发生 <% obj[x].ex_type %> 时
 						</div>
-						<div class="col-md-3 col-10 d-flex align-items-center justify-content-end">
+						<div class="col-md-5 col-10 d-flex align-items-center justify-content-end">
+							<% if (obj[x].trigger === 'email') { %>
+								<i class="fa-fw fal fa-envelope text-green"></i> Email
+							<% }%>
+							<% if (obj[x].trigger === 'webhook') { %>
+								<i class="fa-fw fal fa-link text-green"></i> WebHook
+							<% }%>
+							<span class="mr-2"></span>
 							<% if (obj[x].status === 'wait') { %>
 								<i class="fa-fw fal fa-check-circle text-green"></i> 当前正常
 							<% }else{ %>
@@ -377,6 +417,14 @@
 								<i class="fa-fw fad fa-trash"></i>
 							</button>
 						</div>
+						<div class="col-12 d-flex align-items-center">
+							<% if (obj[x].trigger === 'email') { %>
+								通过 <i class="fa-fw fal fa-envelope text-green"></i> Email 发送告警信息。
+							<% }%>
+							<% if (obj[x].trigger === 'webhook') { %>
+								通过 <i class="fa-fw fal fa-link text-green"></i> WebHook 发送告警信息至 <% obj[x].trigger_params %>
+							<% }%>
+						</div>
 					</div>
 				<% } %>
 			</script>
@@ -411,7 +459,7 @@
 				<h5>监控方法和周期</h5>
 				<p>
 					无论采用 ICMP 还是 TCP 模式，监控器每次任务都会进行 100 次数据采集操作，并分析出平均值，最大值，最小值以及丢包率。</br>
-					每 10 分钟运行一次监控任务。
+					每 5 分钟运行一次监控任务。
 				</p>
 				
 				<h5>状态含义</h5>
