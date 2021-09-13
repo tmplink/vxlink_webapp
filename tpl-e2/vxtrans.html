@@ -123,6 +123,9 @@
                                     <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>">
                                         <i class="fa-fw fad fa-copy text-blue"></i>
                                     </span>
+                                    <span class="btn-pointer btncp" data-clipboard-text="@<% obj[i].list[x].ex_location.addr %> -p <% obj[i].list[x].localport %>">
+                                        <i class="fa-fw fad fa-terminal"></i>
+                                    </span>
                                 </div>
                                 <div>
                                     <i class="fa-fw fal fa-plane-arrival"></i>  <% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>
