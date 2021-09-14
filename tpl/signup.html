@@ -5,7 +5,8 @@
 <section class="cover-user bg-white">
     <div class="container-fluid px-0">
         <div class="row no-gutters position-relative">
-            <div class="col-lg-4 padding-less img" style="background:url('/static/img/bg/bg.jpeg');background-size:100% 100%;"
+            <div class="col-lg-4 padding-less img"
+                style="background:url('/static/img/bg/bg.jpeg');background-size:100% 100%;"
                 data-jarallax='{"speed": 0.5}'>
 
             </div> <!-- end col -->
@@ -38,13 +39,14 @@
                                             <div class="col-md-12">
                                                 <div class="form-group position-relative">
                                                     <label>设置密码 <span class="text-danger">*</span></label>
-                                                    <input type="password" id="password" class="form-control" placeholder="由英文字母和数字组成"
-                                                        required="">
+                                                    <input type="password" id="password" class="form-control"
+                                                        placeholder="由英文字母和数字组成" required="">
                                                 </div>
                                             </div>
                                             <div class="col-md-12" id="regcodex_box">
                                                 <div class="form-group position-relative">
-                                                    <label>邀请码 <span class="text-danger">*</span></label>
+                                                    <label>邀请码 <a class="text-danger"
+                                                            onclick="$('#regcodeModal').modal('show')" href="javascript:;">(如何获取)</a></label>
                                                     <input type="text" class="form-control" id="regcodex">
                                                 </div>
                                             </div>
@@ -56,20 +58,25 @@
                                                         <label class="custom-control-label" for="customCheck2" onclick="$('#regcodex_box').fadeToggle()">我有邀请码</label>
                                                     </div> -->
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck1">
                                                         <label class="custom-control-label" for="customCheck1">已阅读并接受
-                                                            <a tmpui-app="true" href="/tos.html" class="text-primary">服务条款和隐私政策</a>
+                                                            <a tmpui-app="true" href="/tos.html"
+                                                                class="text-primary">服务条款和隐私政策</a>
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <button class="btn btn-primary btn-block" id="submit" disabled>未就绪,请稍等..</button>
+                                                <button class="btn btn-primary btn-block" id="submit"
+                                                    disabled>未就绪,请稍等..</button>
                                             </div>
-                                            
+
                                             <div class="mx-auto">
-                                                <p class="mb-0 mt-3"><small class="text-dark mr-2">已经有账号了，在这里</small> 
-                                                <a tmpui-app="true" href="/signin.html"  class="text-dark font-weight-bold">登录</a></p>
+                                                <p class="mb-0 mt-3"><small class="text-dark mr-2">已经有账号了，在这里</small>
+                                                    <a tmpui-app="true" href="/signin.html"
+                                                        class="text-dark font-weight-bold">登录</a>
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -88,3 +95,28 @@
 </section>
 <!--end section-->
 <div id="init_signup"></div>
+
+<div class="modal" id="regcodeModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">获取邀请码</h4>
+            </div>
+            <div class="modal-body">
+                <h5>为什么需要邀请码？</h5>
+                <p>由于服务能力有限（设施及人力），并且微林希望能为您提供最优质的体验，注定了微林无法向所有用户提供服务。</p>
+                <h5>如何获取邀请码？</h5>
+                <p>
+                    我们仍然希望可以为您提供合适的服务。您可以随时在
+                    <a href="https://twitter.com/VnetLink" target="_blank">
+                        <i class="fab fa-twitter"></i> 微林的官方推特
+                    </a>
+                    发送私信咨询关于邀请码的相关事宜，我们会向符合条件的用户提供邀请码，感谢您的支持！
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
