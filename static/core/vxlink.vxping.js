@@ -1,8 +1,8 @@
 class vxlink_vxping {
     core = null
-    alert_list = null
+    trigger_list = null
     monitor_list = null
-    refresh_alert_list_init = false
+    refresh_trigger_list_init = false
     refresh_monitor_list_init = false
     trigger_id = 0
 
@@ -23,32 +23,31 @@ class vxlink_vxping {
         }
     }
 
-    refreshAlertAllList() {
-        $.post(this.core.api_vxping, { action: 'list_alert', token: this.core.token }, (rsp) => {
+    refreshtriggerAllList() {
+        $.post(this.core.api_vxping, { action: 'trigger_list', token: this.core.token }, (rsp) => {
             if (rsp.status === 1) {
                 for (let i in rsp.data) {
                     rsp.data[i].bg_color = rsp.data[i].status === 'wait' ? 'bg-white' : 'bg-pink';
                 }
                 $('#vxping_trigger_all_list_box').html(app.tpl('vxping_trigger_all_list_tpl', rsp.data));
-                console.log('vxPing Alert List Loaded');
+                console.log('vxPing trigger List Loaded');
             } else {
                 $('#vxping_trigger_all_list_box').html('目前没有设置告警器');
             }
         }, 'json');
     }
 
-    openAlertAllList() {
-        this.refreshAlertAllList();
+    openTriggerAllList() {
+        this.refreshtriggerAllList();
         $('#vxping_trigger_all_list_Modal').modal('show');
     }
 
-    refreshAlertList(id) {
+    refreshTriggerList(id) {
         $('#vxping_trigger_list_Modal').modal('show');
-        let alert_list = this.monitor_list;
-        for (let i in alert_list) {
-            if (alert_list[i].id == id) {
-                console.log(alert_list[i]);
-                $('#vxping_trigger_list_box').html(app.tpl('vxping_trigger_list_tpl', alert_list[i].alert_list));
+        let trigger_list = this.monitor_list;
+        for (let i in trigger_list) {
+            if (trigger_list[i].id == id) {
+                $('#vxping_trigger_list_box').html(app.tpl('vxping_trigger_list_tpl', trigger_list[i].trigger_list));
                 return true;
             }
         }
@@ -60,7 +59,7 @@ class vxlink_vxping {
         }
 
         $('#loading_vxping_monitor_list').fadeIn();
-        $.post(this.core.api_vxping, { action: 'list_monitor', token: this.core.token }, (rsp) => {
+        $.post(this.core.api_vxping, { action: 'monitor_list', token: this.core.token }, (rsp) => {
             $('#loading_vxping_monitor_list').fadeOut();
             if (rsp.status === 1) {
                 this.monitor_list = rsp.data;
@@ -74,20 +73,20 @@ class vxlink_vxping {
         }, 'json');
     }
 
-    deleteAlert(id) {
+    deleteTrigger(id) {
         $('#vxping_trigger_rule_' + id).fadeOut();
-        $.post(this.core.api_vxping, { action: 'del_alert', id: id, token: this.core.token });
+        $.post(this.core.api_vxping, { action: 'trigger_del', id: id, token: this.core.token });
     }
 
-    deleteAlertUnit(id) {
+    deleteTriggerUnit(id) {
         $('#vxping_trigger_unit_rule_' + id).fadeOut();
-        $.post(this.core.api_vxping, { action: 'del_alert', id: id, token: this.core.token });
+        $.post(this.core.api_vxping, { action: 'trigger_del', id: id, token: this.core.token });
     }
 
     deleteMonitor(id) {
         if (confirm('您确定要关闭该监测项目吗?')) {
             $('#vxping_monitor_' + id).fadeOut();
-            $.post(this.core.api_vxping, { action: 'del_monitor', id: id, token: this.core.token });
+            $.post(this.core.api_vxping, { action: 'monitor_del', id: id, token: this.core.token });
         }
     }
 
@@ -112,7 +111,7 @@ class vxlink_vxping {
 
         //发送请求
         $.post(this.core.api_vxping, {
-            name: name, action: 'add_monitor', location: location, to_ip: target_ip,
+            name: name, action: 'monitor_add', location: location, to_ip: target_ip,
             model: model, token: this.core.token,
         }, (rsp) => {
             if (rsp.status === 1) {
@@ -229,8 +228,8 @@ class vxlink_vxping {
         }, 'json');
     }
 
-    setAlert(ping_id, name) {
-        this.alert_add_id = ping_id;
+    settrigger(ping_id, name) {
+        this.trigger_add_id = ping_id;
         $('#vxping_trigger_title').html('为[' + name + ']设置告警');
         $('#vxping_trigger_set_m_val').val('');
         $('#vxping_trigger_set_m_type').find("option[value='avg']").attr("selected", true);
@@ -238,7 +237,7 @@ class vxlink_vxping {
         $('#vxping_trigger_Modal').modal('show');
     }
 
-    alertPost() {
+    triggerPost() {
         var type = $('#vxping_trigger_set_m_method').val();
         var check_type = $('#vxping_trigger_set_m_type').val();
         var val = $('#vxping_trigger_set_m_val').val();
@@ -271,15 +270,15 @@ class vxlink_vxping {
         $('#vxping_trigger_post').attr('disabled', 'true');
 
         $.post(this.core.api_vxping, {
-            token: this.core.token, action: 'add_alert',
-            type: type, val: val, check_type: check_type, ping_id: this.alert_add_id,
+            token: this.core.token, action: 'trigger_add',
+            type: type, val: val, check_type: check_type, ping_id: this.trigger_add_id,
             trigger_type: trigger_type, trigger_params: trigger_params
         }, (rsp) => {
             if (rsp.status === 1) {
                 this.refreshMonitorList();
                 $('#vxping_trigger_Modal').modal('hide');
             } else {
-                alert('创建失败：' + rsp.data);
+                trigger('创建失败：' + rsp.data);
             }
             $('#vxping_trigger_post').html('<i class="far fa-check"></i>');
             $('#vxping_trigger_post').removeAttr('disabled');
