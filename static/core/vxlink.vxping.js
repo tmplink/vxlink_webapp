@@ -4,6 +4,7 @@ class vxlink_vxping {
     monitor_list = null
     refresh_alert_list_init = false
     refresh_monitor_list_init = false
+    trigger_id = 0
 
     init(core) {
         this.core = core;
@@ -28,26 +29,26 @@ class vxlink_vxping {
                 for (let i in rsp.data) {
                     rsp.data[i].bg_color = rsp.data[i].status === 'wait' ? 'bg-white' : 'bg-pink';
                 }
-                $('#vxping_alert_all_list_box').html(app.tpl('vxping_alert_all_list_tpl', rsp.data));
+                $('#vxping_trigger_all_list_box').html(app.tpl('vxping_trigger_all_list_tpl', rsp.data));
                 console.log('vxPing Alert List Loaded');
-            }else{
-                $('#vxping_alert_all_list_box').html('目前没有设置告警器');
+            } else {
+                $('#vxping_trigger_all_list_box').html('目前没有设置告警器');
             }
         }, 'json');
     }
 
-    openAlertAllList(){
+    openAlertAllList() {
         this.refreshAlertAllList();
-        $('#vxping_alert_all_list_Modal').modal('show');
+        $('#vxping_trigger_all_list_Modal').modal('show');
     }
 
     refreshAlertList(id) {
-        $('#vxping_alert_list_Modal').modal('show');
+        $('#vxping_trigger_list_Modal').modal('show');
         let alert_list = this.monitor_list;
         for (let i in alert_list) {
-            if(alert_list[i].id==id){
+            if (alert_list[i].id == id) {
                 console.log(alert_list[i]);
-                $('#vxping_alert_list_box').html(app.tpl('vxping_alert_list_tpl', alert_list[i].alert_list));
+                $('#vxping_trigger_list_box').html(app.tpl('vxping_trigger_list_tpl', alert_list[i].alert_list));
                 return true;
             }
         }
@@ -74,12 +75,12 @@ class vxlink_vxping {
     }
 
     deleteAlert(id) {
-        $('#vxping_alert_rule_' + id).fadeOut();
+        $('#vxping_trigger_rule_' + id).fadeOut();
         $.post(this.core.api_vxping, { action: 'del_alert', id: id, token: this.core.token });
     }
 
     deleteAlertUnit(id) {
-        $('#vxping_alert_unit_rule_' + id).fadeOut();
+        $('#vxping_trigger_unit_rule_' + id).fadeOut();
         $.post(this.core.api_vxping, { action: 'del_alert', id: id, token: this.core.token });
     }
 
@@ -108,11 +109,11 @@ class vxlink_vxping {
         $('#vxping_monitor_create_post').html('<i class="fas fa-spinner fa-spin"></i>');
         $('#vxping_monitor_create_post').attr('disabled', 'true');
 
-        
+
         //发送请求
-        $.post(this.core.api_vxping, { 
+        $.post(this.core.api_vxping, {
             name: name, action: 'add_monitor', location: location, to_ip: target_ip,
-            model:model, token: this.core.token,
+            model: model, token: this.core.token,
         }, (rsp) => {
             if (rsp.status === 1) {
                 $('#vxping_monitor_create_post').html('<i class="far fa-check"></i>');
@@ -129,8 +130,11 @@ class vxlink_vxping {
         //隐藏其它的区域
         $('.trigger_addon_area').hide();
 
-        if(triger=='webhook'){
+        if (triger == 'webhook') {
             $('#trigger_addon_area_webhook').show();
+        }
+        if (triger == 'vxdns') {
+            $('#trigger_vxdns').show();
         }
     }
 
@@ -147,21 +151,99 @@ class vxlink_vxping {
         $('#vxping_monitor_create_post').removeAttr('disabled');
     }
 
-    setAlert(ping_id,name){
+    vxDNSOnTrigger(id) {
+        $('#vxping_trigger_all_list_Modal').modal('hide');
+        $('#vxping_trigger_list_Modal').modal('hide');
+        setTimeout(() => {
+            $('#vxping_dns_edit_Modal').modal('show');
+            this.trigger_id = id;
+            vxPing.vxDNSRecordList();
+        }, 500);
+
+    }
+
+    vxDNSRecordSearch() {
+        let searchString = $('#vxDNSRecordSearch').val();
+        $('#record_find').html('<div class="text-center">处理中...</div>');
+        if (searchString !== "") {
+            //发送请求
+            $.post(this.core.api_vxping, {
+                name: searchString, action: 'dns_record_find', token: this.core.token,
+            }, (rsp) => {
+                if (rsp.status === 1) {
+                    let html = app.tpl('record_find_tpl', rsp.data);
+                    $('#record_find').html(html);
+                } else {
+                    $('#record_find').html('<div class="text-center">没有找到匹配的记录</div>');
+                }
+            }, 'json');
+        }
+    }
+
+    vxDNSRecordListofTrigger(id) {
+        //发送请求
+        $('#dns').html('<div class="text-center">处理中...</div>');
+        $.post(this.core.api_vxping, {
+            id: id, action: 'dns_record_list', token: this.core.token,
+        }, (rsp) => {
+            if (rsp.status === 1) {
+                let html = app.tpl('record_find_tpl', rsp.data);
+                $('#record_find').html(html);
+            } else {
+                $('#record_find').html('<div class="text-center">没有找到匹配的记录</div>');
+            }
+        }, 'json');
+    }
+
+    vxDNSRecordList() {
+        //发送请求
+        $('#dns').html('<div class="text-center">处理中...</div>');
+        $.post(this.core.api_vxping, {
+            action: 'dns_record_list', trigger_id: this.trigger_id, token: this.core.token,
+        }, (rsp) => {
+            if (rsp.status === 1) {
+                let html = app.tpl('record_list_tpl', rsp.data);
+                $('#record_list').html(html);
+            } else {
+                $('#record_list').html('<div class="text-center">暂无</div>');
+            }
+        }, 'json');
+    }
+
+    addDNSRecordToTrigger(id) {
+        $.post(this.core.api_vxping, {
+            id: id, trigger_id: this.trigger_id, action: 'dns_record_add', token: this.core.token,
+        }, () => {
+            //隐藏已添加的记录
+            $('#record_find_id_' + id).hide();
+            //刷新列表
+            this.vxDNSRecordList();
+        }, 'json');
+    }
+
+    removeDNSRecordFromTrigger(id) {
+        $.post(this.core.api_vxping, {
+            id: id, action: 'dns_record_del', token: this.core.token,
+        }, () => {
+            $('#record_list_id_' + id).hide();
+        }, 'json');
+    }
+
+    setAlert(ping_id, name) {
         this.alert_add_id = ping_id;
-        $('#vxping_alert_title').html('为['+name+']设置告警');
-        $('#vxping_alert_set_m_val').val('');
-        $('#vxping_alert_set_m_type').find("option[value='avg']").attr("selected", true);
-        $('#vxping_alert_set_m_method').find("option[value='more']").attr("selected", true);
-        $('#vxping_alert_Modal').modal('show');
+        $('#vxping_trigger_title').html('为[' + name + ']设置告警');
+        $('#vxping_trigger_set_m_val').val('');
+        $('#vxping_trigger_set_m_type').find("option[value='avg']").attr("selected", true);
+        $('#vxping_trigger_set_m_method').find("option[value='more']").attr("selected", true);
+        $('#vxping_trigger_Modal').modal('show');
     }
 
     alertPost() {
-        var type = $('#vxping_alert_set_m_method').val();
-        var check_type = $('#vxping_alert_set_m_type').val();
-        var val = $('#vxping_alert_set_m_val').val();
+        var type = $('#vxping_trigger_set_m_method').val();
+        var check_type = $('#vxping_trigger_set_m_type').val();
+        var val = $('#vxping_trigger_set_m_val').val();
 
-        
+
         let triger = $("input[name=trigger_options]:checked").val();
         let trigger_type = 'email';
         let trigger_params = '';
@@ -169,42 +251,47 @@ class vxlink_vxping {
         $('#vxping_monitor_create_post').attr('disabled', 'true');
 
         //根据触发器类型获取相应的数据
-        if(triger=='webhook'){
-            trigger_params = $('#vxping_alert_set_m_webhook_url').val();
+        if (triger == 'webhook') {
+            trigger_params = $('#vxping_trigger_set_m_webhook_url').val();
             trigger_type = 'webhook';
         }
 
-        if(triger=='email'){
+        if (triger == 'vxdns') {
+            trigger_params = $('#vxping_trigger_set_dns').val();
+            trigger_type = 'vxdns';
+        }
+
+        if (triger == 'email') {
             trigger_params = '';
             trigger_type = 'email';
         }
 
 
-        $('#vxping_alert_post').html('<i class="fas fa-spinner fa-spin"></i>');
-        $('#vxping_alert_post').attr('disabled', 'true');
+        $('#vxping_trigger_post').html('<i class="fas fa-spinner fa-spin"></i>');
+        $('#vxping_trigger_post').attr('disabled', 'true');
 
-        $.post(this.core.api_vxping, { 
-            token: this.core.token, action: 'add_alert', 
-            type: type, val: val, check_type: check_type, ping_id: this.alert_add_id ,
-            trigger_type:trigger_type, trigger_params:trigger_params
+        $.post(this.core.api_vxping, {
+            token: this.core.token, action: 'add_alert',
+            type: type, val: val, check_type: check_type, ping_id: this.alert_add_id,
+            trigger_type: trigger_type, trigger_params: trigger_params
         }, (rsp) => {
             if (rsp.status === 1) {
                 this.refreshMonitorList();
-                $('#vxping_alert_Modal').modal('hide');
+                $('#vxping_trigger_Modal').modal('hide');
             } else {
                 alert('创建失败：' + rsp.data);
             }
-            $('#vxping_alert_post').html('<i class="far fa-check"></i>');
-            $('#vxping_alert_post').removeAttr('disabled');
+            $('#vxping_trigger_post').html('<i class="far fa-check"></i>');
+            $('#vxping_trigger_post').removeAttr('disabled');
         }, 'json');
     }
 
-    downloadLog(id){
-        let url = "https://vx.link/x2/service/vxping/log?id="+id+'&token='+this.core.token;
+    downloadLog(id) {
+        let url = "https://vx.link/x2/service/vxping/log?id=" + id + '&token=' + this.core.token;
         window.location = url;
     }
 
-    drawIdSet(id){
+    drawIdSet(id) {
         this.drawId = id;
         $('#vxping_charts_Modal').modal('show');
     }

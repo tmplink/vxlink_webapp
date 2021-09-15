@@ -128,7 +128,7 @@
 				<% } %>
 			</div>
 		</script>
-		
+
 		<script type="text/template" id="vxping_monitor_list_tpl2">
 			<% for (let x in obj) { %>
 				<div class="row p-2 shadow-sm mb-2 mx-0 d-flex" tldata="<% obj[x].id %>" id="vxping_monitor_<% obj[x].id %>">
@@ -270,20 +270,20 @@
 	</div>
 </div>
 
-<div class="modal" id="vxping_alert_Modal" tabindex="-1" role="dialog">
+<div class="modal" id="vxping_trigger_Modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">创建告警项目</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body" id="vxping_alert_box">
-				<div class="h3 text-center" id="vxping_alert_title"></div>
+			<div class="modal-body" id="vxping_trigger_box">
+				<div class="h3 text-center" id="vxping_trigger_title"></div>
 				<div class="form-group">
-					<label class="control-label" for="vxping_alert_set_m_type">
+					<label class="control-label" for="vxping_trigger_set_m_type">
 						选择监测的数据类型
 					</label>
-					<select class="form-control" name="vxping_alert_set_m_type" id="vxping_alert_set_m_type">
+					<select class="form-control" name="vxping_trigger_set_m_type" id="vxping_trigger_set_m_type">
 						<option value="avg">Ping 平均值</option>
 						<option value="max">Ping 最大值</option>
 						<option value="min">Ping 最小值</option>
@@ -291,10 +291,10 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<label class="control-label" for="vxping_alert_set_m_method">
+					<label class="control-label" for="vxping_trigger_set_m_method">
 						对比方法
 					</label>
-					<select class="form-control" name="vxping_alert_set_m_method" id="vxping_alert_set_m_method">
+					<select class="form-control" name="vxping_trigger_set_m_method" id="vxping_trigger_set_m_method">
 						<option value="more">大于设定值</option>
 						<option value="less">小于设定值</option>
 						<option value="equal">等于设定值</option>
@@ -302,21 +302,26 @@
 				</div>
 				<div class="form-group">
 					<label for="set_m_val">设定值</label>
-					<input type="number" class="form-control" id="vxping_alert_set_m_val" placeholder="填入整数">
+					<input type="number" class="form-control" id="vxping_trigger_set_m_val" placeholder="填入整数">
 				</div>
 				<div class="form-group text-center">
-					<div class="btn-group btn-group-toggle" data-toggle="buttons" id="vxping_alert_set_m_trigger" onchange="vxPing.triggerAddonAreaOnChange()">
+					<div class="btn-group btn-group-toggle" data-toggle="buttons" id="vxping_trigger_set_m_trigger"
+						onchange="vxPing.triggerAddonAreaOnChange()">
 						<label class="btn btn-success active">
-						  <input type="radio" name="trigger_options" autocomplete="off" value="email" checked> 邮件通知
+							<input type="radio" name="trigger_options" autocomplete="off" value="email" checked> 邮件通知
 						</label>
 						<label class="btn btn-success">
-						  <input type="radio" name="trigger_options" autocomplete="off" value="webhook"> WebHook
+							<input type="radio" name="trigger_options" autocomplete="off" value="webhook"> WebHook
+						</label>
+						<label class="btn btn-success">
+							<input type="radio" name="trigger_options" autocomplete="off" value="vxdns"> vxDNS
 						</label>
 					</div>
 				</div>
 				<div class="form-group trigger_addon_area" id="trigger_addon_area_webhook" style="display: none;">
-					<label for="vxping_alert_set_m_webhook_url">设定 WebHook 地址</label>
-					<input type="url" class="form-control" id="vxping_alert_set_m_webhook_url" placeholder="填入 URL">
+					<hr>
+					<label for="vxping_trigger_set_m_webhook_url">设定 WebHook 地址</label>
+					<input type="url" class="form-control" id="vxping_trigger_set_m_webhook_url" placeholder="填入 URL">
 
 					<div class="card mt-2">
 						<div class="card-body">
@@ -337,9 +342,31 @@
 						</div>
 					</div>
 				</div>
+				<div class="form-group trigger_addon_area" id="trigger_vxdns" style="display: none;">
+					<hr>
+					<div class="form-group">
+						<label class="control-label" for="vxping_trigger_set_dns">
+							采取措施
+						</label>
+						<select class="form-control" name="vxping_trigger_set_dns" id="vxping_trigger_set_dns">
+							<option value="on">激活指定记录的解析</option>
+							<option value="off">停止指定记录的解析</option>
+						</select>
+					</div>
+
+					<div class="card mt-2">
+						<div class="card-body">
+							<h4>由 vxPing 操作 vxDNS 域名记录</h4>
+							<p>当告警事件发生时，这些受影响的 vxDNS 记录会按设定启用或者停用。</p>
+							<p>请先创建此告警项目，然后再在告警项目列表中找到它，进行添加或移除 vxDNS 记录的操作。</p>
+							<p>为了获得最佳灵活性，通常您需要创建两个告警项目来操作 vxDNS 域名记录，一个用于激活解析记录，一个用于停止解析记录。</p>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
-				<button id="vxping_alert_post" type="button" onclick="vxPing.alertPost();" class="btn btn-sm btn-primary btn-radius">
+				<button id="vxping_trigger_post" type="button" onclick="vxPing.alertPost();"
+					class="btn btn-sm btn-primary btn-radius">
 					<i class="far fa-check"></i>
 				</button>
 			</div>
@@ -347,21 +374,27 @@
 	</div>
 </div>
 
-<div class="modal" id="vxping_alert_list_Modal" tabindex="-1" role="dialog">
+<div class="modal" id="vxping_trigger_list_Modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">告警项目列表</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body" id="vxping_alert_list_box">
-				
+			<div class="modal-body" id="vxping_trigger_list_box">
+
 			</div>
-			<script type="text/template" id="vxping_alert_list_tpl">
+			<script type="text/template" id="vxping_trigger_list_tpl">
 				<% for (let x in obj) { %>
-					<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_alert_unit_rule_<% obj[x].id %>">
+					<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_trigger_unit_rule_<% obj[x].id %>">
 						<div class="col-md-6 col-12 d-flex align-items-center">
 							<i class="fad fa-eye mr-1"></i>发生 <% obj[x].ex_type %> 时
+							<% if (obj[x].trigger === 'vxdns' && obj[x].trigger_params === 'on') { %>
+								，激活指定域名的解析
+							<% }%>
+							<% if (obj[x].trigger === 'vxdns' && obj[x].trigger_params === 'off') { %>
+								，停止指定域名的解析
+							<% }%>
 						</div>
 						<div class="col-md-5 col-10 d-flex align-items-center justify-content-end">
 							<% if (obj[x].trigger === 'email') { %>
@@ -369,6 +402,10 @@
 							<% }%>
 							<% if (obj[x].trigger === 'webhook') { %>
 								<i class="fa-fw fal fa-link text-green"></i> WebHook
+							<% }%>
+							<% if (obj[x].trigger === 'vxdns') { %>
+								<i class="fa-fw far fa-map-signs text-green"></i> vxDNS
+								<a href="javascript:;" onclick="vxPing.vxDNSOnTrigger('<% obj[x].id %>')">(管理)</a>
 							<% }%>
 							<span class="mr-2"></span>
 							<% if (obj[x].status === 'wait') { %>
@@ -378,7 +415,7 @@
 							<% } %>
 						</div>
 						<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
-							<button  id="btn_vxping_alert_unit_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlertUnit('<% obj[x].id %>')">
+							<button  id="btn_vxping_trigger_unit_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlertUnit('<% obj[x].id %>')">
 								<i class="fa-fw fad fa-trash"></i>
 							</button>
 						</div>
@@ -389,21 +426,122 @@
 	</div>
 </div>
 
-<div class="modal" id="vxping_alert_all_list_Modal" tabindex="-1" role="dialog">
+<div class="modal" id="vxping_dns_edit_Modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">控制器</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<h5>查找记录</h5>
+				<div class="input-group" class="form-control" id="vxping_trigger_set_vxdns_record">
+					<input class="form-control" type="text" id="vxDNSRecordSearch"
+						placeholder="查找一个域名记录，比如 www.abc.com">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button"
+							onclick="vxPing.vxDNSRecordSearch()">查找</button>
+					</div>
+				</div>
+
+				<div id="record_find">
+
+				</div>
+				<hr>
+				<h5>已设定的记录</h5>
+				<div id="record_list">
+
+				</div>
+			</div>
+			<script type="text/template" id="record_find_tpl">
+				<div class="table-responsive mt-3">
+					<table class="table table-hover table-bordered table-vcenter text-nowrap card-table">
+						<thead>
+							<tr>
+								<th>域名</th>
+								<th>内容</th>
+								<th>类型</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for (let x in obj) { %>
+							<tr id="record_find_id_<% obj[x].id %>">
+								<td>
+									<div class="text-truncate"><% obj[x].name %></div>
+								</td>
+								<td>
+									<div class="text-truncate"><% obj[x].type %></div>
+								</td>
+								<td>
+									<div class="text-truncate"><% obj[x].content %></div>
+								</td>
+								<td class="text-center">
+									<i class="fa-fw fad fa-plus-circle text-green btn-pointer" onclick="vxPing.addDNSRecordToTrigger('<% obj[x].id %>')"></i>
+								</td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>	
+				</div>
+			</script>
+			<script type="text/template" id="record_list_tpl">
+				<div class="table-responsive mt-3">
+					<table class="table table-hover table-bordered table-vcenter text-nowrap card-table">
+						<thead>
+							<tr>
+								<th>域名</th>
+								<th>内容</th>
+								<th>类型</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for (let x in obj) { %>
+							<tr id="record_list_id_<% obj[x].id %>">
+								<td>
+									<div class="text-truncate"><% obj[x].name %></div>
+								</td>
+								<td>
+									<div class="text-truncate"><% obj[x].type %></div>
+								</td>
+								<td>
+									<div class="text-truncate"><% obj[x].content %></div>
+								</td>
+								<td class="text-center">
+									<i class="fa-fw fas fa-minus-circle text-danger btn-pointer" onclick="vxPing.removeDNSRecordFromTrigger('<% obj[x].id %>')"></i>
+								</td>
+							</tr>
+							<% } %>
+						</tbody>
+					</table>	
+				</div>
+			</script>
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="vxping_trigger_all_list_Modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">全部告警项目</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body" id="vxping_alert_all_list_box">
-				
+			<div class="modal-body" id="vxping_trigger_all_list_box">
+
 			</div>
-			<script type="text/template" id="vxping_alert_all_list_tpl">
+			<script type="text/template" id="vxping_trigger_all_list_tpl">
 				<% for (let x in obj) { %>
-					<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_alert_rule_<% obj[x].id %>">
+					<div class="row p-2 shadow-sm mb-2 mx-0 <% obj[x].bg_color %>" tldata="<% obj[x].id %>" id="vxping_trigger_rule_<% obj[x].id %>">
 						<div class="col-md-8 col-12 d-flex align-items-center">
 							<i class="fad fa-eye mr-1"></i> 在 <% obj[x].name %> 发生 <% obj[x].ex_type %> 时
+							<% if (obj[x].trigger === 'vxdns' && obj[x].trigger_params === 'on') { %>
+								，激活指定域名的解析
+							<% }%>
+							<% if (obj[x].trigger === 'vxdns' && obj[x].trigger_params === 'off') { %>
+								，停止指定域名的解析
+							<% }%>
 						</div>
 						<div class="col-md-3 col-10 d-flex align-items-center justify-content-end">
 							<% if (obj[x].status === 'wait') { %>
@@ -413,7 +551,7 @@
 							<% } %>
 						</div>
 						<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
-							<button  id="btn_vxping_alert_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlert('<% obj[x].id %>')">
+							<button  id="btn_vxping_trigger_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlert('<% obj[x].id %>')">
 								<i class="fa-fw fad fa-trash"></i>
 							</button>
 						</div>
@@ -423,6 +561,10 @@
 							<% }%>
 							<% if (obj[x].trigger === 'webhook') { %>
 								通过 <i class="fa-fw fal fa-link text-green"></i> WebHook 发送告警信息至 <% obj[x].trigger_params %>
+							<% }%>
+							<% if (obj[x].trigger === 'vxdns') { %>
+								<i class="fa-fw far fa-map-signs text-green"></i> vxDNS
+								<a href="javascript:;" onclick="vxPing.vxDNSOnTrigger('<% obj[x].id %>')">(管理)</a>
 							<% }%>
 						</div>
 					</div>
@@ -453,7 +595,7 @@
 				<h5>ICMP 与 TCP</h5>
 				<p>
 					在使用 Ping 命令时，是通过 ICMP 数据包通信的。而创建 TCP 监控，则可以通过 TCP 协议创建完整的 TCP 链接进行测试。<br>
-					通过 TCP 模式监控，可以直接监控到业务端口，还能提供更贴近实际场景的数据。 
+					通过 TCP 模式监控，可以直接监控到业务端口，还能提供更贴近实际场景的数据。
 				</p>
 
 				<h5>监控方法和周期</h5>
@@ -461,7 +603,7 @@
 					无论采用 ICMP 还是 TCP 模式，监控器每次任务都会进行 100 次数据采集操作，并分析出平均值，最大值，最小值以及丢包率。</br>
 					每 5 分钟运行一次监控任务。
 				</p>
-				
+
 				<h5>状态含义</h5>
 				<p>
 					<li>
