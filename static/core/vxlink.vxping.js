@@ -228,7 +228,7 @@ class vxlink_vxping {
         }, 'json');
     }
 
-    settrigger(ping_id, name) {
+    setTrigger(ping_id, name) {
         this.trigger_add_id = ping_id;
         $('#vxping_trigger_title').html('为[' + name + ']设置告警');
         $('#vxping_trigger_set_m_val').val('');
