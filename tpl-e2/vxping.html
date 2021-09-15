@@ -29,7 +29,7 @@
 						<i class="fa-fw fal fa-plus-circle"></i>
 						添加监测点
 					</span>
-					<span class="btn-radius btn btn-primary" onclick="vxPing.openAlertAllList()">
+					<span class="btn-radius btn btn-primary" onclick="vxPing.openTriggerAllList()">
 						<i class="fa-fw fal fa-dog"></i>
 						所有告警器
 					</span>
@@ -88,9 +88,9 @@
 							</div>
 							<div class="border-dashed"></div>
 							<div class="d-inline text-right">
-								<% if (obj[x].alert_list !== 0) { %>
-									<span class="ml-1 badge badge-pill badge-warning btn-pointer" onclick="vxPing.refreshAlertList('<% obj[x].id %>')">
-										<% obj[x].alert_list.length %> 个告警器
+								<% if (obj[x].trigger_list !== 0) { %>
+									<span class="ml-1 badge badge-pill badge-warning btn-pointer" onclick="vxPing.refreshTriggerList('<% obj[x].id %>')">
+										<% obj[x].trigger_list.length %> 个告警器
 									</span>
 								<% } %>
 								<% if (obj[x].status === 'suspend') { %>
@@ -113,7 +113,7 @@
 								<button class="btn btn-sm btn-outline-primary btn-radius ml-1" onclick="vxPing.drawIdSet('<% obj[x].id %>');vxPing.drawCharts(2, '24小时内');">
 									<i class="fa-fw far fa-chart-line"></i>
 								</button>
-								<button onclick="vxPing.setAlert('<% obj[x].id %>','<% obj[x].name %>');" class="btn btn-sm btn-outline-primary btn-radius ml-1">
+								<button onclick="vxPing.setTrigger('<% obj[x].id %>','<% obj[x].name %>');" class="btn btn-sm btn-outline-primary btn-radius ml-1">
 									<i class="fa-fw fal fa-dog"></i>
 								</button>
 								<button onclick="vxPing.downloadLog('<% obj[x].id %>');" class="btn btn-sm btn-outline-primary btn-radius ml-1">
@@ -159,7 +159,7 @@
 								<i class="fa-fw fas fa-wrench"></i>
 							</button>
 							<div class="dropdown-menu">
-								<button onclick="vxPing.setAlert('<% obj[x].id %>','<% obj[x].name %>');" class="dropdown-item">
+								<button onclick="vxPing.setTrigger('<% obj[x].id %>','<% obj[x].name %>');" class="dropdown-item">
 									<i class="fa-fw fal fa-dog"></i> 设置告警
 								</button>
 								<button onclick="vxPing.downloadLog('<% obj[x].id %>');" class="dropdown-item">
@@ -365,7 +365,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id="vxping_trigger_post" type="button" onclick="vxPing.alertPost();"
+				<button id="vxping_trigger_post" type="button" onclick="vxPing.triggerPost();"
 					class="btn btn-sm btn-primary btn-radius">
 					<i class="far fa-check"></i>
 				</button>
@@ -415,7 +415,7 @@
 							<% } %>
 						</div>
 						<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
-							<button  id="btn_vxping_trigger_unit_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlertUnit('<% obj[x].id %>')">
+							<button  id="btn_vxping_trigger_unit_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteTriggerUnit('<% obj[x].id %>')">
 								<i class="fa-fw fad fa-trash"></i>
 							</button>
 						</div>
@@ -551,7 +551,7 @@
 							<% } %>
 						</div>
 						<div class="col-md-1 col-2 d-flex align-items-center justify-content-end">
-							<button  id="btn_vxping_trigger_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteAlert('<% obj[x].id %>')">
+							<button  id="btn_vxping_trigger_rule_<% obj[x].id %>" class="btn btn-sm btn-danger btn-radius mx-1" onclick="vxPing.deleteTrigger('<% obj[x].id %>')">
 								<i class="fa-fw fad fa-trash"></i>
 							</button>
 						</div>
