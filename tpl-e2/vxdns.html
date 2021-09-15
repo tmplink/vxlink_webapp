@@ -99,17 +99,6 @@
 										<i class="fa-fw fas fa-stop-circle"></i>
 									</button>
 								<% } %>
-								<% if (obj[x].type === 'A') { %>
-									<% if (obj[x].check === '1') { %>
-										<button id="vxdns_unit_mon_<% obj[x].id %>" class="btn btn-sm btn-success mx-1" onclick="vxDns.unMonitorRecord('<% obj[x].id %>')">
-											<i class="fa-fw fal fa-monitor-heart-rate"></i>
-										</button>
-									<% }else{ %>
-										<button id="vxdns_unit_mon_<% obj[x].id %>" class="btn btn-sm btn-outline-success mx-1" onclick="vxDns.monitorRecord('<% obj[x].id %>')">
-											<i class="fa-fw fal fa-monitor-heart-rate"></i>
-										</button>
-									<% } %>
-								<% } %>
 								<button class="btn btn-sm btn-outline-danger mx-1" onclick="vxDns.delRecord('<% obj[x].id %>','<% obj[x].did %>')">
 									<i class="fa-fw fad fa-trash"></i>
 								</button>
