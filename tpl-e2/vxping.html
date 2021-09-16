@@ -436,11 +436,10 @@
 			<div class="modal-body">
 				<h5>查找记录</h5>
 				<div class="input-group" class="form-control" id="vxping_trigger_set_vxdns_record">
-					<input class="form-control" type="text" id="vxDNSRecordSearch"
-						placeholder="查找一个域名记录，比如 www.abc.com">
+					<input class="form-control" type="text" id="vxDNSRecordSearch" placeholder="查找一个域名记录，比如 www.abc.com"
+						required onkeyup="if(event.keyCode==13){vxPing.vxDNSRecordSearch()}">
 					<div class="input-group-append">
-						<button class="btn btn-primary" type="button"
-							onclick="vxPing.vxDNSRecordSearch()">查找</button>
+						<button class="btn btn-primary" type="button" onclick="vxPing.vxDNSRecordSearch()">查找</button>
 					</div>
 				</div>
 

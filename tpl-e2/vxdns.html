@@ -5,11 +5,14 @@
 			<div class="col-12">
 				<div class="text-center">
 					<h3 class="display-4">功能强大的授权 DNS 服务</h3>
+					<p>功能强大的宕机监控现在到来！</p>
 					<p>
 						<button class="btn-radius btn btn-success m-1"
 							onclick="$('#vxdnsBaseModal').modal('show')">使用指南</button>
 						<button class="btn-radius btn btn-success m-1"
 							onclick="$('#vxdnsPriceModal').modal('show')">计费信息</button>
+						<button class="btn-radius btn btn-success m-1"
+							onclick="$('#failoverModal').modal('show')">宕机监控</button>
 					</p>
 				</div>
 			</div>
@@ -263,6 +266,26 @@
 			<div class="modal-body">
 				每个域名每小时消费 5M 点券。<br>
 				当账号没有可用点券时，域名的解析将停止。
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="failoverModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">宕机监控</h4>
+			</div>
+			<div class="modal-body">
+				<h5>基于网络检测服务的宕机监控</h5>
+				<p>现在，您可以使用网络检测服务(vxPing)来动态监测您的服务器，并自动启用或关闭指定的域名记录。</p>
+				<p>这允许您调度全球多个网络多个区域的主动监测设施来实施服务器可用性的监测，比如基于 Ping ，又或是设置基于接口负载性能（通过请求接口的延迟判断）。</p>
+				<h5>如何使用</h5>
+				<p>首先，请将您所有的域名记录都添加完毕，然后在左侧导航移步至“网络检测”服务，根据您的业务，创建监测点。您可以创建数个监测点，以模拟不同区域不同网络下的客户。</p>
+				<p>然后，在对应的监测卡片，创建告警项目（点击监测点的狗狗图标），设定好参数后，出发类型选择“vxDNS”，完成告警项目的创建。</p>
+				<p>在完成告警项目的创建后，监测卡片下方会出现已安装的告警项目按钮，点击打开告警项目列表，然后点击对应告警项目的“管理”按钮。</p>
+				<p>在打开新窗口中，搜索需要进行操作的 DNS 记录，然后添加到告警项目中即可。</p>
 			</div>
 		</div>
 	</div>
