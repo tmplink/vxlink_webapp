@@ -1,8 +1,0 @@
-{
-    "title": "微林 - 邮箱设定",
-    "preload": ["index","core"],
-    "append": ["index","pageReady"],
-    "body": {
-        "/tpl/init.html": { "type": "html", "target": { "type": "body" } }
-    }
-}

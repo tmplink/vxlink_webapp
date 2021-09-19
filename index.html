@@ -15,8 +15,8 @@
     <script type="text/javascript" src="./tmpui.js"></script>
     <script type="text/javascript">
         var app = new tmpUI({
-            "version": 211,
-            "siteRoot":"/",
+            "version": 212,
+            "siteRoot": "/",
             "dynamicRouter": "route",
             "googleAnalytics": "UA-50345450-1",
 
@@ -103,7 +103,7 @@
                     "/static/core/init.js": { "type": "js", "reload": false }
                 },
                 "signout": {
-                    "/static/core/page.signout.js": { "type": "js"}
+                    "/static/core/page.signout.js": { "type": "js" }
                 },
                 "help": {
                     "/static/core/page.help.js": { "type": "js" }
@@ -129,7 +129,7 @@
                     "/tpl/include/foot.html": { "type": "html", "target": { "type": "id", "val": "tpl_footer" } }
                 },
                 "pageReady": {
-                    "/static/core/page.signout.js": { "type": "js"}
+                    "/static/core/page.signout.js": { "type": "js" }
                 }
             },
             "path": {
@@ -139,6 +139,14 @@
                     "append": ["index"],
                     "body": {
                         "/tpl/index.html": { "type": "html", "target": { "type": "body" } }
+                    }
+                },
+                "/init.html": {
+                    "title": "微林 - 邮箱设定",
+                    "preload": ["index", "core"],
+                    "append": ["index", "pageReady"],
+                    "body": {
+                        "/tpl/init.html": { "type": "html", "target": { "type": "body" } }
                     }
                 },
                 "/e2/index.html": {

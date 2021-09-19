@@ -7,23 +7,15 @@ class vxlink_user {
 
     pageInit() {
         if (document.getElementById('init_signup') !== null) {
-            $('#submit').html('提交注册');
-            $('#submit').removeAttr('disabled');
             this.pageSignUpInit();
         }
         if (document.getElementById('init_signin') !== null) {
-            $('#submit').html('登录');
-            $('#submit').removeAttr('disabled');
             this.pageSignInInit();
         }
         if (document.getElementById('init_reset') !== null) {
-            $('#submit').html('重设密码');
-            $('#submit').removeAttr('disabled');
             this.pageResetInit();
         }
         if (document.getElementById('init_email') !== null) {
-            $('#submit').html('确定');
-            $('#submit').removeAttr('disabled');
             this.pageEmailInit();
         }
     }
@@ -39,11 +31,6 @@ class vxlink_user {
                 return true;
             }
         });
-
-        $('#submit').on('click', () => {
-            this.signUp();
-        });
-
         if (localStorage.getItem('rel') !== null) {
             $('#regcodex').val(localStorage.getItem('rel'));
             $('#regcodex_box').hide();
@@ -61,10 +48,6 @@ class vxlink_user {
                 return true;
             }
         });
-
-        $('#submit').on('click', () => {
-            this.signIn();
-        });
     }
 
     pageEmailInit() {
@@ -74,10 +57,6 @@ class vxlink_user {
                 return true;
             }
         });
-
-        $('#submit').on('click', () => {
-            this.emailInit();
-        });
     }
 
     pageResetInit() {
@@ -86,10 +65,6 @@ class vxlink_user {
                 app.open('/e2/index.html');
                 return true;
             }
-        });
-
-        $('#submit').on('click', () => {
-            this.resetPassword();
         });
     }
 
