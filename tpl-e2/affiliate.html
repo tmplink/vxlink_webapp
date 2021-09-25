@@ -20,6 +20,11 @@
 				<div class="section-title mb-4">
 					<h4 class="title">
 						邀请码
+						<small>
+							<span class="badge badge-pill badge-warning">
+								<i class="fas fa-coins"></i> <span class="user_coins">0</span>
+							</span>
+						</small>
 						<small id="loading_regcode_list">
 							<i class="fa fa-spinner-third fa-spin"></i>
 						</small>
@@ -27,11 +32,11 @@
 					<p>
 						每生成一枚邀请码，需要消耗 
 						<span class="badge badge-pill badge-warning">
-							<i class="fas fa-coins"></i> <span class="user_coins">100</span>
+							<i class="fas fa-coins"></i> <span>10</span>
 						</span>
 						，您可以在日常使用各项服务的过程中积累 
 						<span class="badge badge-pill badge-warning">
-							<i class="fas fa-coins"></i> <span class="user_coins"></span>
+							<i class="fas fa-coins"></i> <span></span>
 						</span>
 					</p>
 					<span class="btn-radius btn btn-success" onclick="vxAffiliate.regcodeMake();">
@@ -78,13 +83,25 @@
 		<div class="row card p-3 shadow-sm">
 			<div class="col-12">
 				<div class="section-title mb-4">
-					<h4 class="title">积分</h4>
+					<h4 class="title">
+						积分
+						<small>
+							<span class="badge badge-pill badge-warning">
+								<i class="fad fa-award"></i> <span class="user_point">0</span>
+							</span>
+						</small>
+					</h4>
 				</div>
 				<ul>
-					<li>通过您的 <b style="color:red;">邀请码</b> 邀请加入的<b style="color:red;">新用户</b>，会与您的账号建立长达1年的关联。</li>
+					<li>通过您的 <b style="color:red;">邀请码</b> 邀请加入的 <b style="color:red;">新用户</b>，会与您的账号建立长达1年的关联。</li>
 					<li>每当关联的账号消费 1 元，您将可以获得 1 积分。</li>
-					<li>即将推出：使用积分可以交易点券包。</li>
+					<li>积分抽奖：每 1 积分可以兑换 1 - 8 G点卷(随机)，有效期为 10 年。</li>
+					<li>单次抽奖花费达到 100 积分时，额外赠送 10 积分抽奖。</li>
 				</ul>
+				<span class="btn-radius btn btn-success" onclick="vxAffiliate.lucky();">
+					<i class="fal fa-hand-sparkles"></i>
+					开始抽奖
+				</span>
 			</div>
 		</div>
 	</div>
