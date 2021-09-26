@@ -90,9 +90,10 @@ class vxlink_affiliate {
             pay = 100;
         }
 
-        $.post(this.core.api_user, { token: this.core.token,pay:pay, action: 'get_lucky' }, function (rsp) {
+        $.post(this.core.api_user, { token: this.core.token,pay:pay, action: 'get_lucky' },  (rsp) => {
             if (rsp.status === 1) {
                 alert(`跳过华丽的抽奖动画后，恭喜您抽到了 ${rsp.data} G点卷!`);
+                this.core.refreshUserInfo();
             }else{
                 alert('oh！看起来没有那么多的积分了。');
             }

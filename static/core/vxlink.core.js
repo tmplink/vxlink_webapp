@@ -30,11 +30,31 @@ class vxlink_core {
         //绑定粘贴
         this.bindCopyBtn();
         //issue -> https://github.com/zenorocha/clipboard.js/issues/155#issuecomment-217372642
-        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        $.fn.modal.Constructor.prototype._enforceFocus = function () { };
+    }
+
+    refreshUserInfo() {
+        $.post(this.api_user, { token: this.token, action: 'get_user' }, (rsp) => {
+            if (rsp.status) {
+                this.uid = rsp.data.uid;
+                this.email = rsp.data.email;
+                this.email_notification = rsp.data.subscribe;
+                this.user_position = rsp.data.position;
+                this.user_point = rsp.data.point;
+                this.user_rpoint = rsp.data.rpoint;
+                this.user_coin = rsp.data.coin;
+
+                //更新界面
+                $('.user_rpoint').html(vxCore.user_rpoint);
+                $('.user_point').html(vxCore.user_point);
+                $('.user_coins').html(vxCore.user_coin);
+            }
+        }, 'json');
+
     }
 
     bindCopyBtn() {
-        $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+        $.fn.modal.Constructor.prototype._enforceFocus = function () { };
         this.clipboard = new ClipboardJS('.btncp');
         this.clipboard.on('success', (e) => {
             let tmp = $(e.trigger).html();
