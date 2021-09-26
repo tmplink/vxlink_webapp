@@ -11,11 +11,11 @@ app.ready(() => {
                 return true;
             }else{
                 //账号已经登陆，初始化 header
-                if (document.getElementById('init_header') !== null) {
-                    $('.user_rpoint').html(vxCore.user_rpoint);
-                    $('.user_point').html(vxCore.user_point);
-                    $('.user_coins').html(vxCore.user_coin);
-                }
+                // if (document.getElementById('init_header') !== null) {
+                //     $('.user_rpoint').html(vxCore.user_rpoint);
+                //     $('.user_point').html(vxCore.user_point);
+                //     $('.user_coins').html(vxCore.user_coin);
+                // }
             }
             e2nav.home();
         }
