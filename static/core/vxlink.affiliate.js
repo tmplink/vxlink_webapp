@@ -78,4 +78,25 @@ class vxlink_affiliate {
             $('#submit_getmoney').html('当前拥有' + this.core.user_rpoint +'积分，需要至少 50 积分才可提交申请');
         }
     }
+
+    lucky(){
+        let pay =  parseInt(prompt('请输入一个数字，这是您要花费的积分，最多 100 积分。'));
+        if(pay < 1 || isNaN(pay)){
+            alert('输入有误');
+            return false;
+        }
+
+        if(pay>100){
+            pay = 100;
+        }
+
+        $.post(this.core.api_user, { token: this.core.token,pay:pay, action: 'get_lucky' },  (rsp) => {
+            if (rsp.status === 1) {
+                alert(`跳过华丽的抽奖动画后，恭喜您抽到了 ${rsp.data} G点卷!`);
+                this.core.refreshUserInfo();
+            }else{
+                alert('oh！看起来没有那么多的积分了。');
+            }
+        }, 'json');
+    }
 }

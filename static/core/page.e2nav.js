@@ -8,6 +8,12 @@ class e2Pages{
             $('#nav_'+title).addClass('active');
             this.current=title;
         }
+        //账号已经登陆，初始化 header
+        if (document.getElementById('init_header') !== null) {
+            $('.user_rpoint').html(vxCore.user_rpoint);
+            $('.user_point').html(vxCore.user_point);
+            $('.user_coins').html(vxCore.user_coin);
+        }
         //初始化链接
         app.linkRebind();
     }
