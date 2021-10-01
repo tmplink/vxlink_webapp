@@ -42,6 +42,20 @@ class vxlink_vxping {
         $('#vxping_trigger_all_list_Modal').modal('show');
     }
 
+    historyListOnChange(){
+        this.refreshHistoryList();
+    }
+
+    refreshHistoryList(){
+        let type = $("input[name=history_options]:checked").val()
+        $.post(this.core.api_vxping, { action: 'history',type:type, token: this.core.token }, (rsp) => {
+            if (rsp.status === 1) {
+                $('#history_list').html(app.tpl('history_list_tpl', rsp.data));
+                console.log(`vxPing History::${type} List Loaded`);
+            }
+        }, 'json');
+    }
+
     refreshTriggerList(id) {
         $('#vxping_trigger_list_Modal').modal('show');
         let trigger_list = this.monitor_list;
