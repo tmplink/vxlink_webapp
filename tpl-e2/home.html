@@ -156,7 +156,7 @@
 				<div id="notifications_list" class="mt-4"></div>
 			</div>
 		</div>
-		
+
 		<script type="text/template" id="notifications_list_tpl">
 			<% for (let x in obj) { %>
 				<ul class="list-group card-list-group mb-2">
@@ -185,14 +185,100 @@
 			</div>
 			<div class="modal-body">
 				<div id="buy_step2_bundle">
-					<label>规格</label>
-					<div class="form-group">
-						<select name="bundle_type" id="select_bundle_type" class="form-control custom-select">
-							<option value="30xt" data-price="5">30G 点券 / 每天 0.13 元</option>
-							<option value="100xt" data-price="10" selected="selected">100G 点券 / 每天 0.3 元</option>
-							<option value="240xt" data-price="20">240G 点券 / 每天 0.6 元</option>
-							<option value="680xt" data-price="50">680G 点券 / 每天 1.6 元</option>
-						</select>
+					<div class="mb-3">
+						<label class="form-label">规格</label>
+						<div class="row">
+							<div class="col-12 col-md-6 mb-2">
+								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+									<label class="form-selectgroup-item flex-fill">
+										<input type="radio" name="bundle_type" class="form-selectgroup-input" value="5xt" data-price="1" onclick="vxHome.navBuyCheckout()" checked>
+										<div class="form-selectgroup-label d-flex align-items-center p-3">
+											<div class="mr-3">
+												<span class="form-selectgroup-check"></span>
+											</div>
+											<div>
+												5G 点卷包 <span class="text-muted">每天 0.03 元</strong>
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 mb-2">
+								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+									<label class="form-selectgroup-item flex-fill">
+										<input type="radio" name="bundle_type" class="form-selectgroup-input" value="30xt" data-price="5" onclick="vxHome.navBuyCheckout()">
+										<div class="form-selectgroup-label d-flex align-items-center p-3">
+											<div class="mr-3">
+												<span class="form-selectgroup-check"></span>
+											</div>
+											<div>
+												30G 点卷包 <span class="text-muted">每天 0.13 元</strong>
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 mb-2">
+								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+									<label class="form-selectgroup-item flex-fill">
+										<input type="radio" name="bundle_type" class="form-selectgroup-input" value="100xt" data-price="10" onclick="vxHome.navBuyCheckout()">
+										<div class="form-selectgroup-label d-flex align-items-center p-3">
+											<div class="mr-3">
+												<span class="form-selectgroup-check"></span>
+											</div>
+											<div>
+												100G 点卷包 <span class="text-muted">每天 0.3 元</strong>
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 mb-2">
+								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+									<label class="form-selectgroup-item flex-fill">
+										<input type="radio" name="bundle_type" class="form-selectgroup-input" value="240xt" data-price="20" onclick="vxHome.navBuyCheckout()">
+										<div class="form-selectgroup-label d-flex align-items-center p-3">
+											<div class="mr-3">
+												<span class="form-selectgroup-check"></span>
+											</div>
+											<div>
+												240G 点卷包 <span class="text-muted">每天 0.6 元</strong>
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 mb-2">
+								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+									<label class="form-selectgroup-item flex-fill">
+										<input type="radio" name="bundle_type" class="form-selectgroup-input" value="680xt" data-price="50" onclick="vxHome.navBuyCheckout()">
+										<div class="form-selectgroup-label d-flex align-items-center p-3">
+											<div class="mr-3">
+												<span class="form-selectgroup-check"></span>
+											</div>
+											<div>
+												680G 点卷包 <span class="text-muted">每天 1.6 元</strong>
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div class="col-12 col-md-6 mb-2">
+								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
+									<label class="form-selectgroup-item flex-fill">
+										<input type="radio" name="bundle_type" class="form-selectgroup-input" value="1024xt" data-price="68" onclick="vxHome.navBuyCheckout()">
+										<div class="form-selectgroup-label d-flex align-items-center p-3">
+											<div class="mr-3">
+												<span class="form-selectgroup-check"></span>
+											</div>
+											<div>
+												1024G 点卷包 <span class="text-muted">每天 2.9 元</strong>
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div id="buy_step3_bundle">
@@ -242,18 +328,22 @@
 			<div class="modal-body">
 				<h5>概览</h5>
 				<p>开发者幸运福利包每天可领取一次</p>
-				
+
 				<div class="card p-3 mt-3">
 					<h5>幸运指数</h5>
-					<p>幸运指数由 <span class="badge badge-pill badge-warning"><i class="fad fa-star-of-david"></i> <span class="user_rpoint">0</span></span> + <span class="badge badge-pill badge-warning"><i class="fad fa-award"></i> <span class="user_point">0</span></span> 决定。</p>
+					<p>幸运指数由 <span class="badge badge-pill badge-warning"><i class="fad fa-star-of-david"></i> <span
+								class="user_rpoint">0</span></span> + <span class="badge badge-pill badge-warning"><i
+								class="fad fa-award"></i> <span class="user_point">0</span></span> 决定。</p>
 					<ul>
 						<li>幸运指数在 0 - 50 之间时，最大额度为 128</li>
 						<li>幸运指数在 50 - 100 之间时，最大额度为 256</li>
 						<li>幸运指数在 100 - 500 之间时，最大额度为 512</li>
 						<li>幸运指数在 500 以上时，最大额度为 1024</li>
 					</ul>
-					<li><span class="badge badge-pill badge-warning"><i class="fad fa-star-of-david"></i></span> ：在 “邀请码 & 积分” 中获得。</li>
-					<li><span class="badge badge-pill badge-warning"><i class="fad fa-award"></i></span> ：在过去一年中消费总额。</li>
+					<li><span class="badge badge-pill badge-warning"><i class="fad fa-star-of-david"></i></span> ：在 “邀请码
+						& 积分” 中获得。</li>
+					<li><span class="badge badge-pill badge-warning"><i class="fad fa-award"></i></span> ：在过去一年中消费总额。
+					</li>
 				</div>
 				<div class="card p-3 mt-3">
 					<h5>设定:通知选项</h5>

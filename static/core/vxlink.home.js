@@ -201,11 +201,11 @@ class vxlink_home {
     navBuyCheckout(){
         if(this.modal_buy_type === "vxfly"){
             this.modal_buy_price = $("#select_vxfly_type option:selected").attr('data-price');
-            this.modal_buy_code = $("#select_vxfly_type").val();
+            this.modal_buy_code = $("input[name=bundle_type]:checked").val();
             $('#buy_total').html(this.modal_buy_price);
         }else{
-            this.modal_buy_price = $("#select_bundle_type option:selected").attr('data-price');
-            this.modal_buy_code = $("#select_bundle_type").val();
+            this.modal_buy_price = $("input[name=bundle_type]:checked").attr('data-price');
+            this.modal_buy_code = $("input[name=bundle_type]:checked").val();
             this.modal_buy_time = $("#select_bundle_stack").val();
             if(this.modal_buy_time>1){
                 $('#times_addon').slideDown();
