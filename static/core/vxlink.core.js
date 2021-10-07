@@ -100,17 +100,23 @@ class vxlink_core {
 
     initGetToken(cb) {
         let token = localStorage.getItem('app_token');
-        if (token !== null) {
+        if (token !== null && token.length === 32) {
             this.token = token;
             if (typeof (cb) === 'function') {
                 cb();
             }
         } else {
             $.post(this.api_token, (rsp) => {
-                this.token = rsp;
-                localStorage.setItem('app_token', rsp);
-                if (typeof (cb) === 'function') {
-                    cb();
+                if (rsp.length === 32) {
+                    this.token = rsp;
+                    localStorage.setItem('app_token', rsp);
+                    if (typeof (cb) === 'function') {
+                        cb();
+                    }
+                }else{
+                    setTimeout(()=>{
+                        this.initGetToken(cb);
+                    },3000);
                 }
             });
         }
