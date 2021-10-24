@@ -46,6 +46,7 @@ class vxlink_vxtrans {
         }
 
         $('#loading_vxtrans_list').fadeIn();
+        $('#vxtrans_refresh_btn').attr('disabled',true);
         $.post(this.core.api_vxtrans, {
             action: 'list',
             token: this.core.token
@@ -57,6 +58,26 @@ class vxlink_vxtrans {
                     $('#vxtrans_group_list').html(app.tpl('vxtrans_group_list_tpl', rsp.data.group));
                     $('#vxtrans_count').html('一共有 ' + rsp.data.all.length + ' 个连接点。');
                     console.log('vxTrans List Loaded');
+                }
+                $('#vxtrans_refresh_btn').removeAttr('disabled');
+            }, 'json'
+        );
+    }
+
+    getConnectionsList(transid) {
+
+        $('#connectionsModal').modal('show');
+        $('#conn_list').html('');
+        $.post(this.core.api_vxtrans, {
+            action: 'list_connections',
+            token: this.core.token,
+            id: transid
+        },
+            (rsp) => {
+                $('#loading_vxtrans_list').fadeOut();
+                if (rsp.status === 1) {
+                    // $('#vxtrans_list').html(app.tpl('vxtrans_list_tpl', rsp.data.all));
+                    $('#conn_list').html(app.tpl('conn_list_tpl', rsp.data));
                 }
             }, 'json'
         );
