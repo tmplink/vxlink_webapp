@@ -4,6 +4,8 @@ class vxlink_vxtrans {
     refresh_vxtrans_list_init = false
     refresh_vxtrans_trusted_addr_list_init = false
     refresh_server_list_init = false
+    refresh_server_list_area_init = false;
+    sortQueue = []
 
 
     init(core) {
@@ -36,6 +38,10 @@ class vxlink_vxtrans {
             if(!this.refresh_server_list_init){
                 this.refresh_server_list_init = true;
                 setInterval(()=>{this.refreshServerList()},60000);
+            }
+            if(!this.refresh_server_list_area_init){
+                this.refresh_server_list_area_init = true;
+                setInterval(()=>{this.serverListResort()},3000);
             }
         }
     }
@@ -113,7 +119,19 @@ class vxlink_vxtrans {
         if (document.getElementById('server_list') === null) {
             return false;
         }
+        this.getServerList((serverlist)=>{
+            $('#server_list').html(app.tpl('server_list_tpl', serverlist));
+            $('#server_area_list').html(app.tpl('server_area_list_tpl', serverlist));
+            this.speedTest();
+            console.log('Server List Loaded');
+        });
+    }
 
+    getServerList(cb){
+        if(this.server_list!==null){
+            cb(this.server_list);
+            return true;
+        }
         $.post(this.core.api_vxtrans, {
             action: 'server_list',
             token: this.core.token
@@ -121,13 +139,25 @@ class vxlink_vxtrans {
             (rsp) => {
                 if (rsp.status === 1) {
                     this.server_list = rsp.data;
-                    $('#server_list').html(app.tpl('server_list_tpl', rsp.data));
-                    $('#server_area_list').html(app.tpl('server_area_list_tpl', rsp.data));
-                    this.speedTest();
-                    console.log('Server List Loaded');
+
+                    //add speed into server list
+                    for (let i = 0; i < this.server_list.length; i++) {
+                        this.server_list[i].speed = 9999;
+                        this.server_list[i].speed_text = '...';
+                        this.server_list[i].speed_color = 'text-black';
+                    }
+                    cb(this.server_list);
                 }
             }, 'json'
         );
+    }
+
+    serverListResort(){
+        if (document.getElementById('server_area_selected') === null) {
+            return false;
+        }
+        this.server_list.sort(this.compare('speed'));
+        $('#server_area_list').html(app.tpl('server_area_list_tpl', this.server_list));
     }
 
     deleteTrustedAddr(id) {
@@ -334,43 +364,57 @@ class vxlink_vxtrans {
 
     speedTest() {
         for (var i in this.server_list) {
-            this.speedTestUnit(this.server_list[i].code);
+            this.speedTestUnit(i);
         }
     }
 
-    speedTestUnit(server) {
-
+    speedTestUnit(i) {
+        let code = this.server_list[i].code;
         $.ajax({
-            url: 'https://trans-' + server + '.ip.parts:82/?v=' + Date.now(),
+            url: 'https://trans-' + code + '.ip.parts:82/?v=' + Date.now(),
             timeout: 5000,
             error: () => {
-                let text = $('#spd_' + server).attr('data-text');
-                $('.spdx_' + server).html(text + ' - 无法连接');
-                $('.spdx_' + server).attr('disabled', true);
+                // let text = $('#spd_' + code).attr('data-text');
+                // $('.spdx_' + code).html(text + ' - 无法连接');
+                // $('.spdx_' + code).attr('disabled', true);
+                this.server_list[i].speed = 9999;
+                this.server_list[i].speed_text = '...';
+                this.server_list[i].speed_color = 'text-black';
             },
             success: () => {
                 var dtStart = new Date();
-                $.get('https://trans-' + server + '.ip.parts:82/', {
+                $.get('https://trans-' + code + '.ip.parts:82/', {
                     v: Date.now()
                 }, () => {
                     var dtEnd = new Date();
                     var dtPingRaw = dtEnd.getTime() - dtStart.getTime();
                     //暂停
-                    let text = $('#spd_' + server).attr('data-text');
-                    $('#spdtext_' + server).removeAttr('class');
-                    $('#spdtext_' + server).html(text + ' - ' + dtPingRaw + ' ms');
-                    $('#spdx_' + server).removeAttr('disabled');
-                    $('#spdtext_' + server).addClass(this.textColorSelect(dtPingRaw));
+                    // let text = $('#spd_' + code).attr('data-text');
+                    // $('#spdtext_' + code).removeAttr('class');
+                    // $('#spdtext_' + code).html(text + ' - ' + dtPingRaw + ' ms');
+                    // $('#spdx_' + code).removeAttr('disabled');
+                    // $('#spdtext_' + code).addClass(this.textColorSelect(dtPingRaw));
                     //
-                    $('#select_area_' + server).removeAttr('class');
-                    $('#select_area_' + server).html(dtPingRaw + ' ms');
-                    $('#select_area_' + server).addClass(this.textColorSelect(dtPingRaw));
-                    // $('.spdc_' + server).each(function () {
+                    // $('#select_area_' + code).removeAttr('class');
+                    // $('#select_area_' + code).html(dtPingRaw + ' ms');
+                    // $('#select_area_' + code).addClass(this.textColorSelect(dtPingRaw));
+                    // $('.spdc_' + code).each(function () {
                     // 	$(this).html('(+' + dtPingRaw + ' ms)');
                     // });
+                    this.server_list[i].speed = dtPingRaw;
+                    this.server_list[i].speed_text = dtPingRaw + ' ms';
+                    this.server_list[i].speed_color = this.textColorSelect(dtPingRaw);
                 }, 'text');
             }
         });
+    }
+
+    compare(property) {
+        return function (a, b) {
+            var value1 = a[property];
+            var value2 = b[property];
+            return value1 - value2;
+        }
     }
 
     textColorSelect(val){
