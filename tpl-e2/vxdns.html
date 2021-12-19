@@ -83,6 +83,9 @@
 							</div>
 							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center overflow-hidden">
 								<i class="fal fa-quote-left mr-2"></i> <% obj[x].content %>
+								<% if (obj[x].mx > 0) { %>
+									<span class="badge badge-danger ml-2"><% obj[x].mx %></span>
+								<% } %>
 							</div>
 							<div class="col-lg-4 col-sm-6 col-12 d-flex align-items-center">
 								<i class="fa-fw fal fa-cabinet-filing mx-1"></i> <% obj[x].type %> 
