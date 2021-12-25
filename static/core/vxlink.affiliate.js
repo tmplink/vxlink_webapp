@@ -99,4 +99,15 @@ class vxlink_affiliate {
             }
         }, 'json');
     }
+
+    getChrismasGift(){
+        $.post(this.core.api_user, { token: this.core.token, action: 'get_chrismas_gift' },  (rsp) => {
+            if (rsp.status === 1) {
+                alert(`恭喜您抽到了 2288 G点卷!`);
+                this.core.refreshUserInfo();
+            }else{
+                alert('oh！失败了。');
+            }
+        }, 'json');
+    }
 }
