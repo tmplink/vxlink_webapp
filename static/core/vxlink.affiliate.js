@@ -92,7 +92,7 @@ class vxlink_affiliate {
 
         $.post(this.core.api_user, { token: this.core.token,pay:pay, action: 'get_lucky' },  (rsp) => {
             if (rsp.status === 1) {
-                alert(`跳过华丽的抽奖动画后，恭喜您抽到了 ${rsp.data} G点卷!`);
+                alert(`跳过华丽的抽奖动画后，恭喜您抽到了 ${rsp.data} G点券!`);
                 this.core.refreshUserInfo();
             }else{
                 alert('oh！看起来没有那么多的积分了。');
@@ -103,7 +103,7 @@ class vxlink_affiliate {
     getChrismasGift(){
         $.post(this.core.api_user, { token: this.core.token, action: 'get_chrismas_gift' },  (rsp) => {
             if (rsp.status === 1) {
-                alert(`恭喜您抽到了 2288 G点卷!`);
+                alert(`恭喜您抽到了 2288 G点券!`);
                 this.core.refreshUserInfo();
             }else{
                 alert('oh！失败了。');

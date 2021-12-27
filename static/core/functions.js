@@ -11,7 +11,7 @@ function getQueryVariable(variable) {
 function toconver(val, label) {
     if (val == 0)
         return '';
-    var s = ['点卷', 'K点卷', 'M点卷', 'G点券', 'T点券', 'P点券'];
+    var s = ['点券', 'K点券', 'M点券', 'G点券', 'T点券', 'P点券'];
     var e = Math.floor(Math.log(val) / Math.log(1024));
     var value = ((val / Math.pow(1024, Math.floor(e))).toFixed(2));
     e = (e < 0) ? (-e) : e;
