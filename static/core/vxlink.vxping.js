@@ -104,6 +104,14 @@ class vxlink_vxping {
         }
     }
 
+    restartMonitor(id) {
+        if (confirm('您确定要重新启动该监测项目吗?')) {
+            $.post(this.core.api_vxping, { action: 'monitor_restart', id: id, token: this.core.token },()=>{
+                this.refreshMonitorList();
+            });
+        }
+    }
+
     editerOpen() {
         $('#vxping_monitor_createset_name').val('');
         $('#vxping_monitor_createset_traget_ip').val('');
