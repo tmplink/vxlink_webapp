@@ -73,6 +73,8 @@ class vxlink_vxping {
         }
 
         $('#loading_vxping_monitor_list').fadeIn();
+        $('#vxping_refresh_btn').attr('disabled',true);
+
         $.post(this.core.api_vxping, { action: 'monitor_list', token: this.core.token }, (rsp) => {
             $('#loading_vxping_monitor_list').fadeOut();
             if (rsp.status === 1) {
@@ -84,6 +86,7 @@ class vxlink_vxping {
                 $('#vxping_monitor_count').html('一共有 ' + rsp.data.length + ' 个监测点。');
                 console.log('vxPing Monitor List Loaded');
             }
+            $('#vxping_refresh_btn').removeAttr('disabled');
         }, 'json');
     }
 

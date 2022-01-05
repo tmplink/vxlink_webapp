@@ -25,22 +25,27 @@
 							<i class="fa fa-spinner-third fa-spin"></i>
 						</small>
 					</h4>
-					<span class="btn-radius btn btn-success" onclick="vxPing.editerOpen()">
+					<button class="btn-radius btn btn-success" onclick="vxPing.editerOpen()">
 						<i class="fa-fw fal fa-plus-circle"></i>
 						添加监测点
-					</span>
-					<span class="btn-radius btn btn-primary" onclick="vxPing.openTriggerAllList()">
+					</button>
+					<button class="btn-radius btn btn-success" id="vxping_refresh_btn"
+                        onclick="vxPing.refreshMonitorList();">
+                        <i class="fas fa-sync fa-fw"></i>
+                        刷新
+                    </button>
+					<button class="btn-radius btn btn-primary" onclick="vxPing.openTriggerAllList()">
 						<i class="fa-fw fal fa-dog"></i>
 						所有告警器
-					</span>
-					<span class="btn-radius btn btn-primary" onclick="$('#vxping_history_Modal').modal('show');vxPing.refreshHistoryList();">
+					</button>
+					<button class="btn-radius btn btn-primary" onclick="$('#vxping_history_Modal').modal('show');vxPing.refreshHistoryList();">
 						<i class="fa-fw fal fa-file-medical-alt"></i>
 						运行日志
-					</span>
-					<span class="btn-radius btn btn-primary" onclick="$('#vxping_help_Modal').modal('show')">
+					</button>
+					<button class="btn-radius btn btn-primary" onclick="$('#vxping_help_Modal').modal('show')">
 						<i class="fa-fw fad fa-book-reader"></i>
 						说明书
-					</span>
+					</button>
 				</div>
 				<div id="vxping_monitor_list"></div>
 			</div>
