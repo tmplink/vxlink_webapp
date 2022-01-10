@@ -39,10 +39,10 @@ class vxlink_vxtrans {
                 this.refresh_server_list_init = true;
                 setInterval(()=>{this.refreshServerList()},60000);
             }
-            if(!this.refresh_server_list_area_init){
-                this.refresh_server_list_area_init = true;
-                setInterval(()=>{this.serverListResort()},3000);
-            }
+            // if(!this.refresh_server_list_area_init){
+            //     this.refresh_server_list_area_init = true;
+            //     setInterval(()=>{this.serverListResort()},3000);
+            // }
         }
     }
 
@@ -153,11 +153,11 @@ class vxlink_vxtrans {
     }
 
     serverListResort(){
-        if (document.getElementById('server_area_selected') === null) {
-            return false;
-        }
-        this.server_list.sort(this.compare('speed'));
-        $('#server_area_list').html(app.tpl('server_area_list_tpl', this.server_list));
+        // if (document.getElementById('server_area_selected') === null) {
+        //     return false;
+        // }
+        // this.server_list.sort(this.compare('speed'));
+        // $('#server_area_list').html(app.tpl('server_area_list_tpl', this.server_list));
     }
 
     deleteTrustedAddr(id) {
@@ -377,9 +377,10 @@ class vxlink_vxtrans {
                 // let text = $('#spd_' + code).attr('data-text');
                 // $('.spdx_' + code).html(text + ' - 无法连接');
                 // $('.spdx_' + code).attr('disabled', true);
-                this.server_list[i].speed = 9999;
-                this.server_list[i].speed_text = '...';
-                this.server_list[i].speed_color = 'text-black';
+
+                // this.server_list[i].speed = 9999;
+                // this.server_list[i].speed_text = '...';
+                // this.server_list[i].speed_color = 'text-black';
             },
             success: () => {
                 var dtStart = new Date();
@@ -395,15 +396,16 @@ class vxlink_vxtrans {
                     // $('#spdx_' + code).removeAttr('disabled');
                     // $('#spdtext_' + code).addClass(this.textColorSelect(dtPingRaw));
                     //
-                    // $('#select_area_' + code).removeAttr('class');
-                    // $('#select_area_' + code).html(dtPingRaw + ' ms');
-                    // $('#select_area_' + code).addClass(this.textColorSelect(dtPingRaw));
+                    $('#select_area_' + code).removeAttr('class');
+                    $('#select_area_' + code).html(dtPingRaw + ' ms');
+                    $('#select_area_' + code).addClass(this.textColorSelect(dtPingRaw));
                     // $('.spdc_' + code).each(function () {
                     // 	$(this).html('(+' + dtPingRaw + ' ms)');
                     // });
-                    this.server_list[i].speed = dtPingRaw;
-                    this.server_list[i].speed_text = dtPingRaw + ' ms';
-                    this.server_list[i].speed_color = this.textColorSelect(dtPingRaw);
+
+                    // this.server_list[i].speed = dtPingRaw;
+                    // this.server_list[i].speed_text = dtPingRaw + ' ms';
+                    // this.server_list[i].speed_color = this.textColorSelect(dtPingRaw);
                 }, 'text');
             }
         });
