@@ -370,6 +370,15 @@ class vxlink_vxtrans {
 
     speedTestUnit(i) {
         let code = this.server_list[i].code;
+
+        //preset
+        if(code === 'mix'|| code === 'miz'){
+            $('#select_area_' + code).removeAttr('class');
+            $('#select_area_' + code).html(10 + ' ms');
+            $('#select_area_' + code).addClass(this.textColorSelect(10));
+            return;
+        }
+
         $.ajax({
             url: 'https://trans-' + code + '.ip.parts:82/?v=' + Date.now(),
             timeout: 5000,
