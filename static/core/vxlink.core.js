@@ -2,6 +2,8 @@ class vxlink_core {
     uid = null
     email = null
     email_notification = null
+    tg_notification = null
+    tg_bind = null;
     user_position = 0
     user_point = 0
     user_rpoint = 0
@@ -39,6 +41,8 @@ class vxlink_core {
                 this.uid = rsp.data.uid;
                 this.email = rsp.data.email;
                 this.email_notification = rsp.data.subscribe;
+                this.tg_notification = rsp.data.tg_notification;
+                this.tg_bind = rsp.data.tg_binded;
                 this.user_position = rsp.data.position;
                 this.user_point = rsp.data.point;
                 this.user_rpoint = rsp.data.rpoint;
@@ -75,6 +79,8 @@ class vxlink_core {
                 this.uid = rsp.data.uid;
                 this.email = rsp.data.email;
                 this.email_notification = rsp.data.subscribe;
+                this.tg_notification = rsp.data.tg_notification;
+                this.tg_bind = rsp.data.tg_binded;
                 this.user_position = rsp.data.position;
                 this.user_point = rsp.data.point;
                 this.user_rpoint = rsp.data.rpoint;

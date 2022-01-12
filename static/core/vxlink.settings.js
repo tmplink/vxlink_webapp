@@ -13,12 +13,20 @@ class vxlink_settings {
             if(this.core.email_notification){
                 $('#email_notification_status').attr('checked',true);
             }
+            if(this.core.tg_notification){
+                $('#tg_notification_status').attr('checked',true);
+            }
         }
     }
 
     emailNotificationChange(){
         let status = ($('#email_notification_status').is(':checked')) ? 'yes' : 'no';
         $.post(this.core.api_user, { token: this.core.token, action: 'notification_subscribe', subscribe: status });
+    }
+
+    telegramNotificationChange(){
+        let status = ($('#tg_notification_status').is(':checked')) ? 'yes' : 'no';
+        $.post(this.core.api_user, { token: this.core.token, action: 'notification_tg', subscribe: status });
     }
 
     setEmail() {
