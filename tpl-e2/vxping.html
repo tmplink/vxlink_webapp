@@ -322,7 +322,7 @@
 					<div class="btn-group btn-group-toggle" data-toggle="buttons" id="vxping_trigger_set_m_trigger"
 						onchange="vxPing.triggerAddonAreaOnChange()">
 						<label class="btn btn-success active">
-							<input type="radio" name="trigger_options" autocomplete="off" value="email" checked> 邮件通知
+							<input type="radio" name="trigger_options" autocomplete="off" value="email" checked> Notification
 						</label>
 						<label class="btn btn-success">
 							<input type="radio" name="trigger_options" autocomplete="off" value="webhook"> WebHook
@@ -412,7 +412,7 @@
 						</div>
 						<div class="col-md-5 col-10 d-flex align-items-center justify-content-end">
 							<% if (obj[x].trigger === 'email') { %>
-								<i class="fa-fw fal fa-envelope text-green"></i> Email
+								<i class="fa-fw fal fa-envelope text-green"></i> Notification
 							<% }%>
 							<% if (obj[x].trigger === 'webhook') { %>
 								<i class="fa-fw fal fa-link text-green"></i> WebHook
@@ -570,7 +570,7 @@
 						</div>
 						<div class="col-12 d-flex align-items-center">
 							<% if (obj[x].trigger === 'email') { %>
-								通过 <i class="fa-fw fal fa-envelope text-green"></i> Email 发送告警信息。
+								<i class="fa-fw fal fa-envelope text-green"></i> Notification (Email/Telegram/RSS)
 							<% }%>
 							<% if (obj[x].trigger === 'webhook') { %>
 								通过 <i class="fa-fw fal fa-link text-green"></i> WebHook 发送告警信息至 <% obj[x].trigger_params %>
