@@ -1,4 +1,37 @@
 {
-    "title_index": "微林",
-    "des_index": "为专业工作者提供专业的服务"
+    "index_tital": "微林",
+    "index_des": "为专业工作者提供专业的服务",
+    "index_slogan":"有限时间，无限价值",
+    "index_slogan2":"创始于 2014.",
+    "index_event":"活动进行中：新用户可免费获得 10G 点券包",
+    "index_selection1_title":"为开发者而来",
+    "index_selection1_des":"在日复一日的重复性劳动中，我们帮您将重复的部分完成，使您能更专注业务本身。",
+    "index_selection1_1_service_title":"流量优化",
+    "index_selection1_1_service_des":"网络优化工具，有效地降低延迟，改善传输性能。",
+    "index_selection1_2_service_title":"网络检测",
+    "index_selection1_2_service_des":"全天候 Ping 服务器，检测点遍布全球。只需数秒。",
+    "index_selection1_3_service_title":"域名解析",
+    "index_selection1_3_service_des":"支持 EDNS，可自定义解析范围的智能域名解析。",
+    "index_selection1_4_service_title":"云数据库",
+    "index_selection1_4_service_des":"仅 1 秒，为您的项目快速创建 MySQL 数据库。",
+    "index_selection1_5_service_title":"静态托管",
+    "index_selection1_5_service_des":"Github 仓库变为静态主机。",
+    "index_selection1_6_service_title":"IPDB",
+    "index_selection1_6_service_des":"IP 数据库，免费。",
+
+    "index_selection2_title":"热门问题",
+    "index_selection2_des":"没有什么事情比解开疑惑更重要",
+    "index_selection2_qa1_title":"流量优化服务能加速我的网络吗",
+    "index_selection2_qa1_content":"准确的说， 流量优化服务无法改变您的网络参数，这是由您的 ISP（网络提供商）决定的，比如签约带宽，信号质量。<br><br>但是，流量优化服务可以改善您接入到 ISP 网络之后的性能问题。比如从您的网络到美国的网络需要高达 300ms 的路程，这其中可能包含更曲折的路径。<br><br>而流量优化服务可以在您的附近就为您提供接入点，并通过优化好的路径帮您更快抵达目标网络。",
+    "index_selection2_qa2_title":"网络监测服务需要在服务器安装客户端吗？",
+    "index_selection2_qa2_content":"不需要，就像您在本机 Ping 您的服务器一样，网络监测服务的方式也是如此。<br><br>您只需要在添加目标服务器的 IP 地址即可，网络监测服务会自动帮您完成任务。每一次的任务都会完成 100次 Ping，并计算出平均，最大，最小的 Ping 值，以及丢包率。<br><br>您可以查阅过去 90 天的记录，并随时下载。",
+    "index_selection2_qa3_title":"域名解析服务如何确定客户的区域",
+    "index_selection2_qa3_content":"两套机制，EDNS 优先，查询来源地其次。",
+
+
+    "btn_login":"登录",
+    "btn_reg":"注册",
+    "btn_home":"回到后台",
+    "btn_forget":"忘记密码",
+    "":""
 }
