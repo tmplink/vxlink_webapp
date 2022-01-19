@@ -13,6 +13,7 @@ class vxlink_home {
             this.refreshBundel();
             this.navFuncions();
             this.navBuyCheck();
+            this.navBuyCheckout();
             this.dppInit();
             $('.dpp_start').html(Number(vxCore.user_point)+Number(vxCore.user_rpoint)+64);
             $('.dpp_end').html(2048);
@@ -206,6 +207,7 @@ class vxlink_home {
         }else{
             this.modal_buy_price = $("input[name=bundle_type]:checked").attr('data-price');
             this.modal_buy_code = $("input[name=bundle_type]:checked").val();
+            this.modal_buy_usage = $("input[name=bundle_type]:checked").attr('data-usage');
             this.modal_buy_time = $("#select_bundle_stack").val();
             if(this.modal_buy_time>1){
                 $('#times_addon').slideDown();
@@ -219,6 +221,8 @@ class vxlink_home {
                 this.modal_buy_price = this.modal_buy_price * this.modal_buy_time;
                 $('#buy_total').html(this.modal_buy_price);
             }
+            $('#buy_usage').html(this.modal_buy_usage+'G');
+            $('#buy_time').html(this.modal_buy_time);
         }
     }
     
