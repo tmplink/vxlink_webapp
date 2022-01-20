@@ -372,7 +372,7 @@ class vxlink_vxtrans {
         let code = this.server_list[i].code;
 
         //preset
-        if(code === 'mix'|| code === 'miz'){
+        if(code === 'mix'|| code === 'miz'|| code === 'mik'){
             $('#select_area_' + code).removeAttr('class');
             $('#select_area_' + code).html(10 + ' ms');
             $('#select_area_' + code).addClass(this.textColorSelect(10));
