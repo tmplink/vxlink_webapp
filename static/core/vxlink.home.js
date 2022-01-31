@@ -231,4 +231,10 @@ class vxlink_home {
         window.open(checkouturl);
         setTimeout('location.reload()', 3000);
     }
+
+    Event2022(){
+        let checkouturl = 'https://pay.vezii.com/id1/v2_pay?token='+ this.core.token + '&price=588&time=1&type=bundle&code=sp2t';
+        window.open(checkouturl);
+        setTimeout('location.reload()', 3000);
+    }
 }
