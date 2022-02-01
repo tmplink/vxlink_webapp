@@ -75,14 +75,14 @@ class vxlink_home {
     }
 
     giftRequest(){
-        $.post(this.core.api_user, {token: this.core.token,notice:this.dpp_notice, action: 'gift_req'},  (rsp) => {
+        $.post(this.core.api_user, {token: this.core.token,notice:this.dpp_notice, action: 'gift_2022_req'},  (rsp) => {
             if (rsp.status === 1) {
                 alert('领取成功');
                 setTimeout(()=>{
                     this.refreshBundel();
                 },3000);
             }else{
-                alert('今天已经领取过了。请明日再来。');
+                alert('已经领取过了。可不要贪心哦。');
             }
         }, 'json');
     }
