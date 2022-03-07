@@ -5,14 +5,17 @@
                 <div class="text-center">
                     <h3 class="display-4">网络链接优化</h3>
                     <p>
-                        <a href="/help/vxtrans.html" tmpui-app="true" class="btn-radius btn btn-success m-1"
-                            target="_blank">使用教程</a>
+
+                        <button class="btn-radius btn btn-success m-1"
+                            onclick="$('#vxtransVideoModal').modal('show')"><i class="fad fa-video"></i> 视频教程</button>
                         <button class="btn-radius btn btn-success m-1"
                             onclick="$('#priceModal').modal('show')">线路与费率</button>
                         <button class="btn-radius btn btn-warning m-1"
                             onclick="$('#ecnModal').modal('show')">优化性能</button>
                         <button class="btn-radius btn btn-warning m-1"
                             onclick="$('#securityModal').modal('show')">安全增强</button>
+                        <a href="/help/vxtrans.html" tmpui-app="true" class="btn-radius btn btn-success m-1"
+                            target="_blank">使用教程(完整)</a>
                     </p>
                 </div>
             </div>
@@ -681,6 +684,25 @@
                     欧洲方向：[俄罗斯0]
                 </p>
 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="vxtransVideoModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fad fa-video"></i> 视频教程</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <video width="100%" controls>
+                    <source src="/static/video/vxtrans.mp4" type="video/mp4">
+                    您的浏览器不支持 video 标签。
+                </video>
             </div>
         </div>
     </div>
