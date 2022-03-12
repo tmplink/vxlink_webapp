@@ -12,6 +12,10 @@
                             onclick="$('#priceModal').modal('show')">线路与费率</button>
                         <button class="btn-radius btn btn-warning m-1"
                             onclick="$('#ecnModal').modal('show')">优化性能</button>
+                        <button class="btn-radius btn btn-success m-1" onclick="$('#navigatorModal').modal('show');">
+                            <i class="fal fa-plane fa-fw"></i>
+                            线路指南
+                        </button>
                         <button class="btn-radius btn btn-warning m-1"
                             onclick="$('#securityModal').modal('show')">安全增强</button>
                         <a href="/help/vxtrans.html" tmpui-app="true" class="btn-radius btn btn-success m-1"
@@ -97,10 +101,12 @@
                         创建优化项目
                     </button>
 
-                    <button class="btn-radius btn btn-success mt-1" onclick="$('#navigatorModal').modal('show');">
-                        <i class="fal fa-plane fa-fw"></i>
-                        线路指南
+                    <button class="btn-radius btn btn-success mt-1"
+                        onclick="vxTrans.aclListRefresh();$('#sgListVxtransModal').modal('show');">
+                        <i class="fad fa-shield-alt fa-fw"></i>
+                        安全组
                     </button>
+
                     <button class="btn-radius btn btn-success mt-1" id="vxtrans_refresh_btn"
                         onclick="vxTrans.refreshVxtransList();">
                         <i class="fas fa-sync fa-fw"></i>
@@ -170,6 +176,19 @@
                                 </div>
                                 <div class="border-dashed"></div>
                                 <div class="d-inline text-right mt-1">
+                                    <!-- 如果尚未加入安全组，显示加入安全组的按钮 -->
+                                    <% if (obj[i].list[x].acl_id==0) { %>
+                                        <button class="btn-radius btn btn-success"
+                                            onclick="vxTrans.aclAssign('<% obj[i].list[x].id %>');">
+                                            <i class="fad fa-shield-alt fa-fw"></i>
+                                        </button>
+                                    <% }else{ %>
+                                        <button class="btn-radius btn btn-danger"
+                                            onclick="vxTrans.aclUnassign('<% obj[i].list[x].id %>','<% obj[i].list[x].acl_id %>');">
+                                            <i class="fad fa-shield-alt fa-fw"></i>
+                                            <% obj[i].list[x].acl_name %>
+                                        </button>
+                                    <% } %>
                                     <% if (obj[i].list[x].keep=='yes') { %>
                                         <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，链接点最多可闲置 30 天，然后会被回收。锁定后最多可闲置 60 天。">
                                             <i class="fa-fw fas fa-lock"></i>
@@ -705,6 +724,112 @@
                 </video>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="modal" id="sgListVxtransModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fad fa-shield-alt"></i> 安全组列表</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card" id="vxtrans_acl_rules_box" style="display: none;">
+                    <div class="card-header">
+                        <h5>更新安全组规则</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label" for="vxtrans_acl_rules">IPv4 CIDR</label>
+                            <textarea class="form-control" rows="5" id="vxtrans_acl_rules" placeholder="17.0.0.0/8"></textarea>
+                        </div>
+                        <button type="button" onclick="vxTrans.aclUpdatePost();" class="btn btn-primary float-right">
+                            <i class="far fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+                <script type="text/template" id="sg_list_tpl">
+                    <div class="table-responsive">
+                        <table class="table card-table text-nowrap table-striped table-center text-center">
+                            <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th>连接点</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (let x in obj) { %>
+                                    <tr>
+                                        <td><% obj[x].title %></td>
+                                        <td><% obj[x].count_vxtrans %></td>
+                                        <td>
+                                            <!-- 按钮：更新规则，更改名称，删除安全组 -->
+                                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="vxTrans.aclUpdate('<% obj[x].id %>')">
+                                                <i class="fad fa-edit"></i> 更新规则
+                                            </button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="vxTrans.aclNewTitle('<% obj[x].id %>')">
+                                                <i class="fad fa-edit"></i> 更改名称
+                                            </button>
+                                            <button type="button" class="btn btn-outline-danger btn-sm" onclick="vxTrans.aclDelete('<% obj[x].id %>')">
+                                                <i class="fad fa-trash-alt"></i> 删除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </script>
+                <div id="sg_list">正在载入...</div>
+            </div>
+            <div class="modal-footer">
+                <!-- 新建安全组 -->
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="vxTrans.aclAdd()">
+                    <i class="fal fa-plus"></i> 新建安全组
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="modal" id="sgJoinVxtransModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fad fa-shield-alt"></i> 加入安全组</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <script type="text/template" id="sg_join_list_tpl">
+                    <div class="form-group">
+                        <label class="control-label" for="vxtrans_acl_select">安全组</label>
+                        <select class="form-control" id="vxtrans_acl_select">
+                            <% for (let x in obj) { %>
+                                <option value="<% obj[x].id %>"><% obj[x].title %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </script>
+                <div id="sg_join_list">正在载入...</div>
+            </div>
+            <div class="modal-footer">
+                <!-- 加入安全组 -->
+                <button type="button" onclick="vxTrans.aclAssignPost();" class="btn btn-primary float-right">
+                    <i class="far fa-check"></i>
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 </div>
 
