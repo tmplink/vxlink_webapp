@@ -1,12 +1,14 @@
 class vxlink_vxtrans {
     core = null
     server_list = null
+    acl_list = null
+    acl_id = 0
+    assign_id = 0
     refresh_vxtrans_list_init = false
     refresh_vxtrans_trusted_addr_list_init = false
     refresh_server_list_init = false
-    refresh_server_list_area_init = false;
+    refresh_server_list_area_init = false
     sortQueue = []
-
 
     init(core) {
         this.core = core;
@@ -23,6 +25,7 @@ class vxlink_vxtrans {
             }
             this.refreshVxtransList();
             this.refreshServerList();
+            this.aclListRefresh();
 
             //安装定时器
             if(this.core.user_point<100){
@@ -436,5 +439,132 @@ class vxlink_vxtrans {
         if(val>100)return 'text-teal';
         if(val>50)return 'text-green';
         return 'text-success';
+    }
+
+    aclListRefresh(){
+        $.post(this.core.api_vxtrans, {
+            token: this.core.token,
+            action: 'acl_list'
+        }, (rsp) => {
+            if (rsp.status === 1) {
+                this.acl_list = rsp.data;
+                $('#sg_list').html(app.tpl('sg_list_tpl', rsp.data));
+                $('#sg_join_list').html(app.tpl('sg_join_list_tpl', rsp.data));
+            } else {
+                $('#sg_list').html('目前没有设置安全组。');
+            }
+        }, 'json');
+    }
+
+    aclAdd(){
+        let name = prompt('请输入安全组名称');
+        if(name === null || name === ''){
+            name = 'none';
+        }
+        $.post(this.core.api_vxtrans, {
+            token: this.core.token,
+            name: name,
+            action: 'acl_add'
+        }, (rsp) => {
+            if(rsp.status === 1){
+                this.aclListRefresh();
+            }else{
+                alert(rsp.data);
+            }
+        }, 'json');
+    }
+
+    aclNewTitle(id){
+        let name = prompt('请输入安全组名称');
+        if(name === null || name === ''){
+            name = 'none';
+        }
+        $.post(this.core.api_vxtrans, {
+            token: this.core.token,
+            acl_id: id,
+            name: name,
+            action: 'acl_new_title'
+        }, (rsp) => {
+            if(rsp.status === 1){
+                this.aclListRefresh();
+            }else{
+                alert(rsp.data);
+            }
+        }, 'json');
+    }
+
+    aclDelete(id){
+        if(confirm('确定要删除安全组吗？')){
+            $.post(this.core.api_vxtrans, {
+                token: this.core.token,
+                acl_id: id,
+                action: 'acl_del'
+            }, (rsp) => {
+                if(rsp.status === 1){
+                    this.aclListRefresh();
+                }else{
+                    alert(rsp.data);
+                }
+            }, 'json');
+        }
+    }
+
+    aclUpdate(id){
+        this.acl_id = id;
+        $('#vxtrans_acl_rules_box').show();
+        //将 id 匹配的 content 写入
+        for(let x in this.acl_list){
+            if(this.acl_list[x].id === id){
+
+                $('#vxtrans_acl_rules').html(this.acl_list[x].content);
+                break;
+            }
+        }
+    }
+
+    aclUpdatePost(){
+        let content = $('#vxtrans_acl_rules').val();
+        $.post(this.core.api_vxtrans, {
+            token: this.core.token,
+            acl_id: this.acl_id,
+            content: content,
+            action: 'acl_update'
+        }, () => {
+            this.aclListRefresh();
+            $('#vxtrans_acl_rules_box').hide();
+        });
+    }
+
+    aclAssign(vxtrans_id){
+        this.assign_id = vxtrans_id;
+        $('#sgJoinVxtransModal').modal('show');
+    }
+
+    aclAssignPost(){
+        let acl_id = $('#vxtrans_acl_select').val();
+        $.post(this.core.api_vxtrans, {
+            token: this.core.token,
+            id: this.assign_id,
+            acl_id: acl_id,
+            action: 'acl_assign'
+        }, () => {
+            this.aclListRefresh();
+            this.refreshVxtransList();
+            $('#sgJoinVxtransModal').modal('hide');
+        });
+    }
+
+    aclUnassign(id,vxtrans_id){
+        if(confirm('确定要取消绑定安全组吗？')){
+            $.post(this.core.api_vxtrans, {
+                token: this.core.token,
+                id: vxtrans_id,
+                acl_id : id,
+                action: 'acl_unassign'
+            }, () => {
+                this.aclListRefresh();
+                this.refreshVxtransList();
+            });
+        }
     }
 }
