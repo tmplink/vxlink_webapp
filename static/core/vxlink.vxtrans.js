@@ -450,8 +450,11 @@ class vxlink_vxtrans {
                 this.acl_list = rsp.data;
                 $('#sg_list').html(app.tpl('sg_list_tpl', rsp.data));
                 $('#sg_join_list').html(app.tpl('sg_join_list_tpl', rsp.data));
+                $('#sgJoinBtn').removeAttr('disabled');
             } else {
                 $('#sg_list').html('目前没有设置安全组。');
+                $('#sg_join_list').html('目前没有设置安全组。');
+                $('#sgJoinBtn').attr('disabled', true);
             }
         }, 'json');
     }
