@@ -101,12 +101,12 @@ class vxlink_affiliate {
     }
 
     get2022Gift(){
-        $.post(this.core.api_user, { token: this.core.token, action: 'get_2022_gift' },  (rsp) => {
+        $.post(this.core.api_user, { token: this.core.token, action: 'get_gift' },  (rsp) => {
             if (rsp.status === 1) {
-                alert(`恭喜您抽到了 2888 G点券!`);
+                alert(`完成`);
                 this.core.refreshUserInfo();
             }else{
-                alert('oh！失败了。');
+                alert('您已经领取过了');
             }
         }, 'json');
     }
