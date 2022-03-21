@@ -107,6 +107,12 @@
                         安全组
                     </button>
 
+                    <button class="btn-radius btn btn-success mt-1"
+                        onclick="vxTrans.getHistoryList();">
+                        <i class="far fa-history fa-fw"></i>
+                        历史记录
+                    </button>
+
                     <button class="btn-radius btn btn-success mt-1" id="vxtrans_refresh_btn"
                         onclick="vxTrans.refreshVxtransList();">
                         <i class="fas fa-sync fa-fw"></i>
@@ -840,6 +846,39 @@
 
         </div>
 
+    </div>
+</div>
+<div class="modal" id="historyModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="far fa-history"></i> 历史记录</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <script type="text/template" id="history_list_tpl">
+                <% for (let x in obj) { %>
+                    <tr>
+                        <td><% obj[x].ctime %></td>
+                        <td><% obj[x].action_text %></td>
+                        <td><% obj[x].content %></td>
+                    </tr>
+                <% } %>
+            </script>
+            <div class="table-responsive">
+                <table class="table card-table text-nowrap table-striped">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>操作</th>
+                            <th>内容</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history_list"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

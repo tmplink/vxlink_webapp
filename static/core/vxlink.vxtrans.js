@@ -92,6 +92,24 @@ class vxlink_vxtrans {
         );
     }
 
+    getHistoryList() {
+
+        $('#historyModal').modal('show');
+        $('#conn_list').html('');
+        $.post(this.core.api_vxtrans, {
+            action: 'list_history',
+            token: this.core.token,
+        },
+            (rsp) => {
+                $('#loading_vxtrans_list').fadeOut();
+                if (rsp.status === 1) {
+                    // $('#vxtrans_list').html(app.tpl('vxtrans_list_tpl', rsp.data.all));
+                    $('#history_list').html(app.tpl('history_list_tpl', rsp.data));
+                }
+            }, 'json'
+        );
+    }
+
     refreshVxtransTrustedAddrList() {
         if (document.getElementById('loading_vxtrans_trusted') === null) {
             return false;
