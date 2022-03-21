@@ -152,6 +152,22 @@
                                         <i class="fa-fw fad fa-copy text-blue"></i>
                                     </span>
                                 </div>
+                                <% if(obj[i].list[x].target_cname!=0) { %>
+                                <div>
+                                    <i class="fa-fw fad fa-plane-arrival"></i>  <% obj[i].list[x].target_cname %>:<% obj[i].list[x].target_port %>
+                                    <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].target_cname %>:<% obj[i].list[x].target_port %>">
+                                        <i class="fa-fw fad fa-copy text-blue"></i>
+                                    </span>
+                                </div>
+                                <% } %>
+                                <div>
+                                    <% if (obj[i].list[x].protocol=='tcp') { %>
+                                        <i class="fa-fw fad fa-grip-lines"></i> TCP
+                                    <% }else{ %>
+                                        <i class="fa-fw fad fa-grip-horizontal"></i> UDP
+                                    <% } %>
+                                    <span onclick="vxTrans.getConnectionsList('<% obj[i].list[x].id %>')" class="btn-pointer">(连接数: <% obj[i].list[x].conn %>)</span>
+                                </div>
                                 <div>
                                     <% if (obj[i].list[x].status=='ok') { %>
                                         <i class="fa-fw fal fa-wifi"></i>
@@ -165,14 +181,6 @@
                                     <% }else{ %>
                                         <i class="fas fa-spinner fa-spin"></i> 正在处理，请稍等
                                     <% } %>
-                                </div>
-                                <div>
-                                    <% if (obj[i].list[x].protocol=='tcp') { %>
-                                        <i class="fa-fw fad fa-grip-lines"></i> TCP
-                                    <% }else{ %>
-                                        <i class="fa-fw fad fa-grip-horizontal"></i> UDP
-                                    <% } %>
-                                    (连接数: <% obj[i].list[x].conn %>)
                                 </div>
                                 <div class="border-dashed"></div>
                                 <div class="d-inline text-right mt-1">
@@ -198,9 +206,6 @@
                                             <i class="fa-fw far fa-unlock-alt"></i>
                                         </button>
                                     <% } %>
-                                    <button class="btn btn-sm btn-outline-primary btn-radius" onclick="vxTrans.getConnectionsList('<% obj[i].list[x].id %>')" title="获取连接信息">
-                                        <i class="fa-fw far fa-link"></i>
-                                    </button>
                                     <div class="dropdown dropleft d-inline">
                                         <button class="btn btn-sm btn-outline-primary btn-radius ml-1" data-toggle="dropdown">
                                             <i class="fa-fw fas fa-wrench"></i>
@@ -367,7 +372,7 @@
                     <div class="form-group">
                         <label for="set_traget_ip">目标地址</label>
                         <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control" id="set_traget_ip"
-                            placeholder="要加速的服务器 IP">
+                            placeholder="要加速的服务器 IP 或者域名，如果输入域名，将自动更新域名指向的 IP">
                     </div>
                     <div class="form-group">
                         <label for="set_target_port">目标端口</label>
