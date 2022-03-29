@@ -26,7 +26,7 @@ class vxlink_user {
                 $('#user-signup-box').prepend('<div class="overlay"></div>');
                 $('#msgbox').html('账号已登陆,正在进入...');
                 setTimeout(() => {
-                    app.open('/e2/index.html');
+                    app.open('/admin/');
                 }, 2000);
                 return true;
             }
@@ -43,7 +43,7 @@ class vxlink_user {
                 $('#user-signin-box').prepend('<div class="overlay"></div>');
                 $('#msgbox').html('账号已登陆,正在进入...');
                 setTimeout(() => {
-                    app.open('/e2/index.html');
+                    app.open('/admin/');
                 }, 2000);
                 return true;
             }
@@ -62,7 +62,7 @@ class vxlink_user {
     pageResetInit() {
         this.core.initExec(() => {
             if (this.core.uid != null) {
-                app.open('/e2/index.html');
+                app.open('/admin/');
                 return true;
             }
         });
@@ -129,7 +129,7 @@ class vxlink_user {
                 $('#msgbox').html('登录成功，正在进入');
                 //重新初始化用户信息
                 this.core.userInit(()=>{
-                    app.open('/e2/index.html');
+                    app.open('/admin/');
                 });
             } else {
                 $('#msgbox').html(rsp.data);

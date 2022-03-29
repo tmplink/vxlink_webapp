@@ -3,6 +3,7 @@ class e2Pages{
     current = null
 
     active(title){
+        $('.navbar-collapse').collapse('hide');
         if(this.current!==title){
             $('#nav_'+this.current).removeClass('active');
             $('#nav_'+title).addClass('active');

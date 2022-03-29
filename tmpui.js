@@ -1,8 +1,8 @@
 /**
  * tmpUI.js
- * version: 23
+ * version: 27
  * Github : https://github.com/tmplink/tmpUI
- * Date : 2021-7-31
+ * Date : 2021-12-16
  */
 
  class tmpUI {
@@ -10,7 +10,8 @@
     status = {}
     config = {}
     version = 0
-    index = ''
+    index = '/'
+    siteRoot = ''
     debug = true
     reloadTable = {}
     resPath = ''
@@ -131,57 +132,61 @@
         var s1 = document.createElement('script');
         s1.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
         s1.type = "text/javascript";
-        s1.async = false;
+        s1.async = true;
         document.head.appendChild(s1);
 
         var s2 = document.createElement('script');
         s2.innerHTML = 'window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag("config", "' + this.googleAnalytics + '");';
         s2.type = "text/javascript";
-        s2.async = false;
+        s2.async = true;
         document.head.appendChild(s2);
     }
 
     rebuildRunConfig(config) {
 
         //覆盖由配置文件设定的值
-        if (this.config.loadingPage !== undefined) {
-            this.loadingPage = this.config.loadingPage;
+        if (config.loadingPage !== undefined) {
+            this.loadingPage = config.loadingPage;
         }
-        if (this.config.loadingText !== undefined) {
-            this.loadingText = this.config.loadingText;
+        if (config.loadingText !== undefined) {
+            this.loadingText = config.loadingText;
         }
-        if (this.config.loadingIcon !== undefined) {
-            this.loadingIcon = this.config.loadingIcon;
+        if (config.loadingIcon !== undefined) {
+            this.loadingIcon = config.loadingIcon;
         }
-        if (this.config.version !== undefined) {
-            this.version = this.config.version;
+        if (config.version !== undefined) {
+            this.version = config.version;
         }
-        if (this.config.language !== undefined) {
-            this.languageConfig = this.config.language;
+        if (config.language !== undefined) {
+            this.languageConfig = config.language;
         }
-        if (this.config.loadingProgress !== undefined) {
-            this.progressEnable = this.config.loadingProgress;
+        if (config.loadingProgress !== undefined) {
+            this.progressEnable = config.loadingProgress;
         }
-        if (this.config.dynamicRouter !== undefined) {
-            this.dynamicRouter = this.config.dynamicRouter;
+        if (config.dynamicRouter !== undefined) {
+            this.dynamicRouter = config.dynamicRouter;
         }
-
-        if (this.config.siteRoot !== undefined) {
-            this.siteRoot = this.config.siteRoot;
+        if (config.resPath !== undefined) {
+            this.resPath = config.resPath;
         }
-        
-        if (this.config.pageNotFound !== undefined) {
-            this.pageNotFound = this.config.pageNotFound;
+        if (config.pageNotFound !== undefined) {
+            this.pageNotFound = config.pageNotFound;
         }
-        if (this.config.languageDefault !== undefined) {
-            this.languageDefault = this.config.languageDefault;
+        if (config.languageDefault !== undefined) {
+            this.languageDefault = config.languageDefault;
+        }
+        if(config.siteRoot !== undefined){
+            this.siteRoot = config.siteRoot;
+        }
+        if(config.index !== undefined){
+            this.index = config.index;
         }
 
         //Add GoogleAnalytics
-        if (this.config.googleAnalytics !== false) {
-            this.loadGtag(this.config.googleAnalytics);
-            this.log("Load GoogleAnalytics : " + this.config.googleAnalytics);
-            this.loadgoogleAnalytics = this.config.googleAnalytics;
+        if (config.googleAnalytics !== false) {
+            this.loadGtag(config.googleAnalytics);
+            this.log("Load GoogleAnalytics : " + config.googleAnalytics);
+            this.loadgoogleAnalytics = config.googleAnalytics;
             this.googleAnalytics = this.config.googleAnalytics;
         }
     }
@@ -244,9 +249,9 @@
                         let urlp = a_url.split("?");
                         //
                         if (urlp.length === 1) {
-                            url = this.siteRoot + this.index + '?tmpui_page=' + urlp[0];
+                            url = this.index + '?tmpui_page=' + urlp[0];
                         } else {
-                            url = this.siteRoot + this.index + '?tmpui_page=' + urlp[0] + '&' + urlp[1];
+                            url = this.index + '?tmpui_page=' + urlp[0] + '&' + urlp[1];
                         }
 
                         //生成App内链接地址
@@ -265,6 +270,43 @@
                                 }, null, url);
                                 //ajax('GET', url, 'page=' + url, this.loader, true);
                                 this.route();
+                            });
+                        }
+                    }
+
+                    if (atag[i].getAttribute("tmpui-action") !== null && atag[i].getAttribute("tmpui-app-rebind") != 'true') {
+                        //获取绝对链接地址
+                        let newpage = atag[i].getAttribute("target") == '_blank' ? true : false;
+                        let url = '';
+                        let a_url = atag[i].getAttribute("href");
+                        let urlp = a_url.split("?");
+                        //
+                        if (urlp.length === 1) {
+                            url = this.index + '?tmpui_page=' + urlp[0];
+                        } else {
+                            url = this.index + '?tmpui_page=' + urlp[0] + '&' + urlp[1];
+                        }
+
+                        //生成App内链接地址
+                        //let url = this.index + '?tmpui_page=' + t_url + u;
+                        //写入到专用标签
+                        atag[i].setAttribute("tmpui-app-rebind", 'true');
+                        //修改原有标签到新地址
+                        atag[i].setAttribute("href", url);
+                        //修改事件行为
+                        if (!newpage) {
+                            atag[i].addEventListener('click', e => {
+                                e.preventDefault();
+                                console.log(url);
+                                history.pushState({
+                                    newPage: url
+                                }, null, url);
+                                //获取 action
+                                let action = atag[i].getAttribute("tmpui-action");
+                                //执行
+                                eval(action);
+                                //ajax('GET', url, 'page=' + url, this.loader, true);
+                                //this.route();
                             });
                         }
                     }
@@ -290,18 +332,18 @@
     }
 
     autofix() {
-        if (this.config.siteRoot !== '') {
-            var siteRoot = this.config.siteRoot;
+        if (this.siteRoot !== '') {
+            var siteroot = this.siteRoot;
             this.domSelect('[tmpui-root]', (dom) => {
                 let autofixer = dom.getAttribute("tmpui-root");
                 let src = dom.getAttribute("src");
                 let href = dom.getAttribute("href");
                 if (autofixer === 'true' && src !== undefined && src !== null) {
-                    dom.setAttribute("src", siteRoot + src);
+                    dom.setAttribute("src", siteroot + src);
                     dom.setAttribute("tmpui-root", 'false');
                 }
                 if (autofixer === 'true' && href !== undefined && href !== null) {
-                    dom.setAttribute("href", siteRoot + href);
+                    dom.setAttribute("href", siteroot + href);
                     dom.setAttribute("tmpui-root", 'false');
                 }
             });
@@ -309,7 +351,7 @@
     }
 
     open(a_url, newpage) {
-        let url = this.siteRoot + this.index + '?tmpui_page=' + a_url;
+        let url = this.index + '?tmpui_page=' + a_url;
         if (newpage === true) {
             window.open(url);
             return false;
@@ -366,16 +408,7 @@
             //如果启用了动态配置
             if (this.dynamicRouter !== null) {
                 //尝试找到这个配置
-                let configure_url = '';
-                if(this.dynamicRouter.substr(0,1)==='/'){
-                    console.log(1);
-                    configure_url = this.dynamicRouter + url + '.json';
-                }else{
-                    console.log(this.siteRoot);
-                    configure_url = this.siteRoot + this.dynamicRouter + url + '.json';
-                }
-                this.log('Try to load dynamic router : ' + configure_url);
-
+                let configure_url = this.resPath + this.dynamicRouter + url + '.json';
                 let xhttp = new XMLHttpRequest();
                 xhttp.onloadend = () => {
                     if (xhttp.status == 200 || xhttp.status == 304) {
@@ -552,7 +585,6 @@
             window.tmpuiHelper.loadQueue++;
             this.loaderFinish();
         } else {
-
             //如果这个URL没有加载，加载后返回。
             let xhttp = new XMLHttpRequest();
             xhttp.onloadend = () => {
@@ -573,14 +605,7 @@
             xhttp.onabort = () => {
                 this.logError("can't load [abort]" + i);
             }
-
-            //如果路径的开头是 / ，则不附加 siteRoot
-            if (i.substr(0, 1) === '/') {
-                xhttp.open('GET', i + '?v=' + this.version, true);
-            } else {
-                xhttp.open('GET', this.siteRoot + i + '?v=' + this.version, true);
-            }
-
+            xhttp.open("GET", this.resPath + i + '?v=' + this.version, true);
             xhttp.send();
         }
     }
@@ -746,7 +771,7 @@
 
         if (!this.loadingPageInit) {
 
-            this.htmlAppend('#tmpui', '<div id="tmpui_loading_bg" style="background-color: rgba(255, 255, 255, 0.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter: saturate(180%) blur(20px);"></div>');
+            this.htmlAppend('#tmpui', '<div id="tmpui_loading_bg" style="background-color: rgba(255, 255, 255);"></div>');
             this.htmlAppend('#tmpui_loading_bg', '<div id="tmpui_loading_show"></div>');
             this.htmlAppend('#tmpui_loading_show', '<div style="text-align:center;margin-bottom:20px;" id="tmpui_loading_content"></div>');
 
@@ -781,11 +806,6 @@
 
     tpl(id, data) {
         let html = $('#' + id).html();
-
-        if(data===undefined){
-            data = {};
-        }
-
         let return_html = this.templateEngine(html, data);
         return return_html;
     }

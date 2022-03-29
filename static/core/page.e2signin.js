@@ -17,7 +17,43 @@ app.ready(() => {
                 //     $('.user_coins').html(vxCore.user_coin);
                 // }
             }
-            e2nav.home();
+            //获取 service
+            let params = app.getUrlVars(window.location.href);
+            switch (params.service) {
+                case 'home':
+                    e2nav.home();
+                    break;
+                case 'affiliate':
+                    e2nav.affiliate();
+                    break;
+                case 'settings':
+                    e2nav.settings();
+                    break;
+                case 'billing':
+                    e2nav.billing();
+                    break;
+                case 'vxserver':
+                    e2nav.vxserver();
+                    break;
+                case 'vxtrans':
+                    e2nav.vxtrans();
+                    break;
+                case 'vxping':
+                    e2nav.vxping();
+                    break;
+                case 'vxdns':
+                    e2nav.vxdns();
+                    break;
+                case 'dbservice':
+                    e2nav.dbservice();
+                    break;
+                case 'projects':
+                    e2nav.projects();
+                    break;
+                default:
+                    e2nav.home();
+                    break;
+            }
         }
     });
 });
