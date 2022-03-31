@@ -27,6 +27,17 @@
 						</a>
 					</span>
 					<div>可以在设置中设定使用 “邮件” 还是 “Telegram” 接收通知消息（账号级）。</div>
+					<!--[通知信息]-->
+					<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<strong>提示：</strong>
+						<span>
+							由于支付宝通道调整，支付宝付款方式将在4月5日之后被禁用，建议大家提前选购点券包，以免影响到正常使用。
+						</span>
+					</div>
+
 					<!-- <div class="mt-2">
 						<span class="btn-radius btn btn-danger" onclick="vxAffiliate.get2022Gift()">
 							<i class="fa-fw fad fa-gift-card"></i>
@@ -58,7 +69,7 @@
 							<i class="fa-fw fal fa-plus-circle"></i>
 							购买点券
 						</span>
-						
+
 						<span class="btn-radius btn btn-danger" onclick="vxHome.sp2000()">
 							<i class="fa-fw fad fa-gift-card"></i>
 							2000G点券包/一年 588元
@@ -206,7 +217,8 @@
 								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
 									<label class="form-selectgroup-item flex-fill">
 										<input type="radio" name="bundle_type" class="form-selectgroup-input"
-											value="120xt" data-price="10" data-usage="120" onclick="vxHome.navBuyCheckout()"  checked>
+											value="120xt" data-price="10" data-usage="120"
+											onclick="vxHome.navBuyCheckout()" checked>
 										<div class="form-selectgroup-label d-flex align-items-center p-3">
 											<div class="mr-3">
 												<span class="form-selectgroup-check"></span>
@@ -222,7 +234,8 @@
 								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
 									<label class="form-selectgroup-item flex-fill">
 										<input type="radio" name="bundle_type" class="form-selectgroup-input"
-											value="300xt" data-price="20" data-usage="300" onclick="vxHome.navBuyCheckout()">
+											value="300xt" data-price="20" data-usage="300"
+											onclick="vxHome.navBuyCheckout()">
 										<div class="form-selectgroup-label d-flex align-items-center p-3">
 											<div class="mr-3">
 												<span class="form-selectgroup-check"></span>
@@ -238,7 +251,8 @@
 								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
 									<label class="form-selectgroup-item flex-fill">
 										<input type="radio" name="bundle_type" class="form-selectgroup-input"
-											value="900xt" data-price="50" data-usage="900" onclick="vxHome.navBuyCheckout()">
+											value="900xt" data-price="50" data-usage="900"
+											onclick="vxHome.navBuyCheckout()">
 										<div class="form-selectgroup-label d-flex align-items-center p-3">
 											<div class="mr-3">
 												<span class="form-selectgroup-check"></span>
@@ -254,7 +268,8 @@
 								<div class="form-selectgroup form-selectgroup-boxes d-flex flex-column">
 									<label class="form-selectgroup-item flex-fill">
 										<input type="radio" name="bundle_type" class="form-selectgroup-input"
-											value="1800xt" data-price="100" data-usage="2000" onclick="vxHome.navBuyCheckout()">
+											value="1800xt" data-price="100" data-usage="2000"
+											onclick="vxHome.navBuyCheckout()">
 										<div class="form-selectgroup-label d-flex align-items-center p-3">
 											<div class="mr-3">
 												<span class="form-selectgroup-check"></span>
@@ -294,7 +309,8 @@
 					</ul>
 				</div>
 				<div style="text-align: right;">
-					<h3 style="color: red">每月 <span id="buy_usage"></span> 点券，一共 <span id="buy_time"></span> 个月， 需支付：<span id="buy_total"></span> 元</h3>
+					<h3 style="color: red">每月 <span id="buy_usage"></span> 点券，一共 <span id="buy_time"></span> 个月，
+						需支付：<span id="buy_total"></span> 元</h3>
 					<a href="/tos.html" tmpui-app="true">购买即代表您同意服务条款</a>
 				</div>
 
