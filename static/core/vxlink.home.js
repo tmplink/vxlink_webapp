@@ -232,8 +232,14 @@ class vxlink_home {
         setTimeout('location.reload()', 3000);
     }
 
-    Event2022(){
-        let checkouturl = 'https://pay.vezii.com/id1/v2_pay?token='+ this.core.token + '&price=588&time=1&type=bundle&code=sp2t';
+    sp2000(){
+        let checkouturl = 'https://pay.vezii.com/id1/v2_pay?token='+ this.core.token + '&price=588&time=1&type=bundle&code=sp2000';
+        window.open(checkouturl);
+        setTimeout('location.reload()', 3000);
+    }
+
+    sp800(){
+        let checkouturl = 'https://pay.vezii.com/id1/v2_pay?token='+ this.core.token + '&price=288&time=1&type=bundle&code=sp800';
         window.open(checkouturl);
         setTimeout('location.reload()', 3000);
     }
