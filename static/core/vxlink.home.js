@@ -21,6 +21,7 @@ class vxlink_home {
             $('.user_rpoint').html(vxCore.user_rpoint);
             $('.user_point').html(vxCore.user_point);
             $('.user_coins').html(vxCore.user_coin);
+            $('.user_charge').html(vxCore.user_charge);
         }
     }
 
@@ -225,7 +226,50 @@ class vxlink_home {
             $('#buy_time').html(this.modal_buy_time);
         }
     }
+
+    chargePress(){
+        $('#chargeShow').show();
+        this.modal_buy_price = $("#charge_input").val();
+        //转换成整数
+        this.modal_buy_price = parseInt(this.modal_buy_price);
+        $('#charge_points').html(this.modal_buy_price);
+        $('#charge_total').html(this.modal_buy_price);
+    }
     
+    chargeConfirm(){
+        if(this.modal_buy_price<1){
+            alert('请输入正确的充值金额');
+            return false;
+        }
+        let checkouturl = 'https://pay.vezii.com/id1/v2_pay?token='+ this.core.token + '&price=' + this.modal_buy_price;
+        window.open(checkouturl);
+        setTimeout('location.reload()', 3000);
+    }
+
+    chargePay(){
+        //按钮设置成不可点击
+        $('#charge_pay_btn').attr('disabled', 'disabled');
+        $('#charge_pay_btn').html('正在处理');
+        $.post(this.core.api_user, {
+            token: this.core.token,
+            type: 'bundle',
+            code: this.modal_buy_code,
+            time: this.modal_buy_time,
+            action: 'charge_pay'
+        },  (rsp) => {
+            if (rsp.status === 1) {
+                alert('完成');
+                setTimeout(()=>{
+                    this.refreshBundel();
+                },3000);
+            }else{
+                alert('购买失败，点数不足');
+            }
+            $('#charge_pay_btn').html('点数支付');
+            $('#charge_pay_btn').removeAttr('disabled');
+        }, 'json');
+    }
+
     navBuyConfirm(){
         let checkouturl = 'https://pay.vezii.com/id1/v2_pay?token='+ this.core.token + '&price=' + this.modal_buy_price+ '&time=' + this.modal_buy_time+ '&type=' + this.modal_buy_type+ '&code=' + this.modal_buy_code;
         window.open(checkouturl);

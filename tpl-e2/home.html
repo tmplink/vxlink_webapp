@@ -34,7 +34,7 @@
 						</button>
 						<strong>提示：</strong>
 						<span>
-							由于支付宝通道调整，支付宝付款方式将在4月5日之后被禁用，建议大家提前选购点券包，以免影响到正常使用。
+							由于支付宝通道调整，支付宝付款方式将在4月5日之后被禁用，建议大家提<b class="text-red">前选预存点数</b>，以免影响到正常使用。
 						</span>
 					</div>
 
@@ -68,6 +68,11 @@
 						<span class="btn-radius btn btn-success" onclick="$('#buyModal').modal('show')">
 							<i class="fa-fw fal fa-plus-circle"></i>
 							购买点券
+						</span>
+
+						<span class="btn-radius btn btn-success" onclick="$('#chargeModal').modal('show')">
+							<i class="fa-fw fal fa-plus-circle"></i>
+							预存点数
 						</span>
 
 						<span class="btn-radius btn btn-danger" onclick="vxHome.sp2000()">
@@ -317,11 +322,55 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" class="btn btn-primary" onclick="vxHome.navBuyConfirm();">去支付</button>
+				<button type="button" class="btn btn-primary" onclick="vxHome.navBuyConfirm();">支付宝支付</button>
+				<button type="button" class="btn btn-primary" onclick="vxHome.chargePay();" id="charge_pay_btn">点数支付</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<!--[预存点数充值窗口]-->
+<div class="modal fade" id="chargeModal" tabindex="-1" role="dialog" aria-labelledby="chargeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="chargeModalLabel">充值点数 <span class="badge badge-pill badge-warning">
+					<i class="fad fa-money-bill"></i> <span class="user_charge">0</span>
+				</span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>充值点数</label>
+					<div class="form-group">
+						<input type="number" class="form-control" name="charge_points" id="charge_input"
+							placeholder="请输入充值点数" value="" onkeyup="vxHome.chargePress()">
+					</div>
+				</div>
+				<div>
+					<ul>
+						<li>点数可用于购买点券包。点数不会过期。</li>
+						<li>点数可转账至其它账号（稍晚推出）。</li>
+						<li>目前不支持点数的退款。</li>
+					</ul>
+				</div>
+				<div style="text-align: right;display: none;" id="chargeShow">
+					<h3 style="color: red">充值 <span id="charge_points"></span> 点数，
+						需支付：<span id="charge_total"></span> 元</h3>
+					<a href="/tos.html" tmpui-app="true">购买即代表您同意服务条款</a>
+				</div>
+			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" onclick="vxHome.chargeConfirm();">去支付</button>
+				</div>
+		</div>
+	</div>
+</div>
+
 
 <div class="modal" id="dpModal">
 	<div class="modal-dialog modal-dialog-centered modal-lg">

@@ -14,6 +14,7 @@ class e2Pages{
             $('.user_rpoint').html(vxCore.user_rpoint);
             $('.user_point').html(vxCore.user_point);
             $('.user_coins').html(vxCore.user_coin);
+            $('.user_charge').html(vxCore.user_charge);
         }
         //初始化链接
         app.linkRebind();

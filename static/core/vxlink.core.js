@@ -7,6 +7,7 @@ class vxlink_core {
     user_position = 0
     user_point = 0
     user_rpoint = 0
+    user_charge = 0
     token = null
     ready = false
     api_chart = 'https://vx.link/api/chart'
@@ -47,11 +48,13 @@ class vxlink_core {
                 this.user_point = rsp.data.point;
                 this.user_rpoint = rsp.data.rpoint;
                 this.user_coin = rsp.data.coin;
+                this.user_charge = rsp.data.charge;
 
                 //更新界面
                 $('.user_rpoint').html(vxCore.user_rpoint);
                 $('.user_point').html(vxCore.user_point);
                 $('.user_coins').html(vxCore.user_coin);
+                $('.user_charge').html(vxCore.user_charge);
             }
         }, 'json');
 
@@ -85,6 +88,7 @@ class vxlink_core {
                 this.user_point = rsp.data.point;
                 this.user_rpoint = rsp.data.rpoint;
                 this.user_coin = rsp.data.coin;
+                this.user_charge = rsp.data.charge;
             }
             this.ready = true;
             if (typeof (cb) === 'function') {
