@@ -192,12 +192,12 @@
                                 <div class="d-inline text-right mt-1">
                                     <!-- 如果尚未加入安全组，显示加入安全组的按钮 -->
                                     <% if (obj[i].list[x].acl_id==0) { %>
-                                        <button class="btn-radius btn btn-success"
+                                        <button class="btn-radius btn btn-success" title="加入安全组" 
                                             onclick="vxTrans.aclAssign('<% obj[i].list[x].id %>');">
                                             <i class="fad fa-shield-alt fa-fw"></i>
                                         </button>
                                     <% }else{ %>
-                                        <button class="btn-radius btn btn-danger"
+                                        <button class="btn-radius btn btn-danger" title="退出安全组" 
                                             onclick="vxTrans.aclUnassign('<% obj[i].list[x].id %>','<% obj[i].list[x].acl_id %>');">
                                             <i class="fad fa-shield-alt fa-fw"></i>
                                             <% obj[i].list[x].acl_name %>
