@@ -15,6 +15,8 @@ class vxlink_home {
             this.navBuyCheck();
             this.navBuyCheckout();
             this.dppInit();
+            this.chargeTransferHisgory();
+
             $('.dpp_start').html(Number(vxCore.user_point)+Number(vxCore.user_rpoint)+64);
             $('.dpp_end').html(2048);
 
@@ -267,6 +269,42 @@ class vxlink_home {
             }
             $('#charge_pay_btn').html('点数支付');
             $('#charge_pay_btn').removeAttr('disabled');
+        }, 'json');
+    }
+
+    chargeTranser(){
+        $('#charge_transfer_btn').attr('disabled', 'disabled');
+        $('#charge_transfer_btn').html('正在处理');
+        let transfer_to = $('#transfer_to').val();
+        let transfer_amount = $('#transfer_amount').val();
+        $.post(this.core.api_user, {
+            token: this.core.token,
+            to: transfer_to,
+            amount: transfer_amount,
+            action: 'charge_transfer'
+        },  (rsp) => {
+            if (rsp.status === 1) {
+                alert('完成');
+                this.core.refreshUserInfo();
+                this.chargeTransferHisgory();
+            }else{
+                alert(rsp.data);
+            }
+            $('#charge_transfer_btn').html('开始转账');
+            $('#charge_transfer_btn').removeAttr('disabled');
+        }, 'json');
+    }
+
+    chargeTransferHisgory(){
+        $.post(this.core.api_user, {
+            token: this.core.token,
+            action: 'charge_transfer_history'
+        },  (rsp) => {
+            if (rsp.status === 1) {
+                $('#charge_transfer_no_history').hide();
+                $('#charge_transfer_history').show();
+                $('#charge_transfer_history_list').html(app.tpl('charge_transfer_history_list_tpl', rsp.data));
+            }
         }, 'json');
     }
 

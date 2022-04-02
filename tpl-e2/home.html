@@ -71,18 +71,20 @@
 						</span>
 
 						<span class="btn-radius btn btn-success" onclick="$('#chargeModal').modal('show')">
-							<i class="fa-fw fal fa-plus-circle"></i>
+							<i class="fa-fw fad fa-money-bill"></i>
 							预存点数
 						</span>
 
-						<span class="btn-radius btn btn-danger" onclick="vxHome.sp2000()">
-							<i class="fa-fw fad fa-gift-card"></i>
-							2000G点券包/一年 588元
+						<span class="btn-radius btn btn-success" onclick="$('#chargeTransferModal').modal('show')">
+							<i class="fa-fw fal fa-exchange-alt"></i>
+							点数转账
 						</span>
-						<span class="btn-radius btn btn-danger" onclick="vxHome.sp800()">
-							<i class="fa-fw fad fa-gift-card"></i>
-							800G点券包/一年 288元
+
+						<span class="btn-radius btn btn-success" onclick="$('#chargeTransferHistoryModal').modal('show')">
+							<i class="fa-fw fal fa-history"></i>
+							点数历史
 						</span>
+
 					</div>
 
 				</div>
@@ -353,7 +355,7 @@
 				<div>
 					<ul>
 						<li>点数可用于购买点券包。点数不会过期。</li>
-						<li>点数可转账至其它账号（稍晚推出）。</li>
+						<li>点数可转账至其它账号。</li>
 						<li>目前不支持点数的退款。</li>
 					</ul>
 				</div>
@@ -367,6 +369,111 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					<button type="button" class="btn btn-primary" onclick="vxHome.chargeConfirm();">去支付</button>
 				</div>
+		</div>
+	</div>
+</div>
+
+<!--[点数转账]-->
+<div class="modal fade" id="chargeTransferModal" tabindex="-1" role="dialog" aria-labelledby="chargeTransferModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="chargeTransferModalLabel">点数转账 <span class="badge badge-pill badge-warning">
+					<i class="fad fa-money-bill"></i> <span class="user_charge">0</span>
+				</span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>转账点数</label>
+					<div class="form-group">
+						<input type="number" class="form-control" name="transfer_amount" id="transfer_amount"
+							placeholder="请输入转账点数" value="" min="1" max="1000" step="1">
+					</div>
+				</div>
+				<div class="form-group">
+					<label>对方账号</label>
+					<div class="form-group">
+						<input type="text" class="form-control" name="transfer_to" id="transfer_to"
+							placeholder="请输入对方账号" value="">
+					</div>
+				</div>
+				<div>
+					<ul>
+						<li>没有手续费。</li>
+						<li>转账成功不可退回。</li>
+					</ul>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" id="charge_transfer_btn" onclick="vxHome.chargeTranser();">开始转账</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--[点券历史记录]-->
+<div class="modal fade" id="chargeTransferHistoryModal" tabindex="-1" role="dialog" aria-labelledby="chargeTransferHistoryModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="chargeTransferHistoryModalLabel">点数历史记录 <span class="badge badge-pill badge-warning">
+					<i class="fad fa-money-bill"></i> <span class="user_charge">0</span>
+				</span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div id="charge_transfer_no_history">
+					<div class="alert alert-info">
+						<i class="fad fa-info-circle"></i> 暂无历史记录
+					</div>
+				</div>
+				<div id="charge_transfer_history">
+					<div id="charge_transfer_history_list"></div>
+				</div>
+				<script type="text/template" id="charge_transfer_history_list_tpl">
+					<div class="table-responsive mt-3">
+						<table class="table table-hover table-bordered table-vcenter text-nowrap card-table">
+							<thead>
+								<tr>
+									<th>时间</th>
+									<th>余额</th>
+									<th>变动</th>
+									<th>信息</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for (let x in obj) { %>
+								<tr>
+									<td>
+										<div><% obj[x].ctime %></div>
+									</td>
+									<td>
+										<div><% obj[x].now %></div>
+									</td>
+									<td>
+										<div><% obj[x].change %></div>
+									</td>
+									<td>
+										<div><% obj[x].reason %></div>
+									</td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>	
+					</div>
+				</script>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
 		</div>
 	</div>
 </div>
