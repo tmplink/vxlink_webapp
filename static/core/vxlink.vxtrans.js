@@ -1,6 +1,7 @@
 class vxlink_vxtrans {
     core = null
     server_list = null
+    vxtrans_list = null
     acl_list = null
     acl_id = 0
     assign_id = 0
@@ -66,6 +67,7 @@ class vxlink_vxtrans {
                     // $('#vxtrans_list').html(app.tpl('vxtrans_list_tpl', rsp.data.all));
                     $('#vxtrans_group_list').html(app.tpl('vxtrans_group_list_tpl', rsp.data.group));
                     $('#vxtrans_count').html('一共有 ' + rsp.data.all.length + ' 个连接点。');
+                    this.vxtrans_list = rsp.data.all;
                     console.log('vxTrans List Loaded');
                 }
                 $('#vxtrans_refresh_btn').removeAttr('disabled');
@@ -378,6 +380,48 @@ class vxlink_vxtrans {
                 } else {
                     $('#box_post').html('创建失败,' + rsp.data);
                 }
+            }
+
+        }, 'json');
+    }
+
+    cloneToUDP(vxtrans_id){
+        //停止响应点击
+        $(`#vxtrans_clone_${vxtrans_id}`).attr('disabled', 'true');
+        let vxtrans = null;
+
+        //查找到这个 ID 的所有配置信息
+        for(let x in this.vxtrans_list){
+            if(this.vxtrans_list[x].id == vxtrans_id){
+                vxtrans = this.vxtrans_list[x];
+                break;
+            }
+        }
+        
+        let target = null;
+        if(vxtrans.target_cname!==0){
+            target = vxtrans.target_cname;
+        }else{
+            target = vxtrans.target_ip;
+        }
+
+        //构建请求
+        $.post(this.core.api_vxtrans, {
+            token: this.core.token,
+            protocol: 'udp',
+            name: vxtrans.title,
+            action: 'add',
+            location: vxtrans.location,
+            localport: vxtrans.localport,
+            to_ip: target,
+            to_port: vxtrans.target_port,
+            limit: 0
+        }, (rsp) => {
+            $(`#vxtrans_clone_${vxtrans_id}`).removeAttr('disabled');
+            if (rsp.status === 1) {
+                this.refreshVxtransList();
+            } else {
+                alert(rsp.data);
             }
 
         }, 'json');
