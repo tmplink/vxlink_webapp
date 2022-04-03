@@ -156,6 +156,44 @@ class vxlink_vxdns {
         }, 'json');
     }
 
+    editRecord(id){
+        $(`#record_view_name_${id}`).hide();
+        $(`#record_edit_name_${id}`).show();
+        $(`#record_view_content_${id}`).hide();
+        $(`#record_edit_content_${id}`).show();
+    }
+
+    editRecordPost(id){
+        $(`#record_view_name_${id}`).show();
+        $(`#record_edit_name_${id}`).hide();
+        $(`#record_view_content_${id}`).show();
+        $(`#record_edit_content_${id}`).hide();
+
+        let name = $(`#record_edit_name_input_${id}`).val();
+        let content = $(`#record_edit_content_input_${id}`).val();
+        let type = $(`#record_type_${id}`).val();
+
+        $.post(this.core.api_vxdns, {
+            token: this.core.token,
+            action: 'record_edit',
+            domain_id: this.currentDomainId,
+            record_id: id,
+            record_name: name,
+            record_content: content,
+            record_type: type,
+        },  (rsp) => {
+            if (rsp.status === 0) {
+                alert(rsp.data);
+            }else{
+                //更新到 view
+                $(`#record_view_name_${id}`).html(name);
+                $(`#record_view_content_${id}`).html(content);
+            }
+        }, 'json');
+
+        
+    }
+
     openAddArean() {
         $('#set_area_name').val('');
         $('#set_area_id').val(0);
