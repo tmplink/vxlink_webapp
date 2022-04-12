@@ -141,6 +141,12 @@
                                 <% } %>
                                 <div class="font-weight-bold">
                                     <% obj[i].list[x].title %>
+                                    <% if (obj[i].list[x].target_port =='22' && (obj[i].list[x].location == 'mic'||obj[i].list[x].location == 'mis')) { %>
+                                        <span class="badge badge-pill badge-success">
+                                            <i class="fa-solid fa-angles-up"></i> 
+                                            SSH Enhanced
+                                        </span>
+                                    <% } %>
                                 </div>
                                 <div class="border-dashed"></div>
                                 <div>
@@ -148,9 +154,11 @@
                                     <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>">
                                         <i class="fa-fw fad fa-copy text-blue"></i>
                                     </span>
-                                    <span class="btn-pointer btncp" data-clipboard-text="@<% obj[i].list[x].ex_location.addr %> -p <% obj[i].list[x].localport %>">
-                                        <i class="fa-fw fad fa-terminal"></i>
+                                    <% if (obj[i].list[x].target_port =='22') { %>
+                                    <span class="btn-pointer btncp" data-clipboard-text="root@<% obj[i].list[x].ex_location.addr %> -p <% obj[i].list[x].localport %>">
+                                        <i class="fa-fw fa-solid fa-square-terminal"></i>
                                     </span>
+                                    <% } %>
                                 </div>
                                 <div>
                                     <i class="fa-fw fal fa-plane-arrival"></i>  <% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>

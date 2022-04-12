@@ -41,7 +41,7 @@
 					<% for (let x in obj) { %>
 						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_unit_<% obj[x].domain_id %>">
 							<div class="col-md-8 col-10 d-flex align-items-center btn-pointer" onclick="vxDns.recordPannelOpen('<% obj[x].domain_id %>','<% obj[x].domain %>')">
-								<i class="fad fa-map-signs mr-2"></i> <% obj[x].domain %>
+								<i class="fa-solid fa-globe mr-2"></i> <% obj[x].domain %>
 							</div>
 							<div class="col-md-4 col-2 d-flex align-items-center justify-content-end">
 								<button class="btn btn-sm btn-outline-danger mx-1" onclick="vxDns.delDomain('<% obj[x].domain_id %>')">
@@ -79,7 +79,6 @@
 					<% for (let x in obj) { %>
 						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_record_unit_<% obj[x].id %>" onclick="vxDns.editRecord('<% obj[x].id %>')">
 							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center">
-								<i class="far fa-map-signs mr-2"></i>
 								<span id="record_view_name_<% obj[x].id %>">
 									<% obj[x].sorname %>
 								</span>
@@ -88,7 +87,6 @@
 								</span>
 							</div>
 							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center overflow-hidden">
-								<i class="fal fa-quote-left mr-2"></i>
 								<span id="record_view_content_<% obj[x].id %>">
 									<% obj[x].content %>
 								</span>

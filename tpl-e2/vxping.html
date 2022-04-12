@@ -418,7 +418,7 @@
 								<i class="fa-fw fal fa-link text-green"></i> WebHook
 							<% }%>
 							<% if (obj[x].trigger === 'vxdns') { %>
-								<i class="fa-fw far fa-map-signs text-green"></i> vxDNS
+								<i class="fa-fw fa-solid fa-globe text-green"></i> vxDNS
 								<a href="javascript:;" onclick="vxPing.vxDNSOnTrigger('<% obj[x].id %>')">(管理)</a>
 							<% }%>
 							<span class="mr-2"></span>
@@ -576,7 +576,7 @@
 								通过 <i class="fa-fw fal fa-link text-green"></i> WebHook 发送告警信息至 <% obj[x].trigger_params %>
 							<% }%>
 							<% if (obj[x].trigger === 'vxdns') { %>
-								<i class="fa-fw far fa-map-signs text-green"></i> vxDNS
+								<i class="fa-fw fa-solid fa-globe text-green"></i> vxDNS
 								<a href="javascript:;" onclick="vxPing.vxDNSOnTrigger('<% obj[x].id %>')">(管理)</a>
 							<% }%>
 						</div>
