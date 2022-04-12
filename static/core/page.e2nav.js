@@ -70,4 +70,9 @@ class e2Pages{
         this.active('projects');
         $('#nav_projects').addClass('active');
     }
+    vps(){
+        $('#admin_content').html(app.getFile('/tpl-e2/vps.html'));
+        this.active('vps');
+        $('#nav_vps').addClass('active');
+    }
 }

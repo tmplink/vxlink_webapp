@@ -1,15 +1,15 @@
 var e2nav = new e2Pages();
 app.ready(() => {
-    vxCore.initExec(()=>{
-        if(vxCore.uid==null){
+    vxCore.initExec(() => {
+        if (vxCore.uid == null) {
             //console.log('unknow user');
             window.location = '/';
-        }else{
-            if(vxCore.email==null&&vxCore.uid!=null){
+        } else {
+            if (vxCore.email == null && vxCore.uid != null) {
                 //新账号,未绑定邮箱
                 app.open('/init.html');
                 return true;
-            }else{
+            } else {
                 //账号已经登陆，初始化 header
                 // if (document.getElementById('init_header') !== null) {
                 //     $('.user_rpoint').html(vxCore.user_rpoint);
@@ -49,6 +49,9 @@ app.ready(() => {
                     break;
                 case 'projects':
                     e2nav.projects();
+                    break;
+                case 'vps':
+                    e2nav.vps();
                     break;
                 default:
                     e2nav.home();
