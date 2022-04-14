@@ -24,6 +24,10 @@ class vxlink_home {
             $('.user_point').html(vxCore.user_point);
             $('.user_coins').html(vxCore.user_coin);
             $('.user_charge').html(vxCore.user_charge);
+
+            if(this.core.user_point<200){
+                $('#send_gift_active').hide();
+            }
         }
     }
 

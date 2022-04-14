@@ -27,15 +27,16 @@
 						</a>
 					</span>
 					<div>可以在设置中设定使用 “邮件” 还是 “Telegram” 接收通知消息（账号级）。</div>
+
 					<!--[通知信息]-->
-					<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+					<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert" id="send_gift_active">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<i class="fa-fw fad fa-gift-card"></i> 
-						<strong>8 周年活动</strong>
+						<strong>活动</strong>
 						<span>
-							预存 1000 点数额外赠送 300 点数
+							您的账号满足免费赠送点券包给朋友的条件，<a href="/admin/?service=affiliate" tmpui-action="e2nav.affiliate();">点击前往</a>。
 						</span>
 					</div>
 
@@ -73,7 +74,7 @@
 
 						<span class="btn-radius btn btn-danger mt-2" onclick="$('#chargeModal').modal('show')">
 							<i class="fa-fw fad fa-money-bill"></i>
-							预存点数 （活动）
+							预存点数
 						</span>
 
 						<span class="btn-radius btn btn-success mt-2" onclick="$('#chargeTransferModal').modal('show')">
@@ -368,7 +369,7 @@
 				<li>如果在付款时忘记填写账号名，可以在之后找到订单，然后选择 “向收款方留言” 提供备注信息。</li>
 				<hr>
 				<div>
-					<li class="text-red">活动：充值满 1000 点数额外赠送 300 点数。</li>
+					<!-- <li class="text-red">活动：充值满 1000 点数额外赠送 300 点数。</li> -->
 					<li>点数可用于购买点券包。点数不会过期。</li>
 					<li>点数可转账至其它账号。</li>
 					<li>目前不支持点数的退款。</li>
