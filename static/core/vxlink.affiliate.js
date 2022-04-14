@@ -10,6 +10,11 @@ class vxlink_affiliate {
             this.rpointRefresh();
             this.regcodeList();
             this.moneyList();
+            this.refreshSendCounter();
+
+            if(this.core.user_point<200){
+                $('#loading_regcode_make').attr('disabled',true);
+            }
         }
     }
 
@@ -107,6 +112,31 @@ class vxlink_affiliate {
                 this.core.refreshUserInfo();
             }else{
                 alert('您已经领取过了');
+            }
+        }, 'json');
+    }
+
+    refreshSendCounter() {
+        $('#loading_regcode_list').fadeIn();
+        $.post(this.core.api_user, { token: this.core.token, action: 'gift_send_counter' }, (rsp) => {
+            $('#send_counter').html(rsp.data);
+            $('#loading_regcode_list').fadeOut();
+        }, 'json');
+    }
+
+    sendGift() {
+        let username = prompt('请输入对方账号名。');
+
+        if (typeof (username) === 'NaN') {
+            alert('请输入正确的账号名。');
+            return;
+        }
+
+        $.post(this.core.api_user, { token: this.core.token, username: username, action: 'gift_send' }, (rsp) => {
+            if (rsp.status === 1) {
+                alert(`完成了!`);
+            } else {
+                alert(rsp.data);
             }
         }, 'json');
     }
