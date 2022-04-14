@@ -24,7 +24,7 @@ class vxlink_user {
         this.core.initExec(() => {
             if (this.core.uid != null) {
                 $('#user-signup-box').prepend('<div class="overlay"></div>');
-                $('#msgbox').html('账号已登陆,正在进入...');
+                $('#msgbox').html('账号已登录,正在进入...');
                 setTimeout(() => {
                     app.open('/admin/');
                 }, 2000);
@@ -41,7 +41,7 @@ class vxlink_user {
         this.core.initExec(() => {
             if (this.core.uid != null) {
                 $('#user-signin-box').prepend('<div class="overlay"></div>');
-                $('#msgbox').html('账号已登陆,正在进入...');
+                $('#msgbox').html('账号已登录,正在进入...');
                 setTimeout(() => {
                     app.open('/admin/');
                 }, 2000);

@@ -10,7 +10,7 @@ app.ready(() => {
                 app.open('/init.html');
                 return true;
             } else {
-                //账号已经登陆，初始化 header
+                //账号已经登录，初始化 header
                 // if (document.getElementById('init_header') !== null) {
                 //     $('.user_rpoint').html(vxCore.user_rpoint);
                 //     $('.user_point').html(vxCore.user_point);
