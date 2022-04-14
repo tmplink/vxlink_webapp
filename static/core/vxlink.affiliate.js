@@ -13,7 +13,8 @@ class vxlink_affiliate {
             this.refreshSendCounter();
 
             if(this.core.user_point<200){
-                $('#loading_regcode_make').attr('disabled',true);
+                // $('#send_gift_btn').attr('disabled',true);
+                $('#send_gift_btn').hide();
             }
         }
     }
