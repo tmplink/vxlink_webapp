@@ -363,7 +363,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 				<button type="button" class="btn btn-primary" onclick="vxHome.chargeConfirm();">支付宝</button>
-				<button type="button" class="btn btn-primary" onclick="$('#chargeByAlipayModal').modal('hide');setTimeout(()=>{$('#chargeModal').modal('show');},300);">微信支付</button>
+				<button type="button" class="btn btn-primary" onclick="$('#chargeByAlipayModal').modal('hide');setTimeout(()=>{$('#chargeModal').modal('show');},300);">微信支付(支持信用卡)</button>
 			</div>
 		</div>
 	</div>
@@ -384,19 +384,18 @@
 			</div>
 			<div class="modal-body">
 				<div class="text-center">
-					<h5>人工充值通道</h5>
 					<img src="/static/img/vx.jpg" alt="替代通道" class="img-thumbnail mx-auto m-2"
 						style="height: 300px;">
 				</div>
 				<hr>
-				<li><span class="text-red">重要：</span>支付时，请在 ID 栏填写您的微林账号名（不建议填邮箱）。</li>
-				<li>1 元 = 1 点数。工作时间 2 小时内到账。</li>
+				<li><span class="text-red">重要：</span>支付时，请在 ID 栏填写您的微林账号名。</li>
+				<li>1 元 = 1 点数。工作时间 1 小时内到账。</li>
 				<li>如果填错账号，请与我们取得联系。</li>
 				<hr>
 				<div>
 					<!-- <li class="text-red">活动：充值满 1000 点数额外赠送 300 点数。</li> -->
 					<li>点数可用于购买点券包。点数不会过期。</li>
-					<li>每次充值请不要超过 <b class="text-red">500</b> 点数，如果提示受限，请第二天再支付。</li>
+					<li>每次充值请建议不超过 <b class="text-red">500</b> 点数，如果提示受限，请第二天再支付。</li>
 					<li>点数可转账至其它账号。</li>
 					<li>目前不支持点数的退款。</li>
 				</div>
