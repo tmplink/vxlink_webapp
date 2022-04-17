@@ -140,6 +140,11 @@
                                     <div class="overlay"></div>
                                 <% } %>
                                 <div class="font-weight-bold">
+                                    <% if (obj[i].list[x].location == 'mir'||obj[i].list[x].location == 'miv') { %>
+                                        <span class="badge badge-pill badge-danger">
+                                            <i class="fa-duotone fa-square-r"></i>
+                                        </span>
+                                    <% } %>
                                     <% obj[i].list[x].title %>
                                     <% if (obj[i].list[x].target_port =='22' && (obj[i].list[x].location == 'mic'||obj[i].list[x].location == 'mis'||obj[i].list[x].location == 'miz'||obj[i].list[x].location == 'mix')) { %>
                                         <span class="badge badge-pill badge-success">
