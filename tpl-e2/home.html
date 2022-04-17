@@ -72,7 +72,7 @@
 							购买点券
 						</span>
 
-						<span class="btn-radius btn btn-danger mt-2" onclick="$('#chargeModal').modal('show')">
+						<span class="btn-radius btn btn-danger mt-2" onclick="$('#chargeByAlipayModal').modal('show')">
 							<i class="fa-fw fad fa-money-bill"></i>
 							预存点数
 						</span>
@@ -327,9 +327,43 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<!-- <button type="button" class="btn btn-primary" onclick="vxHome.navBuyConfirm();">支付宝支付</button> -->
+				<button type="button" class="btn btn-primary" onclick="vxHome.navBuyConfirm();">支付宝支付</button>
 				<button type="button" class="btn btn-primary" onclick="vxHome.chargePay();"
 					id="charge_pay_btn">点数支付</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--[支付宝点数充值窗口]-->
+<div class="modal fade" id="chargeByAlipayModal" tabindex="-1" role="dialog" aria-labelledby="chargeModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="chargeModalLabel">充值点数 <span class="badge badge-pill badge-warning">
+						<i class="fad fa-money-bill"></i> <span class="user_charge">0</span>
+					</span></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>充值点数</label>
+					<div class="form-group">
+						<input type="number" class="form-control" name="charge_points" id="charge_input"
+							placeholder="请输入充值点数" value="" onkeyup="vxHome.chargePress()">
+					</div>
+				</div>
+				<div style="text-align: right;">
+					<a href="/tos.html" tmpui-app="true">购买即代表您同意服务条款</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" onclick="vxHome.chargeConfirm();">支付宝</button>
+				<button type="button" class="btn btn-primary" onclick="$('#chargeByAlipayModal').modal('hide');setTimeout(()=>{$('#chargeModal').modal('show');},300);">微信支付</button>
 			</div>
 		</div>
 	</div>
@@ -349,13 +383,6 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<!-- <div class="form-group">
-					<label>充值点数</label>
-					<div class="form-group">
-						<input type="number" class="form-control" name="charge_points" id="charge_input"
-							placeholder="请输入充值点数" value="" onkeyup="vxHome.chargePress()">
-					</div>
-				</div> -->
 				<div class="text-center">
 					<h5>人工充值通道</h5>
 					<img src="/static/img/vx.jpg" alt="替代通道" class="img-thumbnail mx-auto m-2"
