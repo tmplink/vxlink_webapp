@@ -37,11 +37,11 @@ class vxlink_vxtrans {
             }
             if(!this.refresh_vxtrans_list_init){
                 this.refresh_vxtrans_list_init = true;
-                setInterval(()=>{this.refreshVxtransList()},60000);
+                setInterval(()=>{this.refreshVxtransList()},30000);
             }
             if(!this.refresh_server_list_init){
                 this.refresh_server_list_init = true;
-                setInterval(()=>{this.refreshServerList()},60000);
+                setInterval(()=>{this.refreshServerList()},30000);
             }
             // if(!this.refresh_server_list_area_init){
             //     this.refresh_server_list_area_init = true;
