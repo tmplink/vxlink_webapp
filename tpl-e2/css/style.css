@@ -1006,7 +1006,7 @@ footer {
   }
 }
 
-@media (max-height: 820px) {
+@media (max-height: 900px) {
   .bottom-social {
     margin-top: 30px;
     position: relative;
