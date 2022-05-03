@@ -445,7 +445,7 @@ class vxlink_vxtrans {
         }
 
         $.ajax({
-            url: 'https://trans-' + code + '.ip.parts:82/?v=' + Date.now(),
+            url: 'https://trans-' + code + '.ip.parts:466/?v=' + Date.now(),
             timeout: 5000,
             error: () => {
                 // let text = $('#spd_' + code).attr('data-text');
@@ -458,7 +458,7 @@ class vxlink_vxtrans {
             },
             success: () => {
                 var dtStart = new Date();
-                $.get('https://trans-' + code + '.ip.parts:82/', {
+                $.get('https://trans-' + code + '.ip.parts:466/', {
                     v: Date.now()
                 }, () => {
                     var dtEnd = new Date();
