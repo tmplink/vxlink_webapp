@@ -9,6 +9,7 @@ var vxAffiliate = new vxlink_affiliate;
 var vxDbservice = new vxlink_dbservice;
 var vxDns = new vxlink_vxdns;
 var vxServer = new vxlink_vxserver;
+var vxProphet = new vxlink_prophet;
 
 //init
 vxCore.init();
@@ -22,6 +23,7 @@ vxCore.bind('op_affiliate', vxAffiliate);
 vxCore.bind('op_dbservice',vxDbservice);
 vxCore.bind('op_vxdns',vxDns);
 vxCore.bind('op_vxserver',vxServer);
+vxCore.bind('op_prophet',vxProphet);
 
 vxUser.init(vxCore);
 vxTrans.init(vxCore);
@@ -33,5 +35,6 @@ vxAffiliate.init(vxCore)
 vxDbservice.init(vxCore)
 vxDns.init(vxCore);
 vxServer.init(vxCore);
+vxProphet.init(vxCore);
 
 app.languageSet('cn');

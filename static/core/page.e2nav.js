@@ -75,4 +75,9 @@ class e2Pages{
         this.active('vps');
         $('#nav_vps').addClass('active');
     }
+    prophet(){
+        $('#admin_content').html(app.getFile('/tpl-e2/prophet.html'));
+        this.active('prophet');
+        vxProphet.pageInit();
+    }
 }
