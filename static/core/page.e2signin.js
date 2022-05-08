@@ -53,6 +53,9 @@ app.ready(() => {
                 case 'vps':
                     e2nav.vps();
                     break;
+                case 'prophet':
+                    e2nav.prophet();
+                    break;
                 default:
                     e2nav.home();
                     break;
