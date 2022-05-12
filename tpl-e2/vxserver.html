@@ -6,6 +6,10 @@
                 <div class="text-center">
                     <h3 class="display-4">托管服务</h3>
                     <p>将 Github 项目通过 Web 服务发布 | 免费</p>
+                    <p>
+                        <button class="btn-radius btn btn-success m-1"
+                            onclick="$('#vxServerPathModal').modal('show')">关于路径问题</button>
+                    </p>
                 </div>
             </div>
         </div>
@@ -163,6 +167,29 @@
                 </span>
                 <button id="box_update_post" type="button" onclick="vxServer.updateCertPost()"
                     class="btn btn-primary btn-radius">更新</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="vxServerPathModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fad fa-plane"></i> 关于路径问题</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    请注意，在 vxServer 中， 您的项目文件路径必须完整遵照 <a href="https://www.w3.org/html/ig/zh/wiki/URL#.E8.A7.A3.E6.9E.90_URL" target="_blank">URL 规范设计</a>。
+                </p>
+                <p>
+                    例如 /tag 不能代替 /tag/ ，因为 /tag 的含义是是指 / 目录下的 tag 文件，而不是指 /tag/ 目录。如果 / 下不存在 tag 文件，vxServer 会按照标准返回 404，而不是跳转至 /tag/ 。<br>
+                    因此，如果您希望让用户访问 / 下的 tag 目录，请使用 /tag/。
+                </p>
             </div>
         </div>
     </div>
