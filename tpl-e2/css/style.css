@@ -1,5 +1,16 @@
-html body{
+html body {
   height: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: invert(1) hue-rotate(.5turn);
+  }
+
+  i {
+    filter: none;
+    opacity: 0.8;
+  }
 }
 
 #tmpui_body {
@@ -7,7 +18,7 @@ html body{
   position: relative;
 }
 
-.card{
+.card {
   border-radius: .6rem;
 }
 
@@ -808,12 +819,15 @@ footer {
   .display-1 {
     font-size: 56px !important;
   }
+
   .display-2 {
     font-size: 50px !important;
   }
+
   .display-3 {
     font-size: 42px !important;
   }
+
   .display-4 {
     font-size: 36px !important;
   }
@@ -951,9 +965,11 @@ footer {
     left: 0;
     overflow-x: hidden;
   }
+
   .navbar-expand-lg .navbar-collapse {
     display: block !important;
   }
+
   .main {
     margin-left: 320px;
     margin-right: 40px;
@@ -984,23 +1000,28 @@ footer {
   .sidenav .navbar-custom .navbar-nav li a {
     padding: 0;
   }
+
   .navbar-toggler i {
     font-size: 24px;
     margin-top: 0px;
     margin-bottom: 0px;
     color: #ffffff;
   }
+
   .logo {
     font-size: 22px !important;
     margin-left: 15px;
   }
+
   .navbar-custom {
     margin-left: 0;
   }
+
   .main {
     margin-left: 0px;
     padding: 0px;
   }
+
   .navbar-custom .navbar-nav li a {
     line-height: 10px;
   }
@@ -1018,6 +1039,7 @@ footer {
   .sidenav {
     padding-top: 15px;
   }
+
   .sidenav a {
     font-size: 18px;
   }

@@ -26,6 +26,18 @@
  *     15.  Footer           *
  ============================*/
 /* @import url("https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700&display=swap"); */
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  html{
+      filter: invert(1) hue-rotate(.5turn);
+  }
+
+  .bg-overlay {
+    background-color: rgb(53 64 78 / 0%) !important;
+  }
+}
+
 body {
   font-family: "Nunito Sans", sans-serif;
   overflow-x: hidden !important;
