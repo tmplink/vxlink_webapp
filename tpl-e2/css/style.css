@@ -2,17 +2,6 @@ html body {
   height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    filter: invert(1) hue-rotate(.5turn);
-  }
-
-  i {
-    filter: none;
-    opacity: 0.8;
-  }
-}
-
 #tmpui_body {
   min-height: 100%;
   position: relative;
@@ -1042,5 +1031,28 @@ footer {
 
   .sidenav a {
     font-size: 18px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    filter: invert(1) hue-rotate(.5turn);
+  }
+
+  .bg-overlay{
+    background-color: rgba(53, 64, 78, 0) !important;
+  }
+
+  img {
+    filter: invert(1) hue-rotate(.5turn);
+  }
+
+
+  .shadow {
+    box-shadow: 0 .5rem 1rem rgba(0, 132, 42, 0.684) !important;
+  }
+
+  .shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0, 132, 42, 0.684) !important;
   }
 }
