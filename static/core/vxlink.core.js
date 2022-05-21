@@ -18,6 +18,7 @@ class vxlink_core {
     api_user = 'https://vx.link/openapi/v1/user'
     api_vxserver = 'https://vx.link/openapi/v1/vxserver'
     api_token = 'https://vx.link/openapi/v1/token'
+    api_prophet = 'https://vx.link/openapi/v1/prophet'
     clipboard = null
 
     op_user = null

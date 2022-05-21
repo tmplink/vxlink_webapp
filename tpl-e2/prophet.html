@@ -13,37 +13,72 @@
 </section>
 <!-- Main Title End -->
 
+<section class="section">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section-title mb-4">
+					<h4 class="title">
+						正在监测
+						<small id="loading_prophet_list">
+							<i class="fa fa-spinner-third fa-spin"></i>
+						</small>
+					</h4>
+					<button class="btn-radius btn btn-success" onclick="vxProphet.editerOpen()">
+						<i class="fa-fw fal fa-plus-circle"></i>
+						添加监测点
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 <section class="section">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
 				<div class="section-title mb-4">
-					<h4 class="title">先知实时监测系统</h4>
-					<div>分布式，多维度。即将到来。</div>
+					<h4 class="title">客户端</h4>
 				</div>
-				
-				<p>先知实时检测系统是一项分布式服务器性能检测系统，由主动探针与微林 API 服务组成。</p>
-				<ul>
-					探针
-					<li>开放源代码</li>
-					<li>自行部署</li>
-					<li>支持 Linux 系统</li>
-					<li>秒级检测数据，系统资源占用低</li>
-					<li>监测指标：CPU 使用率，系统负载，网络，磁盘使用率</li>
-				</ul>
-				<ul>
-					微林 API 服务
-					<li>收集并整理探针数据</li>
-					<li>提供最近1000次实时数据</li>
-					<li>自定义的监测面板，实时查阅监测数据</li>
-					<li>提供最近3个月归档历史数据</li>
-					<li>Telegram，Webhook，邮件三种告警方式</li>
-				</ul>
 			</div>
 		</div>
 	</div>
 </section>
+
+
+<div class="modal" id="prophet_create_Modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">创建监测项目</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="prophet_create_box">
+				<div class="form-group">
+					<label for="prophet_create_set_name">描述</label>
+					<input type="text" onfocus="vxPing.editerRefresh();" class="form-control"
+						id="prophet_create_set_name" placeholder="输入监测项目的名字">
+				</div>
+				<div class="form-group">
+					<label for="prophet_create_set_key">钥匙</label>
+					<input type="text" class="form-control"
+						id="prophet_create_set_key" placeholder="不填写将默认生成随机 32 字节的钥匙">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="prophet_create_post" type="button" onclick="vxProphet.editerPost();"
+					class="btn btn-sm btn-primary btn-radius">
+					<i class="far fa-check"></i>
+				</button>
+				<button type="button" onclick="vxProphet.editerReset();" class="btn btn-sm btn-warning btn-radius">
+					<i class="far fa-redo-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <!-- Footer End -->
 <div id="init_prophet"></div>
