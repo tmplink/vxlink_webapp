@@ -74,7 +74,11 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section-title mb-4">
-					<h4 class="title">客户端</h4>
+					<h4 class="title">仪表台</h4>
+					<button class="btn-radius btn btn-success" onclick="vxProphet.projectEditerOpen()">
+						<i class="fa-fw fal fa-plus-circle"></i>
+						添加仪表台
+					</button>
 				</div>
 			</div>
 		</div>
@@ -82,7 +86,7 @@
 </section>
 
 
-<div class="modal" id="prophet_create_Modal" tabindex="-1" role="dialog">
+<div class="modal" id="prophet_create_modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -113,6 +117,45 @@
 		</div>
 	</div>
 </div>
+
+
+<div class="modal" id="prophet_project_modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">创建仪表台</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="prophet_project_box">
+				<div class="form-group">
+					<label for="prophet_project_set_name">描述</label>
+					<input type="text" onfocus="vxPing.archiveEditerRefresh();" class="form-control"
+						id="prophet_project_set_name" placeholder="输入监测项目的名字">
+				</div>
+				<div class="form-group">
+					<label for="prophet_project_set_key">钥匙</label>
+					<input type="text" class="form-control" id="prophet_project_set_key"
+						placeholder="不填写将默认生成随机 32 字节的钥匙">
+				</div>
+				<div class="form-group">
+					<label for="prophet_project_set_pin">密码</label>
+					<input type="text" class="form-control" id="prophet_project_set_pin"
+						placeholder="不填写将自动生成">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="prophet_project_post" type="button" onclick="vxProphet.projectEditerPost();"
+					class="btn btn-sm btn-primary btn-radius">
+					<i class="far fa-check"></i>
+				</button>
+				<button type="button" onclick="vxProphet.projectEditerReset();" class="btn btn-sm btn-warning btn-radius">
+					<i class="far fa-redo-alt"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 <!-- Footer End -->

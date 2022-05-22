@@ -47,9 +47,52 @@ class vxlink_prophet {
             if (rsp.status === 1) {
                 $('#prophet_create_post').html('<i class="far fa-check"></i>');
                 this.refreshMonitorList();
-                $('#prophet_create_Modal').modal('hide');
+                $('#prophet_create_modal').modal('hide');
             } else {
                 $('#prophet_create_post').html('创建失败：' + rsp.data);
+            }
+        }, 'json');
+    }
+
+    refreshProjectList(){
+        $.post(this.core.api_prophet, { action: 'project_list', token: this.core.token }, (rsp) => {
+            $('#loading_prophet_list').fadeOut();
+            if (rsp.status === 1) {
+                this.prophet_project_list = rsp.data;
+                $('#prophet_project_list').html(app.tpl('prophet_project_list_tpl', rsp.data));
+                console.log('Prophet List Loaded');
+            }
+        }, 'json');
+    }
+
+    projectEditerOpen() {
+        $('#prophet_project_set_name').val('');
+        $('#prophet_project_set_key').val('');
+        $('#prophet_project_post').html('<i class="far fa-check"></i>');
+        $('#prophet_project_post').removeAttr('disabled');
+        $('#prophet_project_modal').modal('show');
+    }
+
+    projectEditerPost() {
+        //收集数据
+        let name = $('#prophet_project_set_name').val();
+        let key = $('#prophet_project_set_key').val();
+        let pin = $('#prophet_project_set_pin').val();
+        $('#prophet_project_post').html('<i class="fas fa-spinner fa-spin"></i>');
+        $('#prophet_project_post').attr('disabled', 'true');
+
+
+        //发送请求
+        $.post(this.core.api_prophet, {
+            name: name, action: 'project_add', 
+            key: key, pin:pin, token: this.core.token,
+        }, (rsp) => {
+            if (rsp.status === 1) {
+                $('#prophet_project_post').html('<i class="far fa-check"></i>');
+                this.refreshMonitorList();
+                $('#prophet_project_modal').modal('hide');
+            } else {
+                $('#prophet_project_post').html('创建失败：' + rsp.data);
             }
         }, 'json');
     }
