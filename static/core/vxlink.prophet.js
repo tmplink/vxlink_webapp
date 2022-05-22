@@ -23,7 +23,7 @@ class vxlink_prophet {
         }, 'json');
     }
 
-    editerOpen() {
+    archiveEditerOpen() {
         $('#prophet_create_set_name').val('');
         $('#prophet_create_set_key').val('');
         $('#prophet_create_post').html('<i class="far fa-check"></i>');
@@ -31,7 +31,7 @@ class vxlink_prophet {
         $('#prophet_create_Modal').modal('show');
     }
 
-    editerPost() {
+    archiveEditerPost() {
         //收集数据
         let name = $('#prophet_create_set_name').val();
         let key = $('#prophet_create_set_key').val();
