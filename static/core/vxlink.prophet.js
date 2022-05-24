@@ -9,6 +9,7 @@ class vxlink_prophet {
     pageInit() {
         if (document.getElementById('init_prophet') !== null) {
             this.refreshArchiveList();
+            this.refreshDashboardList();
         }
     }
 
@@ -29,6 +30,18 @@ class vxlink_prophet {
         $('#prophet_create_post').html('<i class="far fa-check"></i>');
         $('#prophet_create_post').removeAttr('disabled');
         $('#prophet_create_Modal').modal('show');
+    }
+
+    archiveDelete(key){
+        let comfirm = confirm('确定删除？');
+        if (comfirm===false) {
+            return;
+        }
+        $.post(this.core.api_prophet, { action: 'archive_delete', token: this.core.token, key: key }, (rsp) => {
+            if (rsp.status === 1) {
+                this.refreshArchiveList();
+            }
+        }, 'json');
     }
 
     archiveEditerPost() {
@@ -54,45 +67,56 @@ class vxlink_prophet {
         }, 'json');
     }
 
-    refreshProjectList(){
-        $.post(this.core.api_prophet, { action: 'project_list', token: this.core.token }, (rsp) => {
-            $('#loading_prophet_list').fadeOut();
+    refreshDashboardList(){
+        $.post(this.core.api_prophet, { action: 'dashboard_list', token: this.core.token }, (rsp) => {
+            $('#loading_prophet_dashboard_list').fadeOut();
             if (rsp.status === 1) {
-                this.prophet_project_list = rsp.data;
-                $('#prophet_project_list').html(app.tpl('prophet_project_list_tpl', rsp.data));
-                console.log('Prophet List Loaded');
+                this.prophet_dashboard_list = rsp.data;
+                $('#prophet_dashboard_list').html(app.tpl('prophet_dashboard_list_tpl', rsp.data));
+                console.log('Prophet Dashboard List Loaded');
             }
         }, 'json');
     }
 
-    projectEditerOpen() {
-        $('#prophet_project_set_name').val('');
-        $('#prophet_project_set_key').val('');
-        $('#prophet_project_post').html('<i class="far fa-check"></i>');
-        $('#prophet_project_post').removeAttr('disabled');
-        $('#prophet_project_modal').modal('show');
+    dashboardEditerOpen() {
+        $('#prophet_dashboard_set_name').val('');
+        $('#prophet_dashboard_set_key').val('');
+        $('#prophet_dashboard_post').html('<i class="far fa-check"></i>');
+        $('#prophet_dashboard_post').removeAttr('disabled');
+        $('#prophet_dashboard_modal').modal('show');
     }
 
-    projectEditerPost() {
+    dashboardEditerPost() {
         //收集数据
-        let name = $('#prophet_project_set_name').val();
-        let key = $('#prophet_project_set_key').val();
-        let pin = $('#prophet_project_set_pin').val();
-        $('#prophet_project_post').html('<i class="fas fa-spinner fa-spin"></i>');
-        $('#prophet_project_post').attr('disabled', 'true');
+        let name = $('#prophet_dashboard_set_name').val();
+        let key = $('#prophet_dashboard_set_key').val();
+        $('#prophet_dashboard_post').html('<i class="fas fa-spinner fa-spin"></i>');
+        $('#prophet_dashboard_post').attr('disabled', 'true');
 
 
         //发送请求
         $.post(this.core.api_prophet, {
-            name: name, action: 'project_add', 
-            key: key, pin:pin, token: this.core.token,
+            name: name, action: 'dashboard_add', 
+            key: key,  token: this.core.token,
         }, (rsp) => {
             if (rsp.status === 1) {
-                $('#prophet_project_post').html('<i class="far fa-check"></i>');
-                this.refreshMonitorList();
-                $('#prophet_project_modal').modal('hide');
+                $('#prophet_dashboard_post').html('<i class="far fa-check"></i>');
+                this.refreshDashboardList();
+                $('#prophet_dashboard_modal').modal('hide');
             } else {
-                $('#prophet_project_post').html('创建失败：' + rsp.data);
+                $('#prophet_dashboard_post').html('创建失败：' + rsp.data);
+            }
+        }, 'json');
+    }
+
+    dashboardDelete(key){
+        let comfirm = confirm('确定删除？');
+        if (comfirm===false) {
+            return;
+        }
+        $.post(this.core.api_prophet, { action: 'dashboard_delete', key: key, token: this.core.token }, (rsp) => {
+            if (rsp.status === 1) {
+                this.refreshDashboardList();
             }
         }, 'json');
     }

@@ -54,7 +54,7 @@
 									<i class="fa-fw fad fa-copy text-blue"></i>
 									复制钥匙
 								</button>
-								<button class="btn btn-sm m-1 btn-outline-danger btn-radius" onclick="vxProphet.archiveDelete('<% obj[x].id %>')">
+								<button class="btn btn-sm m-1 btn-outline-danger btn-radius" onclick="vxProphet.archiveDelete('<% obj[x].key %>')">
 									<i class="fa-fw fad fa-trash"></i>
 									<span>删除</span>
 								</button>
@@ -74,14 +74,44 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="section-title mb-4">
-					<h4 class="title">仪表台</h4>
-					<button class="btn-radius btn btn-success" onclick="vxProphet.projectEditerOpen()">
+					<h4 class="title">
+						仪表台
+						<small id="loading_prophet_dashboard_list">
+							<i class="fa fa-spinner-third fa-spin"></i>
+						</small>
+					</h4>
+					<button class="btn-radius btn btn-success" onclick="vxProphet.dashboardEditerOpen()">
 						<i class="fa-fw fal fa-plus-circle"></i>
 						添加仪表台
 					</button>
 				</div>
 			</div>
 		</div>
+		<div id="prophet_dashboard_list"></div>
+		<script type="text/template" id="prophet_dashboard_list_tpl">
+			<div class="row">
+				<% for (let x in obj) { %>
+					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-2" tldata="<% obj[x].key %>" id="prophet_dashboard_<% obj[x].id %>">
+						<div class="card p-3 shadow-sm">
+							<div class="font-weight-bold text-truncate" title="<% obj[x].name %>">
+								<% obj[x].name %>
+							</div>
+							<div class="border-dashed"></div>
+							<div class="d-inline text-right mt-1">
+								<button class="btn btn-sm btn-outline-primary btn-radius btncp" data-clipboard-text="<% obj[x].key %>" >
+									<i class="fa-fw fad fa-copy text-blue"></i>
+									复制钥匙
+								</button>
+								<button class="btn btn-sm m-1 btn-outline-danger btn-radius" onclick="vxProphet.dashboardDelete('<% obj[x].key %>')">
+									<i class="fa-fw fad fa-trash"></i>
+									<span>删除</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				<% } %>
+			</div>
+		</script>
 	</div>
 </section>
 
@@ -119,36 +149,31 @@
 </div>
 
 
-<div class="modal" id="prophet_project_modal" tabindex="-1" role="dialog">
+<div class="modal" id="prophet_dashboard_modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">创建仪表台</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body" id="prophet_project_box">
+			<div class="modal-body" id="prophet_dashboard_box">
 				<div class="form-group">
-					<label for="prophet_project_set_name">描述</label>
+					<label for="prophet_dashboard_set_name">描述</label>
 					<input type="text" onfocus="vxPing.archiveEditerRefresh();" class="form-control"
-						id="prophet_project_set_name" placeholder="输入监测项目的名字">
+						id="prophet_dashboard_set_name" placeholder="输入监测项目的名字">
 				</div>
 				<div class="form-group">
-					<label for="prophet_project_set_key">钥匙</label>
-					<input type="text" class="form-control" id="prophet_project_set_key"
+					<label for="prophet_dashboard_set_key">钥匙</label>
+					<input type="text" class="form-control" id="prophet_dashboard_set_key"
 						placeholder="不填写将默认生成随机 32 字节的钥匙">
-				</div>
-				<div class="form-group">
-					<label for="prophet_project_set_pin">密码</label>
-					<input type="text" class="form-control" id="prophet_project_set_pin"
-						placeholder="不填写将自动生成">
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id="prophet_project_post" type="button" onclick="vxProphet.projectEditerPost();"
+				<button id="prophet_dashboard_post" type="button" onclick="vxProphet.dashboardEditerPost();"
 					class="btn btn-sm btn-primary btn-radius">
 					<i class="far fa-check"></i>
 				</button>
-				<button type="button" onclick="vxProphet.projectEditerReset();" class="btn btn-sm btn-warning btn-radius">
+				<button type="button" onclick="vxProphet.dashboardEditerReset();" class="btn btn-sm btn-warning btn-radius">
 					<i class="far fa-redo-alt"></i>
 				</button>
 			</div>
