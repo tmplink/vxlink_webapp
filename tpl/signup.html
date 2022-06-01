@@ -29,13 +29,29 @@
                                     </div>
                                     <div class="login-form mt-4">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <!-- <div class="col-md-12">
                                                 <div class="form-group position-relative">
                                                     <label>用户名 <span class="text-danger">*</span></label>
                                                     <input type="username" class="form-control" placeholder="由英文字母和数字组成"
                                                         name="username" id="username" required="">
                                                 </div>
+                                            </div> -->
+
+                                            <div class="col-md-12">
+                                                <div class="form-group position-relative">
+                                                    <label>邮箱地址 <span class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <input type="email" id="reg_email" class="form-control"
+                                                            placeholder="邮箱地址" required>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary form-signin-btn"
+                                                                type="button" id="button-reg-checkcode"
+                                                                onclick="vxUser.regGetCheckCode()">获取验证码</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+
                                             <div class="col-md-12">
                                                 <div class="form-group position-relative">
                                                     <label>设置密码 <span class="text-danger">*</span></label>
@@ -43,12 +59,22 @@
                                                         placeholder="由英文字母和数字组成" required="">
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-12">
+                                                <div class="form-group position-relative">
+                                                    <label>验证码 <span class="text-danger">*</span></label>
+                                                    <input type="text" id="checkcode" class="form-control"
+                                                        placeholder="验证码" required>
+                                                </div>
+                                            </div>
+
                                             <!-- <div class="col-md-12" id="regcodex_box">
                                                 <div class="form-group position-relative">
                                                     <label>邀请码 <span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="regcodex">
                                                 </div>
                                             </div> -->
+
                                             <div class="col-md-12" id="regcodex_box" style="display: none;">
                                                 <div class="form-group position-relative">
                                                     <label>邀请码</label>
