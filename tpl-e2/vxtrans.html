@@ -223,11 +223,11 @@
                                     <% } %>
 
                                     <% if (obj[i].list[x].keep=='yes') { %>
-                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 30 天，然后会被回收。锁定后最多可闲置 60 天。">
+                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 7 天，然后会被回收。锁定后最多可闲置 60 天。">
                                             <i class="fa-fw fas fa-lock"></i>
                                         </button>
                                     <% }else{ %>
-                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOn('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 30 天，然后会被回收。锁定后最多可闲置 60 天。">
+                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOn('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 7 天，然后会被回收。锁定后最多可闲置 60 天。">
                                             <i class="fa-fw far fa-unlock-alt"></i>
                                         </button>
                                     <% } %>
