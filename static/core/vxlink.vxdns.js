@@ -2,6 +2,7 @@ class vxlink_vxdns {
     core = null
     currentDomainId = 0
     currentDomainName = ''
+    monthlyCounter = 0
 
     init(core) {
         this.core = core;
@@ -11,8 +12,15 @@ class vxlink_vxdns {
         if (document.getElementById('init_vxdns') !== null) {
             //初始化
             this.refreshDomainList();
+            this.refreshMonthly();
             this.refreshAreaList();
         }
+    }
+
+    refreshMonthly() {
+        $.post(this.core.api_vxdns, { token: this.core.token, action: 'monthly_counter' }, (rsp) => {
+            $('#monthly_counter').html(`本月已处理 ${rsp.data} 次回源解析`);
+        }, 'json');
     }
 
     refreshDomainList() {
