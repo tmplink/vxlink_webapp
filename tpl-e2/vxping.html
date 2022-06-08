@@ -131,11 +131,6 @@
 								<button onclick="vxPing.deleteMonitor('<% obj[x].id %>')" class="btn btn-sm btn-outline-danger btn-radius ml-1">
 									<i class="fa-fw fad fa-trash"></i>
 								</button>
-								<% if (obj[x].status === 'stop') { %>
-									<button onclick="vxPing.restartMonitor('<% obj[x].id %>')" class="btn btn-sm btn-outline-success btn-radius ml-1">
-										<i class="fa-fw fas fa-sync"></i>
-									</button>
-								<% } %>
 							</div>
 						</div>
 					</div>
