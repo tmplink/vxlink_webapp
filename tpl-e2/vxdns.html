@@ -58,6 +58,15 @@
 
 <section class="section" id="vxdns_record_panel" style="display: none;">
 	<div class="container">
+		<div class="row card p-3 shadow-sm mb-3">
+			<div class="text-center">
+				<span id="vxdns_domain_usage_title">还在处理...</span>
+				<small id="vxdns_domain_usage_loading">
+					<i class="fa fa-spinner-third fa-spin"></i>
+				</small>
+			</div>
+			<div id="vxdns_domain_chart"></div>
+		</div>
 		<div class="row card p-3 shadow-sm">
 			<div class="col-12">
 				<h4 class="title">
@@ -116,6 +125,9 @@
 										<i class="fa-fw fas fa-stop-circle"></i>
 									</button>
 								<% } %>
+								<button class="btn btn-sm btn-outline-success mx-1" onclick="vxDns.recordChart('<% obj[x].id %>',3,'<% obj[x].name %>')">
+									<i class="fa-fw fas fa-monitor-heart-rate"></i>
+								</button>
 								<button class="btn btn-sm btn-outline-danger mx-1" onclick="vxDns.delRecord('<% obj[x].id %>','<% obj[x].did %>')">
 									<i class="fa-fw fad fa-trash"></i>
 								</button>
@@ -169,17 +181,13 @@
 </section>
 
 <div class="modal" id="vxdnsChartModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">查看解析量</h4>
+				<h4 class="modal-title" id="vxdns_usage_title">查看解析量</h4>
 			</div>
 			<div class="modal-body">
-				<!--[loading]-->
-				<span id="vxdns_usage_title">正在处理...</span>
-				<small id="vxdns_usage">
-					<i class="fa fa-spinner-third fa-spin"></i>
-				</small>
+				<div id="vxdns_record_chart"></div>
 			</div>
 		</div>
 	</div>
