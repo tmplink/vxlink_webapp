@@ -3,6 +3,7 @@ class vxlink_vxdns {
     currentDomainId = 0
     currentDomainName = ''
     monthlyCounter = 0
+    recordEditStatus = []
 
     init(core) {
         this.core = core;
@@ -165,6 +166,7 @@ class vxlink_vxdns {
     }
 
     editRecord(id){
+        this.recordEditStatus[id] = true;
         $(`#record_view_name_${id}`).hide();
         $(`#record_edit_name_${id}`).show();
         $(`#record_view_content_${id}`).hide();
@@ -172,6 +174,9 @@ class vxlink_vxdns {
     }
 
     editRecordPost(id){
+        if(this.recordEditStatus[id]!==true){
+            return false;
+        }
         $(`#record_view_name_${id}`).show();
         $(`#record_edit_name_${id}`).hide();
         $(`#record_view_content_${id}`).show();
@@ -197,6 +202,7 @@ class vxlink_vxdns {
                 $(`#record_view_name_${id}`).html(name);
                 $(`#record_view_content_${id}`).html(content);
             }
+            this.recordEditStatus[id]=false;
         }, 'json');
 
         
