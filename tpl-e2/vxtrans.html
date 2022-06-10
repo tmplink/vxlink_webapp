@@ -12,9 +12,9 @@
                             onclick="$('#priceModal').modal('show')">线路与费率</button>
                         <button class="btn-radius btn btn-warning m-1"
                             onclick="$('#ecnModal').modal('show')">优化性能</button>
-                        <button class="btn-radius btn btn-success m-1" onclick="$('#navigatorModal').modal('show');">
-                            <i class="fal fa-plane fa-fw"></i>
-                            线路指南
+                        <button class="btn-radius btn btn-success m-1" onclick="$('#secModal').modal('show');">
+                            <i class="fal fa-shield fa-fw"></i>
+                            安全政策
                         </button>
                         <button class="btn-radius btn btn-warning m-1"
                             onclick="$('#securityModal').modal('show')">安全增强</button>
@@ -107,10 +107,14 @@
                         安全组
                     </button>
 
-                    <button class="btn-radius btn btn-success mt-1"
-                        onclick="vxTrans.getHistoryList();">
+                    <button class="btn-radius btn btn-success mt-1" onclick="vxTrans.getHistoryList();">
                         <i class="far fa-history fa-fw"></i>
                         历史记录
+                    </button>
+
+                    <button class="btn-radius btn btn-success mt-1" onclick="vxTrans.resetAllCounter();">
+                        <i class="fal fa-redo-alt fa-fw"></i>
+                        全统计清零
                     </button>
 
                     <button class="btn-radius btn btn-success mt-1" id="vxtrans_refresh_btn"
@@ -189,7 +193,7 @@
                                     <% if (obj[i].list[x].status=='ok') { %>
                                         <i class="fa-fw fal fa-wifi"></i>
                                         <% obj[i].list[x].ex_delay %>
-                                        <i class="fa-fw fad fa-sort-alt"></i>
+                                        <i class="fa-fw fa-light fa-gauge-circle-bolt"></i>
                                         <% obj[i].list[x].ex_trans %>
                                         <% if (obj[i].list[x].limit!=0) { %>
                                             <i class="fa-fw fal fa-chart-pie-alt"></i> 
@@ -224,11 +228,11 @@
                                     <% } %>
 
                                     <% if (obj[i].list[x].keep=='yes') { %>
-                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 30 天，然后会被回收。锁定后最多可闲置 60 天。">
+                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOff('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 7 天，然后会被回收。锁定后最多可闲置 60 天。">
                                             <i class="fa-fw fas fa-lock"></i>
                                         </button>
                                     <% }else{ %>
-                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOn('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 30 天，然后会被回收。锁定后最多可闲置 60 天。">
+                                        <button class="btn btn-sm btn-outline-primary btn-radius" id="keep_<% obj[i].list[x].id %>" onclick="vxTrans.keepOn('<% obj[i].list[x].id %>')" title="未锁定时，连接点最多可闲置 7 天，然后会被回收。锁定后最多可闲置 60 天。">
                                             <i class="fa-fw far fa-unlock-alt"></i>
                                         </button>
                                     <% } %>
@@ -271,7 +275,7 @@
                         <% if (obj[x].status=='ok') { %>
                             <i class="fa-fw fal fa-wifi mr-1 ml-1"></i>
                             <% obj[x].ex_delay %>
-                            <i class="fa-fw fad fa-sort-alt mr-1 ml-1"></i>
+                            <i class="fa-fw fa-light fa-gauge-circle-bolt mr-1 ml-1"></i>
                             <% obj[x].ex_trans %>
                         <% }else{ %>
                             <i class="fas fa-spinner fa-spin"></i>
@@ -281,7 +285,7 @@
                         <% if (obj[x].status=='ok') { %>
                             <i class="fa-fw fal fa-wifi mr-1 ml-1"></i>
                             <% obj[x].ex_delay %>
-                            <i class="fa-fw fad fa-sort-alt mr-1 ml-1"></i>
+                            <i class="fa-fw fa-light fa-gauge-circle-bolt mr-1 ml-1"></i>
                             <% obj[x].ex_trans %>
                         <% }else{ %>
                             <i class="fas fa-spinner fa-spin"></i>
@@ -372,7 +376,6 @@
                             <li>带宽：保障值/最大限制。单位为 Mbps。</li>
                             <li>延迟：抵达服务器的距离，采用 TCP 测速。</li>
                             <li>费率：每传输1字节时消费的点券数。</li>
-                            <li>由于安全政策限制，目前不支持传输 HTTP 协议的流量。</li>
                         </ul>
                         <script type="text/template" id="server_area_list_tpl">
                             <% for (let x in obj) { %>
@@ -445,6 +448,11 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button class="btn btn-success m-1"
+                    onclick="$('#createVxtransModal').modal('hide');setTimeout(()=>{$('#secModal').modal('show');},500);">
+                    <i class="fal fa-shield fa-fw"></i>
+                    安全政策
+                </button>
                 <button id="box_post" type="button" onclick="vxTrans.editerPost();" class="btn btn-primary">
                     <i class="far fa-check"></i>
                 </button>
@@ -456,53 +464,82 @@
     </div>
 </div>
 
-<!-- <div class="modal" id="trustedModal" tabindex="-1" role="dialog">
+<div class="modal" id="secModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">授权</h4>
+                <h4 class="modal-title">安全政策</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i class="fal fa-times"></i>
                 </button>
             </div>
-            <div class="card-alert alert alert-success mb-0">
-                例外：无需进行授权验证的特定服务。
-                <ul>
-                    <li>
-                        这些服务商的 RDS 服务无需授权: AWS,阿里云,腾讯云
-                    </li>
-                    <li>
-                        这些特定的 IP 无需授权: 8.8.8.8 和 1.1.1.1
-                    </li>
-                    <li>指向运维端口(22,3389)的连接点无需授权</li>
-                </ul>
-            </div>
-            <div class="card-alert alert mb-0">
-                要添加您的服务器 IP 地址到您的授权列表中，请在服务器中通过浏览器访问此 URL ：<br>
-                <div>
-                    <span class="btn-radius btn btn-sm btn-primary">
-                        <i class="fa-fw fad fa-copy btncp trusted_auth_url_cp"></i>
-                    </span>
-
-                    <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url"></code>
-                </div>
-                <div style="margin-top:5px;margin-bottom: 5px">
-                    对于大部分的 Linux 系统，在命令行下可以使用 curl 命令完成授权。
-                </div>
-                <div>
-                    <span class="btn-radius btn btn-sm btn-primary">
-                        <i class="fa-fw fad fa-copy btncp trusted_auth_url_for_curl_cp"></i>
-                    </span>
-                    <code style="margin-top:5px;margin-bottom: 5px" class="trusted_auth_url_for_curl"></code>
-                </div>
-                <hr>
-                已授权的 IP 地址具备3个月有效期，过期后需要重新授权。<br>
-                正在使用中的已授权 IP 地址即使已过有效期也无需重新授权。<br>
-                活跃值达到 100 时，创建连接点将不需要进行授权。
+            <div class="modal-body">
+                <table class="table card-table text-nowrap table-hover">
+                    <thead>
+                        <tr>
+                            <th>描述</th>
+                            <th>类型</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                国内服务区目标地址不能指向国内IP地址
+                            </td>
+                            <td>
+                                IP
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                TCP / 443 / HTTPS
+                            </td>
+                            <td>
+                                端口
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                TCP / 6379 / REDIS
+                            </td>
+                            <td>
+                                端口
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                明文数据
+                            </td>
+                            <td>
+                                HTTP 协议
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                挖矿
+                            </td>
+                            <td>
+                                Stratum 协议
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Minecraft
+                            </td>
+                            <td>
+                                Minecraft 协议
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    为了确保服务的正常运行，vxTrans 无法支持某些有争议或者存在政策问题的业务。<br>
+                    如果涉及到上述问题，可能会直接终止相关业务流量的传输。
+                </p>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <div class="modal" id="ecnModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -776,7 +813,8 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label class="control-label" for="vxtrans_acl_rules">IPv4 CIDR</label>
-                            <textarea class="form-control" rows="5" id="vxtrans_acl_rules" placeholder="17.0.0.0/8"></textarea>
+                            <textarea class="form-control" rows="5" id="vxtrans_acl_rules"
+                                placeholder="17.0.0.0/8"></textarea>
                         </div>
                         <button type="button" onclick="vxTrans.aclUpdatePost();" class="btn btn-primary float-right">
                             <i class="far fa-check"></i>
@@ -859,7 +897,8 @@
             </div>
             <div class="modal-footer">
                 <!-- 加入安全组 -->
-                <button type="button" onclick="vxTrans.aclAssignPost();" class="btn btn-primary float-right" id="sgJoinBtn">
+                <button type="button" onclick="vxTrans.aclAssignPost();" class="btn btn-primary float-right"
+                    id="sgJoinBtn">
                     <i class="far fa-check"></i>
                 </button>
 

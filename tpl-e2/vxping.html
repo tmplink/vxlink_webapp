@@ -109,7 +109,7 @@
 								<% } %>
 								<% if (obj[x].status === 'stop') { %>
 									<span class="ml-1 badge badge-pill badge-dark btn-pointer">
-										终止
+										无响应
 									</span>
 								<% } %>
 								<% if (obj[x].status === 'ok') { %>
@@ -131,11 +131,6 @@
 								<button onclick="vxPing.deleteMonitor('<% obj[x].id %>')" class="btn btn-sm btn-outline-danger btn-radius ml-1">
 									<i class="fa-fw fad fa-trash"></i>
 								</button>
-								<% if (obj[x].status === 'stop') { %>
-									<button onclick="vxPing.restartMonitor('<% obj[x].id %>')" class="btn btn-sm btn-outline-success btn-radius ml-1">
-										<i class="fa-fw fas fa-sync"></i>
-									</button>
-								<% } %>
 							</div>
 						</div>
 					</div>
@@ -678,9 +673,9 @@
 					</li>
 					<li>
 						<span class="ml-1 badge badge-pill badge-dark btn-pointer">
-							终止
+							无响应
 						</span>
-						监控器已经停止工作。因为目标无法给出响应的次数超过了 10 次。
+						目标服务器无响应。
 					</li>
 					<li>
 						<span class="ml-1 badge badge-pill badge-success btn-pointer">

@@ -2,6 +2,8 @@ class vxlink_vxdns {
     core = null
     currentDomainId = 0
     currentDomainName = ''
+    monthlyCounter = 0
+    recordEditStatus = []
 
     init(core) {
         this.core = core;
@@ -11,8 +13,15 @@ class vxlink_vxdns {
         if (document.getElementById('init_vxdns') !== null) {
             //初始化
             this.refreshDomainList();
+            this.refreshMonthly();
             this.refreshAreaList();
         }
+    }
+
+    refreshMonthly() {
+        $.post(this.core.api_vxdns, { token: this.core.token, action: 'monthly_counter' }, (rsp) => {
+            $('#monthly_counter').html(`本月已处理 ${rsp.data} 次回源解析`);
+        }, 'json');
     }
 
     refreshDomainList() {
@@ -27,7 +36,7 @@ class vxlink_vxdns {
     }
 
     refreshAreaList() {
-        $('#select_area').html(app.tpl('preset_area_tpl',{}));
+        $('#select_area').html(app.tpl('preset_area_tpl', {}));
         $('#loading_vxdns_area_list').fadeIn();
         $.post(this.core.api_vxdns, { token: this.core.token, action: 'area_list' }, (rsp) => {
             if (rsp.status === 1) {
@@ -36,7 +45,7 @@ class vxlink_vxdns {
 
                 $('#my_area').html(app.tpl('area_list_for_record_tpl', rsp.data));
                 this.areaSelectDraw();
-            }else{
+            } else {
                 this.areaSelectDraw();
                 $('#area_list').html('暂时没有可用的配置。');
             }
@@ -44,16 +53,18 @@ class vxlink_vxdns {
         }, 'json');
     }
 
-    backToDomainPannel(){
+    backToDomainPannel() {
         $('#vxdns_domain_panel').show();
         $('#vxdns_record_panel').hide();
     }
 
-    recordPannelOpen(domain_id, domain_name){
+    recordPannelOpen(domain_id, domain_name) {
         $('#vxdns_domain_panel').hide();
         $('#vxdns_record_panel').show();
         $('#vxdns_record_of_domain').html(domain_name);
         $('#record_list').html('正在处理...');
+
+        this.domainChart(domain_id, 3, domain_name);
         this.currentDomainId = domain_id;
         this.currentDomainName = domain_name;
         this.refreshRecordList();
@@ -66,13 +77,13 @@ class vxlink_vxdns {
         $.post(this.core.api_vxdns, { token: this.core.token, action: 'record_list', domain_id: domain_id }, (rsp) => {
             if (rsp.status === 1) {
                 //Precore.
-                for(let i in rsp.data){
-                    let index = rsp.data[i].name.indexOf(domain_name)-1;
-                    rsp.data[i].sorname = index==-1?'@':rsp.data[i].name.substr(0,index);
+                for (let i in rsp.data) {
+                    let index = rsp.data[i].name.indexOf(domain_name) - 1;
+                    rsp.data[i].sorname = index == -1 ? '@' : rsp.data[i].name.substr(0, index);
                 }
                 $('#record_list').html(app.tpl('record_list_tpl', rsp.data));
                 $('#vxdns_record_count').html('一共有 ' + rsp.data.length + ' 条记录。');
-            }else{
+            } else {
                 $('#record_list').html('这个域名目前还没有任何记录。');
             }
             $('#loading_vxdns_record_list').fadeOut();
@@ -146,7 +157,7 @@ class vxlink_vxdns {
             record_name: name,
             record_content: content,
             record_mx: mx,
-        },  (rsp) => {
+        }, (rsp) => {
             if (rsp.status === 0) {
                 alert('添加失败。');
             }
@@ -156,14 +167,18 @@ class vxlink_vxdns {
         }, 'json');
     }
 
-    editRecord(id){
+    editRecord(id) {
+        this.recordEditStatus[id] = true;
         $(`#record_view_name_${id}`).hide();
         $(`#record_edit_name_${id}`).show();
         $(`#record_view_content_${id}`).hide();
         $(`#record_edit_content_${id}`).show();
     }
 
-    editRecordPost(id){
+    editRecordPost(id) {
+        if (this.recordEditStatus[id] !== true) {
+            return false;
+        }
         $(`#record_view_name_${id}`).show();
         $(`#record_edit_name_${id}`).hide();
         $(`#record_view_content_${id}`).show();
@@ -181,17 +196,18 @@ class vxlink_vxdns {
             record_name: name,
             record_content: content,
             record_type: type,
-        },  (rsp) => {
+        }, (rsp) => {
             if (rsp.status === 0) {
                 alert(rsp.data);
-            }else{
+            } else {
                 //更新到 view
                 $(`#record_view_name_${id}`).html(name);
                 $(`#record_view_content_${id}`).html(content);
             }
+            this.recordEditStatus[id] = false;
         }, 'json');
 
-        
+
     }
 
     openAddArean() {
@@ -224,8 +240,8 @@ class vxlink_vxdns {
     }
 
     delRecord(id) {
-        $('#vxdns_record_unit_'+id).fadeOut();
-        $.post(this.core.api_vxdns, { token: this.core.token, action: 'record_del',record_id: id },  () => {
+        $('#vxdns_record_unit_' + id).fadeOut();
+        $.post(this.core.api_vxdns, { token: this.core.token, action: 'record_del', record_id: id }, () => {
             this.refreshRecordList();
         });
     }
@@ -233,8 +249,8 @@ class vxlink_vxdns {
     delArea(id) {
         if (confirm('真的要删除吗？删除此区域配置将同时删除关联了此区域配置的所有域名记录。')) {
             $('#loading_vxdns_area_list').fadeIn();
-            $('#record_unit_'+id).fadeOut();
-            $.post(this.core.api_vxdns, { token: this.core.token, action: 'area_del', area_id: id },  ()=>{
+            $('#record_unit_' + id).fadeOut();
+            $.post(this.core.api_vxdns, { token: this.core.token, action: 'area_del', area_id: id }, () => {
                 $('#loading_vxdns_area_list').fadeOut();
             }, 'json');
         }
@@ -257,12 +273,12 @@ class vxlink_vxdns {
             div_id: '#vxdns_unit_active_' + id,
             send: (id) => {
                 $(_c.div_id).attr('disabled', 'true');
-                $.post(this.core.api_vxdns, { action: 'record_active', record_active: 'on', token: this.core.token, record_id: id },  (rsp)=>{
+                $.post(this.core.api_vxdns, { action: 'record_active', record_active: 'on', token: this.core.token, record_id: id }, (rsp) => {
                     if (rsp.status === 1) {
                         $(_c.div_id).addClass('btn-success');
                         $(_c.div_id).removeClass('btn-danger');
-                        $(_c.div_id+">i").removeClass('fa-stop-circle');
-                        $(_c.div_id+">i").addClass('fa-check-circle');
+                        $(_c.div_id + ">i").removeClass('fa-stop-circle');
+                        $(_c.div_id + ">i").addClass('fa-check-circle');
                         $(_c.div_id).attr('onclick', 'vxDns.deActivateRecord(' + id + ')');
                     }
                     $(_c.div_id).removeAttr('disabled');
@@ -283,8 +299,8 @@ class vxlink_vxdns {
                     if (rsp.status === 1) {
                         $(_c.div_id).removeClass('btn-success');
                         $(_c.div_id).addClass('btn-danger');
-                        $(_c.div_id+">i").removeClass('fa-check-circle');
-                        $(_c.div_id+">i").addClass('fa-stop-circle');
+                        $(_c.div_id + ">i").removeClass('fa-check-circle');
+                        $(_c.div_id + ">i").addClass('fa-stop-circle');
                         $(_c.div_id).attr('onclick', 'vxDns.activeRecord(' + id + ')');
                     }
                     $(_c.div_id).removeAttr('disabled');
@@ -299,7 +315,7 @@ class vxlink_vxdns {
         $('#vxdns_unit_mon_' + id).addClass('bg-gray');
         var _c = {
             div_id: '#vxdns_unit_mon_' + id,
-            send: (id )=> {
+            send: (id) => {
                 $(_c.div_id).attr('disabled', 'true');
                 $.post(this.core.api_vxdns, { action: 'record_check', record_check: 1, token: this.core.token, record_id: id }, (rsp) => {
                     $(_c.div_id).removeClass('btn-outline-success');
@@ -348,6 +364,65 @@ class vxlink_vxdns {
                 }
             }
         });
+    }
+
+    recordChart(record_id, rt, title) {
+        $('#vxdnsChartModal').modal('show');
+        $('#vxdns_usage_title').html('还在处理...');
+        var post = {
+            token: this.core.token,
+            rt: rt,
+            record_id: record_id,
+            action: 'get_record_chart'
+        };
+        $.post(this.core.api_vxdns, post, (rsp) => {
+            var opt={data:{},axis:{y:{padding:{bottom:0},show:!1,tick:{outer:!1}},x:{padding:{left:0,right:0}}},tooltip:{format:{title:function(t){return rsp.data.time[t]}}},padding:{bottom:0,left:0,right:0},transition:{duration:0},point:{show:!1}};
+            opt.axis.x.categories = rsp.data.time;
+            opt.axis.x.show = false;
+            //draw chart
+            opt.bindto = '#vxdns_record_chart';
+            opt.legend = { show: true };
+            opt.data.columns = [rsp.data.data];
+            opt.data.names = { 'data1': '解析量' };
+            opt.data.types = { data1: 'area-spline' },
+                opt.data.groups = [['data']];
+            opt.data.colors = {
+                'data1': '#20c997',
+            };
+            opt.data.type = 'line';
+            c3.generate(opt);
+            $('#vxdns_usage_title').html(title);
+        }, 'json');
+    }
+
+    domainChart(domain_id, rt, title) {
+        $('#vxdns_domain_usage_loading').fadeIn();
+        $('#vxdns_domain_usage_title').html('还在处理...');
+        var post = {
+            token: this.core.token,
+            rt: rt,
+            domain_id: domain_id,
+            action: 'get_domain_chart'
+        };
+        $.post(this.core.api_vxdns, post, (rsp) => {
+            var opt={data:{},axis:{y:{padding:{bottom:0},show:!1,tick:{outer:!1}},x:{padding:{left:0,right:0}}},tooltip:{format:{title:function(t){return rsp.data.time[t]}}},padding:{bottom:0,left:0,right:0},transition:{duration:0},point:{show:!1}};
+            opt.axis.x.categories = rsp.data.time;
+            opt.axis.x.show = false;
+            //draw chart
+            opt.bindto = '#vxdns_domain_chart';
+            opt.legend = { show: true };
+            opt.data.columns = [rsp.data.data];
+            opt.data.names = { 'data1': '解析量' };
+            opt.data.types = { data: 'area-spline' },
+                opt.data.groups = [['data1']];
+            opt.data.colors = {
+                'data1': '#20c997',
+            };
+            opt.data.type = 'line';
+            c3.generate(opt);
+            $('#vxdns_domain_usage_loading').fadeOut();
+            $('#vxdns_domain_usage_title').html(title);
+        }, 'json');
     }
 
 }

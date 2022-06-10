@@ -4,8 +4,8 @@
 		<div class="row justify-content-center">
 			<div class="col-12">
 				<div class="text-center">
-					<h3 class="display-4">功能强大的授权 DNS 服务</h3>
-					<p>功能强大的宕机监控现在到来！</p>
+					<h3 class="display-4">域名解析托管服务</h3>
+					<p id="monthly_counter"></p>
 					<p>
 						<button class="btn-radius btn btn-success m-1"
 							onclick="$('#vxdnsBaseModal').modal('show')">使用指南</button>
@@ -58,6 +58,15 @@
 
 <section class="section" id="vxdns_record_panel" style="display: none;">
 	<div class="container">
+		<div class="row card p-3 shadow-sm mb-3">
+			<div class="text-center">
+				<span id="vxdns_domain_usage_title">还在处理...</span>
+				<small id="vxdns_domain_usage_loading">
+					<i class="fa fa-spinner-third fa-spin"></i>
+				</small>
+			</div>
+			<div id="vxdns_domain_chart"></div>
+		</div>
 		<div class="row card p-3 shadow-sm">
 			<div class="col-12">
 				<h4 class="title">
@@ -77,9 +86,9 @@
 				<div id="record_list" class="mt-4"></div>
 				<script type="text/template" id="record_list_tpl">
 					<% for (let x in obj) { %>
-						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_record_unit_<% obj[x].id %>" onclick="vxDns.editRecord('<% obj[x].id %>')">
+						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_record_unit_<% obj[x].id %>" onclick="vxDns.editRecordPost('<% obj[x].id %>');">
 							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center">
-								<span id="record_view_name_<% obj[x].id %>">
+								<span id="record_view_name_<% obj[x].id %>" onclick="vxDns.editRecord('<% obj[x].id %>');event.stopPropagation();">
 									<% obj[x].sorname %>
 								</span>
 								<span id="record_edit_name_<% obj[x].id %>" style="display:none">
@@ -87,7 +96,7 @@
 								</span>
 							</div>
 							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center overflow-hidden">
-								<span id="record_view_content_<% obj[x].id %>">
+								<span id="record_view_content_<% obj[x].id %>" onclick="vxDns.editRecord('<% obj[x].id %>');event.stopPropagation();">
 									<% obj[x].content %>
 								</span>
 								<span id="record_edit_content_<% obj[x].id %>" style="display:none">
@@ -116,6 +125,9 @@
 										<i class="fa-fw fas fa-stop-circle"></i>
 									</button>
 								<% } %>
+								<button class="btn btn-sm btn-outline-success mx-1" onclick="vxDns.recordChart('<% obj[x].id %>',3,'<% obj[x].name %>')">
+									<i class="fa-fw fas fa-monitor-heart-rate"></i>
+								</button>
 								<button class="btn btn-sm btn-outline-danger mx-1" onclick="vxDns.delRecord('<% obj[x].id %>','<% obj[x].did %>')">
 									<i class="fa-fw fad fa-trash"></i>
 								</button>
@@ -167,6 +179,19 @@
 		</div>
 	</div>
 </section>
+
+<div class="modal" id="vxdnsChartModal" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="vxdns_usage_title">查看解析量</h4>
+			</div>
+			<div class="modal-body">
+				<div id="vxdns_record_chart"></div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="modal" id="vxdnsDomainModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-centered" role="document">
@@ -293,11 +318,11 @@
 			</div>
 			<div class="modal-body">
 				<h5>基于网络检测服务的宕机监控</h5>
-				<p>现在，您可以使用网络检测服务(vxPing)来动态监测您的服务器，并自动启用或关闭指定的域名记录。</p>
+				<p>现在，您可以使用网络检测服务 vxPing 来动态监测您的服务器，并自动启用或关闭指定的域名记录。</p>
 				<p>这允许您调度全球多个网络多个区域的主动监测设施来实施服务器可用性的监测，比如基于 Ping ，又或是设置基于接口负载性能（通过请求接口的延迟判断）。</p>
 				<h5>如何使用</h5>
 				<p>首先，请将您所有的域名记录都添加完毕，然后在左侧导航移步至“网络检测”服务，根据您的业务，创建监测点。您可以创建数个监测点，以模拟不同区域不同网络下的客户。</p>
-				<p>然后，在对应的监测卡片，创建告警项目（点击监测点的狗狗图标），设定好参数后，出发类型选择“vxDNS”，完成告警项目的创建。</p>
+				<p>然后，在对应的监测卡片，创建告警项目（点击监测点的狗狗图标），设定好参数后，出发类型选择 “vxDNS” ，完成告警项目的创建。</p>
 				<p>在完成告警项目的创建后，监测卡片下方会出现已安装的告警项目按钮，点击打开告警项目列表，然后点击对应告警项目的“管理”按钮。</p>
 				<p>在打开新窗口中，搜索需要进行操作的 DNS 记录，然后添加到告警项目中即可。</p>
 			</div>
@@ -313,6 +338,20 @@
 			</div>
 			<div class="modal-body">
 				<div class="accordion" id="accordionFAQ">
+					<div class="card border-0 rounded mb-2">
+						<a data-toggle="collapse" href="#collapse0" class="faq position-relative collapsed"
+							aria-expanded="false" aria-controls="collapse0">
+							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_0">
+								<h6 class="title mb-0"> 什么是回源解析 </h6>
+							</div>
+						</a>
+						<div id="collapse0" class="collapse" aria-labelledby="heading_0" data-parent="#accordionFAQ">
+							<div class="card-body px-4 py-4">
+								vxDNS 在处理域名解析请求时，为了加快速度，对于刚刚完成的查询请求，会进行缓存，短期内再次查询直接输出结果。<br>
+								而当查询请求已经过去了较长时间时，需要重新查询，这种查询被称之为“回源解析”。
+							</div>
+						</div>
+					</div>
 					<div class="card border-0 rounded mb-2">
 						<a data-toggle="collapse" href="#collapse1" class="faq position-relative collapsed"
 							aria-expanded="false" aria-controls="collapse1">
@@ -353,23 +392,6 @@
 									网络下时，将能获得单独的解析结果（而不是 “中国” 区域下的结果），
 									而不处于 “中国电信” 网络下但是又在 “中国” 网络时，获得 “中国” 的解析结果。
 								</p>
-							</div>
-						</div>
-					</div>
-					<div class="card border-0 rounded mb-2">
-						<a data-toggle="collapse" href="#collapse3" class="faq position-relative collapsed"
-							aria-expanded="false" aria-controls="collapse3">
-							<div class="card-header border-0 bg-light p-3 pr-5" id="heading_3">
-								<h6 class="title mb-0"> 宕机监控 </h6>
-							</div>
-						</a>
-						<div id="collapse3" class="collapse" aria-labelledby="heading_3" data-parent="#accordionFAQ">
-							<div class="card-body px-4 py-4">
-								vxDNS 支持针对每条 A 记录进行宕机监控，监控的方式时通过 Ping 监测（因此要求服务器响应 Ping）。<br>
-								监控频率为每分钟一次，一旦 3 次 Ping 无响应则暂停该记录。<br>
-								当服务器重新响应 Ping 时，被暂停的记录自动恢复正常解析。<br>
-								所有 A 记录默认都是不监控的，可以点击 <i class="fal fa-monitor-heart-rate text-warning"></i>
-								图标来启动监控。
 							</div>
 						</div>
 					</div>

@@ -68,17 +68,48 @@ class vxlink_user {
         });
     }
 
+    regGetCheckCode() {
+        var email = $('#reg_email').val();
+        $('#button-reg-checkcode').attr('disabled', '');
+        $('#button-reg-checkcode').html('正在发送');
+        $.post(this.core.api_user, {
+            token: this.core.token,
+            action: 'checkcode_send',
+            email: email,
+        }, (rsp) => {
+            if (rsp.status === 1) {
+                $('#msgbox').fadeIn();
+                $('#msgbox').addClass('alert-warning');
+                $('#msgbox').html('验证码<b style="color:red;">已发送到您的邮箱</b>。<br>没有收到？试试检查<b style="color:red;">垃圾箱</b>或者更换其他邮箱。<br>建议使用 Gmail 邮箱。');
+                $('#button-reg-checkcode').html('已送达');
+            } else {
+                $('#msgbox').fadeIn();
+                $('#msgbox').addClass('alert-warning');
+                $('#msgbox').html('失败：' + rsp.data);
+                $('#button-reg-checkcode').removeAttr('disabled');
+                $('#button-reg-checkcode').html('发送验证码');
+            }
+        }, 'json');
+    }
+
     signUp() {
-        var username = $('#username').val();
+        var email = $('#reg_email').val();
         var password = $('#password').val();
         var regcode = $('#regcodex').val();
+        var checkcode = $('#checkcode').val();
         $('#msgbox').fadeIn();
         $('#msgbox').addClass('alert-primary');
         $('#msgbox').html('正在进行...');
         $('#reg').addClass('disabled');
 
-        if (username === undefined || password === undefined || username === '' || password === '') {
+        if (email === undefined || password === undefined || email === '' || password === '') {
             $('#msgbox').html('用户名或者密码不能为空。');
+            $('#reg').removeClass('disabled');
+            return false;
+        }
+
+        if (checkcode === undefined || checkcode === '') {
+            $('#msgbox').html('邀请码不能为空。');
             $('#reg').removeClass('disabled');
             return false;
         }
@@ -89,15 +120,19 @@ class vxlink_user {
             return false;
         }
 
-        $.post(this.core.api_user, { token: this.core.token, username: username, password: password, regcode: regcode, action: 'reg' }, (rsp) => {
+        $.post(this.core.api_user, { 
+            token: this.core.token, 
+            email: email, password: password,checkcode:checkcode,
+            regcode: regcode, action: 'reg_2' 
+        }, (rsp) => {
             $('#msgbox').removeClass('alert-primary');
             if (rsp.status === 1) {
                 $('#msgbox').removeClass('alert-danger');
                 $('#msgbox').addClass('alert-success');
                 $('#msgbox').html('创建成功，正在进入');
-                $.post(this.core.api_user, { token: this.core.token, username: username, password: password, action: 'login' }, (rsp) => {
+                $.post(this.core.api_user, { token: this.core.token, username: email, password: password, action: 'login' }, (rsp) => {
                     if (rsp.status === 1) {
-                        app.open('/init.html');
+                        app.open('/admin/');
                     }
                 }, 'json');
             } else {

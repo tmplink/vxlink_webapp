@@ -248,8 +248,19 @@ class vxlink_vxtrans {
         }
     }
 
+    resetAllCounter() {
+        if (confirm('您确定要重置全部连接点的已传输流量统计信息吗?')) {
+            $.post(this.core.api_vxtrans, {
+                action: 'reset_all',
+                token: this.core.token
+            }, () => {
+                this.refreshVxtransList();
+            });
+        }
+    }
+
     resetCounter(id) {
-        if (confirm('您确定要重置该连接点的已传输流量统计吗?')) {
+        if (confirm('您确定要重置该连接点的已传输流量统计信息吗?')) {
             $.post(this.core.api_vxtrans, {
                 action: 'reset',
                 id: id,
