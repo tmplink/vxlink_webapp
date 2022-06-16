@@ -212,8 +212,12 @@
                                             <i class="fa-fw fal fa-chart-pie-alt"></i> 
                                             <% obj[i].list[x].ex_limit %>
                                         <% } %>
-                                    <% }else{ %>
+                                    <% } %>
+                                    <% if (obj[i].list[x].status=='wait' || obj[i].list[x].status=='delete') { %>
                                         <i class="fas fa-spinner fa-spin"></i> 正在处理，请稍等
+                                    <% } %>
+                                    <% if (obj[i].list[x].status=='suspend') { %>
+                                        <i class="fa-light fa-circle-pause"></i> 已暂停，缺少点券。
                                     <% } %>
                                 </div>
                                 <!-- <div class="border-dashed"></div> -->
