@@ -9,6 +9,7 @@
                     <p>
                         <button class="btn-radius btn btn-success m-1"
                             onclick="$('#vxServerPathModal').modal('show')">关于路径问题</button>
+                        <a class="btn-radius btn btn-success m-1" href="http://www.dot.tk/zh/index.html" target="_blank">获取免费的顶级域名</a>
                     </p>
                 </div>
             </div>
@@ -184,10 +185,13 @@
             </div>
             <div class="modal-body">
                 <p>
-                    请注意，在 vxServer 中， 您的项目文件路径必须完整遵照 <a href="https://www.w3.org/html/ig/zh/wiki/URL#.E8.A7.A3.E6.9E.90_URL" target="_blank">URL 规范设计</a>。
+                    请注意，在 vxServer 中， 您的项目文件路径必须完整遵照 <a
+                        href="https://www.w3.org/html/ig/zh/wiki/URL#.E8.A7.A3.E6.9E.90_URL" target="_blank">URL
+                        规范设计</a>。
                 </p>
                 <p>
-                    例如 /tag 不能代替 /tag/ ，因为 /tag 的含义是是指 / 目录下的 tag 文件，而不是指 /tag/ 目录。如果 / 下不存在 tag 文件，vxServer 会按照标准返回 404，而不是跳转至 /tag/ 。<br>
+                    例如 /tag 不能代替 /tag/ ，因为 /tag 的含义是是指 / 目录下的 tag 文件，而不是指 /tag/ 目录。如果 / 下不存在 tag 文件，vxServer 会按照标准返回
+                    404，而不是跳转至 /tag/ 。<br>
                     因此，如果您希望让用户访问 / 下的 tag 目录，请使用 /tag/。
                 </p>
             </div>
