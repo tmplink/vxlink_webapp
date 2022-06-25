@@ -200,10 +200,10 @@
                                 <div>
                                     <% if (obj[i].list[x].protocol=='tcp') { %>
                                         <i class="fa-fw fad fa-grip-lines"></i> TCP
+                                        <span onclick="vxTrans.getConnectionsList('<% obj[i].list[x].id %>')" class="btn-pointer">(连接数: <% obj[i].list[x].conn %>，最大: <% obj[i].list[x].tcp_limit %>)</span>
                                     <% }else{ %>
                                         <i class="fa-fw fad fa-grip-horizontal"></i> UDP
                                     <% } %>
-                                    <span onclick="vxTrans.getConnectionsList('<% obj[i].list[x].id %>')" class="btn-pointer">(连接数: <% obj[i].list[x].conn %>)</span>
                                 </div>
                                 <div>
                                     <% if (obj[i].list[x].status=='ok') { %>
