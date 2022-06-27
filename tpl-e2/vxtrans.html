@@ -95,6 +95,24 @@
     </div>
 </div> -->
 
+<!--[提示信息：如果用户的活跃值超过 200，夜间 01:00-08:00，则计算时降低至 60%]-->
+<div class="container">
+    <div class="alert alert-dismissible fade show mt-2" id="specail_idle" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div style="display:none;" id="specail_idle_time_active">
+            <i class="fa-fw fa-light fa-circle-check"></i> 已启用闲时优惠，01:00-08:00，点卷消费降低至 60%。
+        </div>
+        <div style="display:none;" id="specail_idle_time">
+            <i class="fa-fw fa-light fa-gift-card"></i>
+            在 <span class="badge badge-pill badge-warning">
+                <i class="fad fa-star-of-david"></i>
+            </span> 抵达 200 时， 01:00-08:00，点卷消费降低至 60%。
+        </div>
+    </div>
+</div>
+
 
 <section class="section">
     <div class="container">

@@ -47,6 +47,14 @@ class vxlink_vxtrans {
             //     this.refresh_server_list_area_init = true;
             //     setInterval(()=>{this.serverListResort()},3000);
             // }
+
+            if(this.core.user_rpoint>=200){
+                $('#specail_idle_time_active').show();
+                $('#specail_idle').addClass('alert-success');
+            }else{
+                $('#specail_idle_time').show();
+                $('#specail_idle').addClass('alert-warning');
+            }
         }
     }
 
