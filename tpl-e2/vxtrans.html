@@ -200,7 +200,7 @@
                                 <div>
                                     <% if (obj[i].list[x].protocol=='tcp') { %>
                                         <i class="fa-fw fad fa-grip-lines"></i> TCP
-                                        <span onclick="vxTrans.getConnectionsList('<% obj[i].list[x].id %>')" class="btn-pointer">(连接数: <% obj[i].list[x].conn %>，最大: <% obj[i].list[x].tcp_limit %>)</span>
+                                        <span onclick="vxTrans.getConnectionsList('<% obj[i].list[x].id %>')" class="btn-pointer">(连接数: <% obj[i].list[x].conn %>/<% obj[i].list[x].tcp_limit %>)</span>
                                     <% }else{ %>
                                         <i class="fa-fw fad fa-grip-horizontal"></i> UDP
                                     <% } %>
@@ -386,7 +386,7 @@
                                     <th>线路</th>
                                     <th>特性</th>
                                     <th>延迟</th>
-                                    <th>带宽</th>
+                                    <th>连接数</th>
                                     <th>费率</th>
                                 </tr>
                             </thead>
@@ -408,7 +408,7 @@
                                     </td>
                                     <td><% obj[x].ex_specail %></td>
                                     <td class="<% obj[x].speed_color %>" id="select_area_<% obj[x].code %>">...</td>
-                                    <td><% obj[x].bw %></td>
+                                    <td><% obj[x].tcp_max %></td>
                                     <td><% obj[x].fee %></td>
                                 </tr>
                             <% } %>
@@ -682,7 +682,7 @@
                         <td><% obj[x].ex_specail %></td>
                         <td><% obj[x].bw %></td>
                         <td><% obj[x].port_range %></td>
-                        <td><% obj[x].ecn %></td>
+                        <td><% obj[x].tcp_max %></td>
                         <td><% obj[x].fee %></td>
                     </tr>
                 <% } %>
@@ -696,7 +696,7 @@
                             <th>特性</th>
                             <th>带宽</th>
                             <th>端口范围</th>
-                            <th>ECN</th>
+                            <th>连接数</th>
                             <th>费率</th>
                         </tr>
                     </thead>
