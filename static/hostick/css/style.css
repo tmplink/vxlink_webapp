@@ -3450,7 +3450,7 @@ footer.footer.footer-line {
 @media (prefers-color-scheme: dark) {
   html {
     filter: invert(1) hue-rotate(.5turn);
-    opacity: 0.9;
+    opacity: 0.95;
   }
 
   .bg-overlay{
@@ -3462,11 +3462,11 @@ footer.footer.footer-line {
   }
 
 
-  .shadow {
+  /* .shadow {
     box-shadow: 0 .5rem 1rem rgba(0, 132, 42, 0.684) !important;
   }
 
   .shadow-lg {
     box-shadow: 0 1rem 3rem rgba(0, 132, 42, 0.684) !important;
-  }
+  } */
 }
