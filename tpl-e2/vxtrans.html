@@ -6,19 +6,18 @@
                     <h3 class="display-4">网络链接优化</h3>
                     <p>
                         <button class="btn-radius btn btn-success m-1"
-                            onclick="$('#vxtransVideoModal').modal('show')"><i class="fad fa-video"></i> 视频教程</button>
+                            onclick="$('#vxtransVideoModal').modal('show')">快速教程</button>
                         <button class="btn-radius btn btn-success m-1"
-                            onclick="$('#priceModal').modal('show')">线路与费率</button>
-                        <button class="btn-radius btn btn-warning m-1"
+                            onclick="$('#priceModal').modal('show')">线路费率</button>
+                        <button class="btn-radius btn btn-success m-1"
                             onclick="$('#ecnModal').modal('show')">优化性能</button>
                         <button class="btn-radius btn btn-success m-1" onclick="$('#secModal').modal('show');">
-                            <i class="fal fa-shield fa-fw"></i>
                             安全政策
                         </button>
-                        <button class="btn-radius btn btn-warning m-1"
+                        <button class="btn-radius btn btn-success m-1"
                             onclick="$('#securityModal').modal('show')">安全增强</button>
                         <a href="/help/vxtrans.html" tmpui-app="true" class="btn-radius btn btn-success m-1"
-                            target="_blank">使用教程(完整)</a>
+                            target="_blank">使用教程</a>
                     </p>
                 </div>
             </div>
@@ -486,11 +485,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success m-1"
-                    onclick="$('#createVxtransModal').modal('hide');setTimeout(()=>{$('#secModal').modal('show');},500);">
-                    <i class="fal fa-shield fa-fw"></i>
-                    安全政策
-                </button>
                 <button id="box_post" type="button" onclick="vxTrans.editerPost();" class="btn btn-primary">
                     <i class="far fa-check"></i>
                 </button>
@@ -526,14 +520,6 @@
                             </td>
                             <td>
                                 IP
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                TCP / 443 / HTTPS
-                            </td>
-                            <td>
-                                端口
                             </td>
                         </tr>
                         <tr>
@@ -757,59 +743,6 @@
                     </thead>
                     <tbody id="conn_list"></tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal" id="navigatorModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"><i class="fad fa-plane"></i> 起飞指南</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fal fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    这份指南是我们根据本服务长期运行的统计数据，以及线路负载和实际场景需求所作出的一些总结和建议，通常可以提供很好的效果。<br>
-                    由于各地网络情况不太一样，这里的一些方案并非适用于所有用户。如果这些方案不如预期，还请您单独创建连接点进行测试。
-                </p>
-                <hr>
-                <h5>用途：SSH 加速</h5>
-                <p>
-                    这两条线路专门针对 SSH 进行了优化，体验较好。<br>
-                    南方用户，选择[中国X]<br>
-                    北方用户，选择[中国Z]<br>
-                </p>
-                <hr>
-                <h5>用途：Windows RDP 加速</h5>
-                <p>
-                    通用选项[中国S]，在90%的场景适用。<br>
-                    备用选项[香港1+2]。<br>
-                    特别选项：欧洲方向的服务器，请使用[俄罗斯0]。<br>
-                </p>
-                <hr>
-                <h5>用途：UDP 加速(dns,ntp,game...)</h5>
-                <p>
-                    通用选项[香港1+2]。<br>
-                    备用选项[新加坡0][日本0]。<br>
-                </p>
-                <hr>
-                <h5>用途：TCP 加速(http,https,sftp...)</h5>
-                <p>
-                    所有网络：首选项[中国S]。<br>
-                    电信网络备用选项[香港1+2][新加坡0][美国0][日本1][日本2]。<br>
-                    联通网络备用选项[日本2]<br>
-                    移动网络备用选项[日本1][日本2][新加坡1]<br>
-                </p>
-                <h5>用途：下载</h5>
-                <p>
-                    首选：[日本2]
-                    欧洲方向：[俄罗斯0]
-                </p>
-
             </div>
         </div>
     </div>
