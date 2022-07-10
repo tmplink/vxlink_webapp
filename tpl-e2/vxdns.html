@@ -86,12 +86,12 @@
 				<div id="record_list" class="mt-4"></div>
 				<script type="text/template" id="record_list_tpl">
 					<% for (let x in obj) { %>
-						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_record_unit_<% obj[x].id %>" onclick="vxDns.editRecordPost('<% obj[x].id %>');">
+						<div class="row p-2 shadow-sm mb-2 mx-0 " id="vxdns_record_unit_<% obj[x].id %>" onclick="vxDns.editRecordPost('<% obj[x].id %>');event.stopPropagation();">
 							<div class="col-lg-3 col-sm-6 col-12 d-flex align-items-center">
 								<span id="record_view_name_<% obj[x].id %>" onclick="vxDns.editRecord('<% obj[x].id %>');event.stopPropagation();">
 									<% obj[x].sorname %>
 								</span>
-								<span id="record_edit_name_<% obj[x].id %>" style="display:none">
+								<span id="record_edit_name_<% obj[x].id %>" style="display:none" onclick="event.stopPropagation();">
 									<input type="text" class="form-control" id="record_edit_name_input_<% obj[x].id %>" value="<% obj[x].sorname %>" onkeyup="if(event.keyCode==13){vxDns.editRecordPost('<% obj[x].id %>');}">
 								</span>
 							</div>
@@ -99,7 +99,7 @@
 								<span id="record_view_content_<% obj[x].id %>" onclick="vxDns.editRecord('<% obj[x].id %>');event.stopPropagation();">
 									<% obj[x].content %>
 								</span>
-								<span id="record_edit_content_<% obj[x].id %>" style="display:none">
+								<span id="record_edit_content_<% obj[x].id %>" style="display:none" onclick="event.stopPropagation();">
 									<input type="text" class="form-control" id="record_edit_content_input_<% obj[x].id %>" value="<% obj[x].content %>" onkeyup="if(event.keyCode==13){vxDns.editRecordPost('<% obj[x].id %>');}">
 								</span>
 								<% if (obj[x].mx > 0) { %>
