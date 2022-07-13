@@ -31,3 +31,11 @@ function bytetoconver(val, label) {
         value += ' ' + s[e];
     return value;
 }
+
+function ipv6_prepare(addr){
+    //如果是 IPv6 地址，给外围加上 []
+    if(addr.indexOf(':') != -1){
+        addr = '[' + addr + ']';
+    }
+    return addr;
+}

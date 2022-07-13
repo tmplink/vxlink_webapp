@@ -171,7 +171,7 @@
                 </div>
                 <div class="row">
                     <% for (let x in obj[i].list) { %>
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-2 mb-1" tldata="<% obj[i].list[x].id %>" id="vxtrans_unit_<% obj[i].list[x].id %>">
+                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 pb-2 mb-1" tldata="<% obj[i].list[x].id %>" id="vxtrans_unit_<% obj[i].list[x].id %>">
                             <div class="card p-3 shadow-sm">
                                 <% if (obj[i].list[x].status!='ok') { %>
                                     <div class="overlay"></div>
@@ -187,9 +187,15 @@
                                             SSH Enhanced
                                         </span>
                                     <% } %>
+                                    <% if (obj[i].list[x].location.indexOf('v6')===0) { %>
+                                        <span class="badge badge-pill badge-success">
+                                            <i class="fa-solid fa-circle-nodes"></i> 
+                                            4 to 6
+                                        </span>
+                                    <% } %>
                                 </div>
                                 <div class="py-1"></div>
-                                <div>
+                                <div class="card-text-wrap">
                                     <i class="fa-fw fal fa-plane-departure"></i> <% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>
                                     <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].ex_location.addr %>:<% obj[i].list[x].localport %>">
                                         <i class="fa-fw fad fa-copy text-blue"></i>
@@ -200,21 +206,21 @@
                                     </span>
                                     <% } %>
                                 </div>
-                                <div>
-                                    <i class="fa-fw fal fa-plane-arrival"></i>  <% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>
-                                    <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].target_ip %>:<% obj[i].list[x].target_port %>">
+                                <div class="card-text-wrap">
+                                    <i class="fa-fw fal fa-plane-arrival"></i>  <% ipv6_prepare(obj[i].list[x].target_ip)%>:<% obj[i].list[x].target_port %>
+                                    <span class="btn-pointer btncp" data-clipboard-text="<% ipv6_prepare(obj[i].list[x].target_ip)%>:<% obj[i].list[x].target_port %>">
                                         <i class="fa-fw fad fa-copy text-blue"></i>
                                     </span>
                                 </div>
                                 <% if(obj[i].list[x].target_cname!=0) { %>
-                                <div>
+                                <div class="card-text-wrap">
                                     <i class="fa-fw fad fa-plane-arrival"></i>  <% obj[i].list[x].target_cname %>:<% obj[i].list[x].target_port %>
                                     <span class="btn-pointer btncp" data-clipboard-text="<% obj[i].list[x].target_cname %>:<% obj[i].list[x].target_port %>">
                                         <i class="fa-fw fad fa-copy text-blue"></i>
                                     </span>
                                 </div>
                                 <% } %>
-                                <div>
+                                <div class="card-text-wrap">
                                     <% if (obj[i].list[x].protocol=='tcp') { %>
                                         <i class="fa-fw fad fa-grip-lines"></i> TCP
                                         <span onclick="vxTrans.getConnectionsList('<% obj[i].list[x].id %>')" class="btn-pointer">(连接数: <% obj[i].list[x].conn %>/<% obj[i].list[x].tcp_limit %>)</span>
