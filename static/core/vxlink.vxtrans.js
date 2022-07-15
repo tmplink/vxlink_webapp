@@ -37,7 +37,7 @@ class vxlink_vxtrans {
             }
             if(!this.refresh_vxtrans_list_init){
                 this.refresh_vxtrans_list_init = true;
-                // setInterval(()=>{this.refreshVxtransList()},30000);
+                setInterval(()=>{this.refreshVxtransList()},30000);
             }
             if(!this.refresh_server_list_init){
                 this.refresh_server_list_init = true;
