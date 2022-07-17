@@ -279,12 +279,17 @@ class vxlink_vxtrans {
         }
     }
 
-    areaSelected(code,name){
+    areaSelected(code,name,ipv6){
         $('#set_location').val(code);
         $('#server_area_selected').html(' : '+name);
         $('#server_area_redo').fadeIn();
         $('#vxtrans_stage_1').hide();
         $('#vxtrans_stage_2').show();
+        if(ipv6=='yes'){
+            $('.ipv6_notice').show();
+        }else{
+            $('.ipv6_notice').hide();
+        }
     }
 
     areaSelectRede(){

@@ -422,14 +422,22 @@
                         </ul>
                         <script type="text/template" id="server_area_list_tpl">
                             <% for (let x in obj) { %>
-                                <tr onclick="vxTrans.areaSelected('<% obj[x].code %>','<% obj[x].ex_country %>');" class="btn-pointer">
+                                <tr onclick="vxTrans.areaSelected('<% obj[x].code %>','<% obj[x].ex_country %>','<% obj[x].ipv6 %>');" class="btn-pointer">
                                     <td>
                                         <span class="text-blue">
                                             <i class="fad fa-check-square" class="fa-fw"></i>
                                         </span>
                                         <% obj[x].ex_country %>
                                     </td>
-                                    <td><% obj[x].ex_specail %></td>
+                                    <td>
+                                        <% if (obj[x].ipv6=='yes') { %>
+                                            <span class="badge badge-pill badge-success">
+                                                <i class="fa-solid fa-circle-nodes"></i> 
+                                                IPv6
+                                            </span>
+                                        <% } %>
+                                        <% obj[x].ex_specail %>
+                                    </td>
                                     <td class="<% obj[x].speed_color %>" id="select_area_<% obj[x].code %>">...</td>
                                     <td><% obj[x].tcp_max %></td>
                                     <td><% obj[x].fee %></td>
@@ -439,8 +447,26 @@
                     </div>
                 </div>
                 <div id="vxtrans_stage_2">
-                    <h5>配置节点</h5>
+                    <h5>
+                        配置节点
+                        <small clss="ipv6_notice">
+                            <span class="badge badge-pill badge-success">
+                                <i class="fa-solid fa-circle-nodes"></i> 
+                                IPv6
+                            </span> 
+                        </small>
+                    </h5>
                     <input type="hidden" id="set_location">
+                    <div class="ipv6_notice">
+                        <div class="alert alert-warning">
+                            <i class="fad fa-exclamation-triangle"></i>
+                            <strong>提示：</strong>
+                            <p>
+                                本服务区为 IPv4 + IPv6 双栈协议服务区，可以支持 IPv6 目标地址。<br>
+                                填入域名时，不会解析 AAAA 记录作为目标地址，因此必须显式指定 IPv6 目标地址。
+                            </p>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="set_traget_ip">目标地址</label>
                         <input type="text" onfocus="vxTrans.editerRefresh();" class="form-control" id="set_traget_ip"
